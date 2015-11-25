@@ -14,18 +14,21 @@ import java.sql.SQLException;
  */
 public class Utente {
     protected int id;
-    protected String nome;
+    protected String name;
     protected String email;
     protected String ruolo;
-    protected int credito;
+    protected double credito;
 
+    public Utente() {
+    }
+    
     public Utente(int id) throws SQLException, ClassNotFoundException{
         this.id = id;
         
         DBManager dbm = DBManager.getDBManager();
         Utente u = dbm.getUtente(id);
         
-        this.nome = u.nome;
+        this.name = u.name;
         this.email = u.email;
         this.ruolo = u.ruolo;
         this.credito = u.credito;
@@ -34,13 +37,17 @@ public class Utente {
     public int getId() {
         return id;
     }
+    
+    public void setId(int id){
+        this.id = id;
+    }
 
     public String getNome() {
-        return nome;
+        return name;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.name = nome;
     }
 
     public String getEmail() {
@@ -59,11 +66,11 @@ public class Utente {
         this.ruolo = ruolo;
     }
 
-    public int getCredito() {
+    public double getCredito() {
         return credito;
     }
 
-    public void setCredito(int credito) {
+    public void setCredito(double credito) {
         this.credito = credito;
     }
     

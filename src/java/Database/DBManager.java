@@ -15,6 +15,8 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -60,9 +62,21 @@ public class DBManager implements Serializable {
      * @param password Password dell'utente inserita nella form
      * @return 
      */
-    public Utente logIn(String email, String password)
+    public Utente logIn(String email, String password) throws SQLException
     {
-        return null;
+        PreparedStatement ps = con.prepareStatement("SELECT U.id_utente FROM Utente AS U WHERE U.email = ? AND U.password = ?");
+        ps.setString(1, email);
+        ps.setString(2, password);
+        
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return null;
+        
+        int id = rs.getInt("id_utente");
+        
+        return getUtente(id);
     }
     
     /**
@@ -78,6 +92,19 @@ public class DBManager implements Serializable {
     public Utente registrazione(String email, String password, String nome)
     {
         return null;
+    }
+    
+    /**
+     * Funzione che abilita l'account se il codice dato in input è corretto
+     * Per abilitare l'account, impostare id_ruolo a quello di user
+     * se corretto, torna TRUE, altriment FALSE (da vedere)
+     * @param email Email usata per l'account
+     * @param code Codice ricevuto via email
+     * @return 
+     */
+    public boolean enableAccount(String email, double code)
+    {
+        return false;
     }
     
     
@@ -117,16 +144,42 @@ public class DBManager implements Serializable {
     
     // Prendere l'utente con tale ID
     // Prendere il ruolo in stringa e assegnarlo all'utente
-    public Utente getUtente(int id)
+    // ID, Nome, Email, Ruolo, Credito
+    public Utente getUtente(int id) throws SQLException
     {
-        return null;
+        PreparedStatement ps = con.prepareStatement("SELECT U.email, U.name, U.credito, R.ruolo FROM Utente AS U, Ruolo AS R WHERE R.id_ruolo = U.id_ruolo AND U.id_utente = ?");
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return null;
+        
+        Utente u = new Utente();
+        u.setId(id);
+        u.setEmail(rs.getString("email"));
+        u.setNome(rs.getString("name"));
+        u.setRuolo(rs.getString("ruolo"));
+        u.setCredito(rs.getDouble("credito"));
+        
+        return u;
     }
     
     // Prendere l'utente con tale email
     // Usata per vedere se esiste un utente con tale email
-    public Utente getUtente(String email)
+    public Utente getUtente(String email) throws SQLException
     {
-        return null;
+        PreparedStatement ps = con.prepareStatement("SELECT U.id_utente FROM Utente AS U WHERE U.email = ?");
+        ps.setString(1, email);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return null;
+        
+        int id = rs.getInt("id_utente");
+        
+        return getUtente(id);
     }
     
     // Prendere la prenotazione

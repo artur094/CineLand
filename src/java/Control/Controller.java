@@ -32,14 +32,20 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        Utente user;
         String operation = (String)request.getParameter("op");
         String email = (String)request.getParameter("email");
         String password = (String)request.getParameter("pwd");
+        String name = (String)request.getParameter("name");
         
         switch(operation)
         {
             case "login":
-                Utente user = (Utente)request.getSession().getAttribute("user");
+                // Controllo per sicurezza, se è loggato
+                // Se non lo è, controllo se email e pass sono giusti
+                // Se si, nessun problema, altrimenti vado alla pagina di errore
+                // Se è loggato, non faccio niente
+                user = (Utente)request.getSession().getAttribute("user");
                 if(user != null)
                 {
                     user = Control.logIn(email, password);
@@ -51,9 +57,41 @@ public class Controller extends HttpServlet {
                     request.getSession().setAttribute("user", user);
                 }
                 break;
-            case "registrazione":
+            // Controllo per sicurezza, se è loggato
+            // Se non lo è, provo a inserire mail, nome e password
+            // Se tutto va bene, nessun problema, altrimenti vado alla pagina di errore
+            // Se è loggato, non faccio niente
+            case "signup":
+                user = (Utente)request.getSession().getAttribute("user");
+                if(user != null)
+                {
+                    user = Control.signUp(email,name, password);
+                    if(user == null)
+                    {
+                        error("signup");
+                        return;
+                    }
+                    request.getSession().setAttribute("user", user);
+                }
                 break;
+            // Gestisco il logout, prima controllo se è loggato
+            // Se si, tolgo l'attributo, altrimenti niente
             case "logout":
+                user = (Utente)request.getSession().getAttribute("user");
+                if(user != null)
+                {
+                    request.getSession().removeAttribute("user");
+                }
+                break;
+            // Gestione del reset della password
+            case "resetpsw":
+                if(Control.resetPassword(email))
+                {
+                    // andata a buon fine, quindi redirezionare ad una pagina
+                    // o nemmeno, comunque avvertendo che la email è stata inviata
+                }
+                else
+                    error("resetpwd");
                 break;
             default:
                 break;
@@ -66,6 +104,12 @@ public class Controller extends HttpServlet {
         {
             case "login":
                 // Redirezionare ad una pagina, segnalando l'errore di login
+                break;
+            case "signup":
+                // Redirezionare ad una pagina, segnalando l'errore di registrazione
+                break;
+            case "resetpwd":
+                // Redirezionare ad una pagina, segnalando che l'email non esiste nel DB
                 break;
             default:
                 // Redirezionare alla pagina di errore, segnalando errore generico
