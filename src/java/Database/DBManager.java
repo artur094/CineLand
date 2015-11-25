@@ -49,6 +49,43 @@ public class DBManager implements Serializable {
         this.con = con;
     }
     
+    // VARIE FUNZIONI DI LOGIN - PAGAMENTI ...
+    
+    /**
+     * Funzione che si occupa di controllare se esiste l'account email-password
+     * Nel caso affermativo, ritornare la classe corrispondente (prendi l'ID e ritorni getUtente(id)
+     * Nel caso contrario (o problemi), null
+     * 
+     * @param email Email dell'utente inserita nella form
+     * @param password Password dell'utente inserita nella form
+     * @return 
+     */
+    public Utente logIn(String email, String password)
+    {
+        return null;
+    }
+    
+    /**
+     * Funzione che inserisce nel DB la tupla dell'utente, impostando credito = 0, e ruolo di utente
+     * Prima di inserire, serve un controllo sull'esistenza della email
+     * In caso di problemi (o account già esistente) ritorniamo null
+     * Altrimenti ritorniamo l'utente
+     * @param email Email inserita dall'utente nel momento della registrazione
+     * @param password Password HASHATA inserita dall'utente
+     * @param nome Nome dell'utente
+     * @return 
+     */
+    public Utente registrazione(String email, String password, String nome)
+    {
+        return null;
+    }
+    
+    
+    
+    
+    
+    // FUNZIONI PER REPERIRE LE CLASSIDB ATTRAVERSO ID (o altre cose)
+    
     // Prendere dal DB il film che ha tale l'id dato in input
     // Associare direttamente al film anche il genere (in stringa)
     public Film getFilm(int id)
@@ -81,6 +118,13 @@ public class DBManager implements Serializable {
     // Prendere l'utente con tale ID
     // Prendere il ruolo in stringa e assegnarlo all'utente
     public Utente getUtente(int id)
+    {
+        return null;
+    }
+    
+    // Prendere l'utente con tale email
+    // Usata per vedere se esiste un utente con tale email
+    public Utente getUtente(String email)
     {
         return null;
     }
