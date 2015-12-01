@@ -18,6 +18,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -105,6 +108,142 @@ public class DBManager implements Serializable {
     public boolean enableAccount(String email, double code)
     {
         return false;
+    }
+    
+    // FUNZIONI CHE RECUPERANO UN INSIEME DI CLASSIDB
+    
+    // CLASSE SPETTACOLI
+    
+    /**
+     * Funzione che ritorna la lista di spettacoli futuri che hanno come film quello passato in input
+     * @param id_film ID del film di cui vogliamo trovare i spettacoli
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<Spettacolo> getSpettacoliFuturiFromFilm(int id_film) throws SQLException
+    {
+        ArrayList<Spettacolo> lista = new ArrayList<>();
+        Calendar c = Calendar.getInstance();
+        int id;
+        
+        PreparedStatement ps = con.prepareStatement("SELECT id_spettacolo FROM spettacolo WHERE data_ora >= ? AND id_film = ?");
+        ps.setTimestamp(1, new Timestamp(c.getTime().getTime()));
+        ps.setInt(2, id_film);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            id = rs.getInt("id_spettacolo");
+            lista.add(getSpettacolo(id));
+        }
+        
+        return lista;
+    }
+    
+    
+    /**
+     * Funzione che ritorna una lista di tutti gli spettacoli, passati e futuri
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<Spettacolo> getAllSpettacoli() throws SQLException
+    {
+        ArrayList<Spettacolo> lista = new ArrayList<>();
+        Calendar c = Calendar.getInstance();
+        int id;
+        
+        PreparedStatement ps = con.prepareStatement("SELECT id_spettacolo FROM spettacolo");
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            id = rs.getInt("id_spettacolo");
+            lista.add(getSpettacolo(id));
+        }
+        
+        return lista;
+    }
+    
+    
+    
+    
+    /**
+     * Funzione che ritorna la lista di tutti i spettacoli futuri
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<Spettacolo> getSpettacoliFuturi() throws SQLException
+    {
+        ArrayList<Spettacolo> lista = new ArrayList<>();
+        Calendar c = Calendar.getInstance();
+        int id;
+        
+        PreparedStatement ps = con.prepareStatement("SELECT id_spettacolo FROM spettacolo WHERE data_ora >= ?");
+        ps.setTimestamp(1, new Timestamp(c.getTime().getTime()));
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            id = rs.getInt("id_spettacolo");
+            lista.add(getSpettacolo(id));
+        }
+        
+        return lista;
+    }
+    
+    
+    
+    // CLASSE FILMS
+    
+    /**
+     * Ritorna l'insieme di film che hanno uno spettacolo programmato ancora da vedere
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<Film> getFilmFuturi() throws SQLException
+    {
+        ArrayList<Film> list = new ArrayList<>();
+        int id; 
+        PreparedStatement ps = con.prepareStatement("SELECT id_film FROM spettacolo WHERE data_ora >= ? GROUP BY id_film");
+        
+        Calendar c = Calendar.getInstance();
+        ps.setTimestamp(1, new Timestamp(c.getTime().getTime()));
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            id = rs.getInt("id_film");
+            list.add(getFilm(id));
+        }
+        
+        return list;
+    }
+    
+    /**
+     * Funzione che ritorna tutti i film futuri e passati di Cineland
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<Film> getAllFilms() throws SQLException
+    {
+        ArrayList<Film> list = new ArrayList<>();
+        int id; 
+        
+        PreparedStatement ps = con.prepareStatement("SELECT id_film FROM film GROUP BY id_film");
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            id = rs.getInt("id_film");
+            list.add(getFilm(id));
+        }
+        
+        return list;
     }
     
     

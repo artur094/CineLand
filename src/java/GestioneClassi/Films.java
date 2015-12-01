@@ -6,6 +6,8 @@
 package GestioneClassi;
 
 import ClassiDB.Film;
+import Database.DBManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -20,18 +22,33 @@ public class Films {
         listaFilm = new ArrayList<>();
     }
     
-    public ArrayList<Film> getAllFilms()
+    public static Films getAllFilms() throws SQLException, ClassNotFoundException
     {
-        return null;
+        Films fs = new Films();
+        DBManager dbm = DBManager.getDBManager();
+        
+        ArrayList<Film> lista = dbm.getAllFilms();
+        fs.setListaFilm(lista);
+        
+        return fs;
     }
     
-    public ArrayList<Film> getFilmOggi()
+    public static Films getFutureFilms() throws SQLException, ClassNotFoundException
     {
-        return null;
+        Films fs = new Films();
+        DBManager dbm = DBManager.getDBManager();
+        
+        ArrayList<Film> lista = dbm.getFilmFuturi();
+        fs.setListaFilm(lista);
+        
+        return fs;
     }
-    
-    public ArrayList<Film> getFutureFilms()
-    {
-        return null;
+
+    public void setListaFilm(ArrayList<Film> listaFilm) {
+        this.listaFilm = listaFilm;
+    }
+
+    public ArrayList<Film> getListaFilm() {
+        return listaFilm;
     }
 }

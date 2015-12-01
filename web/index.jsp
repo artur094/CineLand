@@ -4,13 +4,13 @@
     Author     : Utente
 --%>
 
-<%@page import="Bean.Spettacoli"%>
-<%@page import="Bean.Utente"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="GestioneClassi.Spettacoli"%>
+<%@page import="ClassiDB.Utente"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Bean.Film"%>
-<%@page import="Bean.Film"%>
-<%@page import="Bean.Films"%>
+<%@page import="ClassiDB.Film"%>
+<%@page import="GestioneClassi.Films"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -45,12 +45,24 @@
 <body>
 <%!
     boolean privacy = false;
-    Cookie[] cookies ;
-    Films f = new Films();        
+    Cookie[] cookies ;        
     List<Film> films;
     
 %>
+
 <%
+    try{
+        films = (Films.getFutureFilms()).getListaFilm();
+    }
+    catch(SQLException ex)
+    {
+        //redirect
+    }
+    catch(ClassNotFoundException ex)
+    {
+        //redirect
+    }
+    
    cookies = request.getCookies();
    if(cookies != null)
    {
@@ -87,7 +99,6 @@
     <div class="slider-container">  <!-- dimensione   width: 100%;  height: 400px; -->
         <div class="slider">
             <% 
-                films = f.getFilms();
                 for(int i= 0; i < films.size(); i++)
                 {
                     out.println(""
@@ -95,7 +106,7 @@
                             + "<div class=\"opacita\"></div>"
                             + "<div class=\"slider-containerTxt\">"
                             + "<p class=\"slider-txt\">"
-                            + films.get(i).getFrase()
+ //                           + films.get(i).getFrase()
                             + "</p></div>"
                             + "<a href=\"SchedaFilm.jsp?titolo="+films.get(i).getTitolo()+"\" class=\"slider-btn\">Informazioni</a>"
                             + "</div>");
@@ -242,7 +253,6 @@
                     <p>Ecco la tabella dei film divisi per giorno</p>
                    
                     <%
-                        films =  f.getFilms();
                         for(int i = 0; i < films.size(); i++){
                             if(i%2==0)
                                 out.println("<div class=\"filmIndex filmCol1\">");
@@ -257,7 +267,7 @@
                             out.println("<b>Sala</b>");
                             out.println("</td>");
                              out.println("<td>");
-                            out.println(films.get(i).getNome_Sala());
+                            out.println("SISTEMARE");
                             out.println("</td>");
                             out.println("</tr>");
                             out.println("<tr>");
@@ -298,8 +308,8 @@
                             out.println("</table>");
                            
                             out.println("<div class=\"btnsFilm\">");
-                            out.println("<span><a href=\"SchedaFilm.jsp?id="+films.get(i).getId_film()+"\" class=\"btnScheda\">Scheda Film</a></span>");
-                            out.println("<span><a href=\"prenotazione.jsp?id="+films.get(i).getId_spettacolo()+"\" class=\"btnPrenota\">Prenota</a></span>");
+                            out.println("<span><a href=\"SchedaFilm.jsp?id="+films.get(i).getId()+"\" class=\"btnScheda\">Scheda Film</a></span>");
+                            //out.println("<span><a href=\"prenotazione.jsp?id="+films.get(i).getId_spettacolo()+"\" class=\"btnPrenota\">Prenota</a></span>");
                             out.println("</div></div></div>");
                         }
                     %>
