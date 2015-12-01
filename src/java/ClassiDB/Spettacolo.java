@@ -19,6 +19,9 @@ public class Spettacolo {
     protected Sala sala;
     protected Calendar data_ora;
 
+    public Spettacolo() {
+    }
+ 
     public Spettacolo(int id) throws SQLException, ClassNotFoundException{
         this.id = id;
         

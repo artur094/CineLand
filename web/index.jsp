@@ -106,7 +106,7 @@
                             + "<div class=\"opacita\"></div>"
                             + "<div class=\"slider-containerTxt\">"
                             + "<p class=\"slider-txt\">"
- //                           + films.get(i).getFrase()
+                            + films.get(i).getFrase()
                             + "</p></div>"
                             + "<a href=\"SchedaFilm.jsp?titolo="+films.get(i).getTitolo()+"\" class=\"slider-btn\">Informazioni</a>"
                             + "</div>");

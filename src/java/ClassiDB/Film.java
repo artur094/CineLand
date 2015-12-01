@@ -20,7 +20,14 @@ public class Film {
     private String trama;
     private String url_trailer;
     private String url_locandina;
+    private String attori;
+    private String regista;
+    private String frase;
 
+    public Film() {
+        
+    }
+    
     // Da reperire dal DB
     public Film(int id) throws SQLException, ClassNotFoundException{
         this.id = id;
@@ -45,6 +52,10 @@ public class Film {
         this.url_trailer = url_trailer;
         this.url_locandina = url_locandina;
     } 
+    
+    public void setId(int id){
+        this.id = id;
+    }
 
     public int getId() {
         return id;
@@ -96,6 +107,30 @@ public class Film {
 
     public void setUrl_locandina(String url_locandina) {
         this.url_locandina = url_locandina;
+    }
+
+    public String getAttori() {
+        return attori;
+    }
+
+    public void setAttori(String attori) {
+        this.attori = attori;
+    }
+
+    public String getRegista() {
+        return regista;
+    }
+
+    public void setRegista(String regista) {
+        this.regista = regista;
+    }
+
+    public String getFrase() {
+        return frase;
+    }
+
+    public void setFrase(String frase) {
+        this.frase = frase;
     }
     
     

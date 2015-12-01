@@ -254,8 +254,29 @@ public class DBManager implements Serializable {
     
     // Prendere dal DB il film che ha tale l'id dato in input
     // Associare direttamente al film anche il genere (in stringa)
-    public Film getFilm(int id)
+    public Film getFilm(int id) throws SQLException
     {
+        PreparedStatement ps = con.prepareStatement("SELECT f.titolo, g.descrizione, u.url_trailer, u.durata,u.trama, u.url_locandina, u.attori, u.regista, u.frase FROM film as f, genere as g WHERE f.id_film = ? and f.id_genere = g.id_genere");
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+        {
+            Film f = new Film();
+            f.setAttori(rs.getString("attori"));
+            f.setDurata(rs.getInt("durata"));
+            f.setFrase(rs.getString("frase"));
+            f.setGenere(rs.getString("descrizione"));
+            f.setId(id);
+            f.setRegista(rs.getString("regista"));
+            f.setTitolo(rs.getString("titolo"));
+            f.setTrama(rs.getString("trama"));
+            f.setUrl_locandina(rs.getString("url_locandina"));
+            f.setUrl_trailer(rs.getString("url_trailer"));
+            
+            return f;
+        }
         return null;
     }
     
@@ -276,8 +297,29 @@ public class DBManager implements Serializable {
     // Prendere il film a cui si riferisce lo spettacolo
     // Prendere la sala a cui si riferisce lo spettacolo
     // Assegnare film e sala a spettacolo
-    public Spettacolo getSpettacolo(int id)
+    public Spettacolo getSpettacolo(int id) throws SQLException
     {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM spettacolo WHERE id_spettacolo = ?");
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+        {
+            Spettacolo s = new Spettacolo();
+            
+            Timestamp ts = rs.getTimestamp("data_ora");
+            Calendar c = Calendar.getInstance();
+            c.setTime(ts);
+            s.setData_ora(c);
+            
+            Film f = getFilm(rs.getInt("id_film"));
+            s.setFilm(f);
+            
+            Sala sala = getSala(rs.getInt("id_sala"));
+            s.setSala(sala);
+            
+            return s;
+        }
         return null;
     }
     
