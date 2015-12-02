@@ -368,8 +368,39 @@ public class DBManager implements Serializable {
     // Anche il posto e la sala corrispondente
     // Anche lo spettacolo
     // Il prezzo e l'ora
-    public Prenotazione getPrenotazione(int id)
+    public Prenotazione getPrenotazione(int id) throws SQLException
     {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM prenotazione AS p, prezzo AS pr WHERE p.id_prenotazione = ? AND p.id_prezzo = pr.id_prezzo");
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+        {
+            Prenotazione p = new Prenotazione();
+            
+            Utente u = getUtente(rs.getInt("id_utente"));
+            Spettacolo s = getSpettacolo(rs.getInt("id_spettacolo"));
+            double prezzo = rs.getDouble("prezzo");
+            Posto posto = getPosto(rs.getInt("id_prezzo"));
+            boolean pagato = rs.getBoolean("pagato");
+            
+            Timestamp ts = rs.getTimestamp("data_ora_operazione");
+            Calendar c = Calendar.getInstance();
+            c.setTime(ts);
+            
+            Sala sala = getSala(rs.getInt("id_sala"));
+            
+            p.setData_ora_operazione(c);
+            p.setPosto(posto);
+            p.setPrezzo(prezzo);
+            p.setSala(sala);
+            p.setSpettacolo(s);
+            p.setUtente(u);
+            
+            return p;
+        }
+        
         return null;
     }
     

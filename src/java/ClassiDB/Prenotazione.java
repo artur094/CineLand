@@ -22,6 +22,9 @@ public class Prenotazione {
     protected double prezzo;
     protected Calendar data_ora_operazione;
 
+    public Prenotazione() {
+    }
+
     public Prenotazione(int id) throws SQLException, ClassNotFoundException{
         this.id = id;
         
