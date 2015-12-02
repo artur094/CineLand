@@ -92,11 +92,18 @@ public class DBManager implements Serializable {
      * @param nome Nome dell'utente
      * @return 
      */
-    public Utente registrazione(String email, String password, String nome)
+    public Utente registrazione(String email, String password, String nome) throws SQLException
     {
-        return null;
+        PreparedStatement ps = con.prepareStatement("INSERT INTO utente(email,password,nome,ruolo) VALUES (?,?,?,?)");
+        ps.setString(1, email);
+        ps.setString(2, password);
+        ps.setString(3, nome);
+        ps.setInt(4, 0);
+        
+        PreparedStatement selezione = con.prepareStatement("SELECT * FROM utente WHERE email = ? AND password = ?");
+        ResultSet rs = selezione.executeQuery();
+        return  getUtente(rs.getString("id"));
     }
-    
     /**
      * Funzione che abilita l'account se il codice dato in input è corretto
      * Per abilitare l'account, impostare id_ruolo a quello di user
@@ -105,9 +112,21 @@ public class DBManager implements Serializable {
      * @param code Codice ricevuto via email
      * @return 
      */
-    public boolean enableAccount(String email, double code)
+    public boolean enableAccount(String email, double code) throws SQLException
     {
-        return false;
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE email = ? and codice_attivazione = ?");
+        ps.setString(1, email);
+        ps.setDouble(2, code);
+        ResultSet rs = ps.executeQuery();
+        //getDouble ritorna 0 se il valore è null (ovvero nel resut set non c'è nessun utente con quel codice di attivazione)
+        if(rs.getDouble("CODICE_ATTIVAZIONE") != 0){
+            PreparedStatement confermaUtente = con.prepareStatement("UPDATE utente SET id_ruolo = 1 WHERE email = ? AND codice_attivazione = ?");
+            confermaUtente.setString(1, email);
+            confermaUtente.setDouble(2, code);
+            return true;
+        }
+        else
+            return false;
     }
     
     // FUNZIONI CHE RECUPERANO UN INSIEME DI CLASSIDB
