@@ -56,10 +56,12 @@
     }
     catch(SQLException ex)
     {
+        out.println("ERRORE");
         //redirect
     }
     catch(ClassNotFoundException ex)
     {
+        out.println("ERRORE");
         //redirect
     }
     
