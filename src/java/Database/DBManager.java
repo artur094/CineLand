@@ -34,7 +34,7 @@ public class DBManager implements Serializable {
     // Transient: non serializza con
     private transient Connection con;
     // Stringa di collegamento al DB
-    protected String URL_DB = "jdbc:derby//localhost:1527/CineLand";
+    protected String URL_DB = "jdbc:derby://localhost:1527/cineland";
     // Implemento Singleton
     protected static DBManager dbm = null;
     
