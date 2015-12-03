@@ -38,6 +38,13 @@ public class Controller extends HttpServlet {
         String password = (String)request.getParameter("pwd");
         String name = (String)request.getParameter("name");
         
+        // Operation deve assumere uno dei seguenti valori:
+        // login
+        // signup
+        // logout
+        // resetpsw
+        // ...
+        
         switch(operation)
         {
             case "login":

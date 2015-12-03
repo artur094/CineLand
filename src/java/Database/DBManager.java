@@ -300,16 +300,100 @@ public class DBManager implements Serializable {
     }
     
     // Prendere dal DB il posto
-    public Posto getPosto(int id)
+    public Posto getPosto(int id) throws SQLException
     {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM posto WHERE id_posto = ?");
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+        {
+            Posto p = new Posto();
+            p.setColonna(rs.getInt("colonna"));
+            p.setRiga(rs.getInt("riga"));
+            p.setEsiste(rs.getBoolean("esiste"));
+            p.setId_sala(rs.getInt("id_sala"));
+            return p;
+        }
+        return null;
+    }
+    
+    public Posto getPostoFromPrenotazione(int id_prenotazione) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM prenotazione WHERE id_prenotazione = ?");
+        ps.setInt(1, id_prenotazione);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+        {
+            Posto p = getPosto(rs.getInt("id_posto"));
+            p.setOccupato(rs.getBoolean("pagato"));
+            return p;
+        }
         return null;
     }
     
     // Prendere dal DB il nome sala
     // Costruire la mappa della sala con tale ID
-    public Sala getSala(int id)
+    public Sala getSala(int id_spettacolo) throws SQLException
     {
-        return null;
+        // PRIMA QUERY: recupero informazioni base della sala
+        PreparedStatement ps = con.prepareStatement("SELECT s.id_sala, s.descrizione FROM sala as S, spettacolo AS sp WHERE sp = ? AND s.id_sala = sp.id_sala");
+        ps.setInt(1, id_spettacolo);
+        
+        ResultSet rs = ps.executeQuery();
+        if(!rs.next())
+            return null;
+        
+        Sala s = new Sala();
+        s.setId(rs.getInt("id_sala"));
+        s.setNome(rs.getString("descrizione"));
+        
+        // SECONDA QUERY: recupero numero righe e numero colonne sala
+        ps = con.prepareStatement("SELECT MAX(p.riga) AS riga, MAX(p.colonna) AS colonna FROM spettacolo AS c, sala as s, posto AS p WHERE c.id_spettacolo = ? AND c.id_sala = s.id_sala AND s.id_sala = p.id_sala");
+        ps.setInt(1, id_spettacolo);
+        
+        rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return null;
+        
+        int n_rows = rs.getInt("riga");
+        int n_cols = rs.getInt("colonna");
+        
+        Posto[][] mappa = new Posto[n_rows][n_cols];
+        
+        // TERZA QUERY: costruzione mappa
+        ps = con.prepareStatement("SELECT id_posto FROM posto WHERE id_sala = ?");
+        ps.setInt(1, s.getId());
+        
+        rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+             int id_posto = rs.getInt("id_posto");
+             Posto p = getPosto(id_posto);
+             mappa[p.getRiga()][p.getColonna()] = p;
+        }
+        
+        // QUARTA QUERY: cerco posti occupati
+        ps= con.prepareStatement("SELECT id_prenotazione, pagato FROM prenotazione WHERE id_spettacolo = ?");
+        ps.setInt(1,id_spettacolo);
+        
+        rs = ps.executeQuery();
+        
+        while (rs.next()) {            
+            Posto p = getPostoFromPrenotazione(rs.getInt("id_prenotazione"));
+            boolean pagato = rs.getBoolean("pagato");
+            if(p.isOccupato() && pagato)
+            {
+                mappa[p.getRiga()][p.getColonna()].setOccupato(true);
+            }
+        }
+        s.setMappa(mappa); //fine??? thanks god!
+        return s;
     }
     
     // Prendere lo spettacolo dal DB

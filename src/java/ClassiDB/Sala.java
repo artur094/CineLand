@@ -17,18 +17,25 @@ public class Sala {
     protected String nome;
     protected Posto[][] mappa;
 
-    public Sala(int id) throws SQLException, ClassNotFoundException{
-        this.id = id;
+    public Sala() {
+    }
+
+    public Sala(int id_spettacolo) throws SQLException, ClassNotFoundException{
         
         DBManager dbm = DBManager.getDBManager();
-        Sala s = dbm.getSala(id);
+        Sala s = dbm.getSala(id_spettacolo);
         
+        this.id = s.id;
         this.nome = s.nome;
         this.mappa = s.mappa;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -44,11 +51,33 @@ public class Sala {
     {
         return mappa;
     }
-    
+
+    public void setMappa(Posto[][] mappa) {
+        this.mappa = mappa;
+    }
+     
     // Trasformare la mappa in matrice di stringhe
     public String[][] getStringMappa()
     {
-        return null;
+        String nonEsiste = "N";
+        String occupato = "O";
+        String libero = "L";
+        String[][] str_map = new String[mappa.length][mappa[0].length];
+        for(int i=0; i<mappa.length; i++)
+        {
+            for(int j=0; j<mappa[i].length; j++)
+            {
+                if(!mappa[i][j].isEsiste())
+                    str_map[i][j] = nonEsiste;
+                else if(mappa[i][j].isOccupato())
+                {
+                    str_map[i][j] = occupato;
+                }
+                else
+                    str_map[i][j] = libero;
+            }
+        }
+        return str_map;
     }
     
     // Trasformare la mappa in una stringa

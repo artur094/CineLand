@@ -18,10 +18,20 @@ public class Posto {
     protected int riga;
     protected int colonna;
     protected boolean esiste;
+    protected boolean occupato;
+    
+    public static Posto getPostoFromPrenotazione(int id_prenotazione) throws SQLException, ClassNotFoundException
+    {
+        DBManager dbm = DBManager.getDBManager();
+        Posto p = dbm.getPostoFromPrenotazione(id_prenotazione);
+        return p;        
+    }
+
+    public Posto() {
+        
+    }
 
     public Posto(int id) throws SQLException, ClassNotFoundException{
-        this.id = id;
-        
         DBManager dbm = DBManager.getDBManager();
         Posto p = dbm.getPosto(id);
         
@@ -29,6 +39,7 @@ public class Posto {
         this.riga = p.riga;
         this.colonna = p.colonna;
         this.esiste = p.esiste;
+        this.occupato = false;
     }
     
     public Posto(int id, int id_sala, int riga, int colonna, boolean esiste) {
@@ -73,6 +84,14 @@ public class Posto {
 
     public void setEsiste(boolean esiste) {
         this.esiste = esiste;
+    }
+
+    public boolean isOccupato() {
+        return occupato;
+    }
+
+    public void setOccupato(boolean occupato) {
+        this.occupato = occupato;
     }
     
     
