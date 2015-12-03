@@ -93,6 +93,4 @@ public class Posto {
     public void setOccupato(boolean occupato) {
         this.occupato = occupato;
     }
-    
-    
 }

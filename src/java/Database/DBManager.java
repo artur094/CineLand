@@ -131,6 +131,34 @@ public class DBManager implements Serializable {
     
     // FUNZIONI CHE RECUPERANO UN INSIEME DI CLASSIDB
     
+    // CLASSE PRENOTAZIONI
+    
+    /**
+     * Funzione che ritorna la lista delle prenotazioni dell'utente (sia pagate che non)
+     * 
+     * @param id_utente ID utente 
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<Prenotazione> getPrenotazioniUtente(int id_utente) throws SQLException
+    {
+        ArrayList<Prenotazione> lista = new ArrayList<>();
+        
+        PreparedStatement ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ?");
+        ps.setInt(1, id_utente);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            int id = rs.getInt("id_prenotazione");
+            lista.add(getPrenotazione(id));
+            
+        }
+        
+        return lista;
+    }
+    
     // CLASSE SPETTACOLI
     
     /**
@@ -500,6 +528,7 @@ public class DBManager implements Serializable {
             p.setSala(sala);
             p.setSpettacolo(s);
             p.setUtente(u);
+            p.setPagato(pagato);
             
             return p;
         }

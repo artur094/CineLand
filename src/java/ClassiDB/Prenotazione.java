@@ -20,6 +20,7 @@ public class Prenotazione {
     protected Posto posto;
     protected Sala sala;
     protected double prezzo;
+    protected boolean pagato;
     protected Calendar data_ora_operazione;
 
     public Prenotazione() {
@@ -31,12 +32,13 @@ public class Prenotazione {
         DBManager dbm = DBManager.getDBManager();
         Prenotazione p = dbm.getPrenotazione(id);
         
-        this.utente = p.utente;
-        this.spettacolo = p.spettacolo;
-        this.posto = p.posto;
-        this.sala = p.sala;
-        this.prezzo = p.prezzo;
-        this.data_ora_operazione = p.data_ora_operazione;
+        this.utente = p.getUtente();
+        this.spettacolo = p.getSpettacolo();
+        this.posto = p.getPosto();
+        this.sala = p.getSala();
+        this.prezzo = p.getPrezzo();
+        this.data_ora_operazione = p.getData_ora_operazione();
+        this.pagato = p.isPagato();
     }
 
     public int getId() {
@@ -90,10 +92,14 @@ public class Prenotazione {
     public void setData_ora_operazione(Calendar data_ora_operazione) {
         this.data_ora_operazione = data_ora_operazione;
     }
-    
-    
-    
-    
+
+    public boolean isPagato() {
+        return pagato;
+    }
+
+    public void setPagato(boolean pagato) {
+        this.pagato = pagato;
+    }
     
     
 }

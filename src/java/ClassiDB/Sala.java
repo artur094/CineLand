@@ -18,6 +18,7 @@ public class Sala {
     protected Posto[][] mappa;
 
     public Sala() {
+        
     }
 
     public Sala(int id_spettacolo) throws SQLException, ClassNotFoundException{
