@@ -61,7 +61,7 @@
     }
     catch(ClassNotFoundException ex)
     {
-        out.println("ERRORE");
+        out.println(ex.toString());
         //redirect
     }
     
@@ -256,6 +256,7 @@
                    
                     <%
                         for(int i = 0; i < films.size(); i++){
+                            Spettacoli spettacoli = Spettacoli.getSpettacoliFuturiFromFilm(films.get(i).getId());
                             if(i%2==0)
                                 out.println("<div class=\"filmIndex filmCol1\">");
                             else   
@@ -311,7 +312,7 @@
                            
                             out.println("<div class=\"btnsFilm\">");
                             out.println("<span><a href=\"SchedaFilm.jsp?id="+films.get(i).getId()+"\" class=\"btnScheda\">Scheda Film</a></span>");
-                            //out.println("<span><a href=\"prenotazione.jsp?id="+films.get(i).getId_spettacolo()+"\" class=\"btnPrenota\">Prenota</a></span>");
+                            out.println("<span><a href=\"prenotazione.jsp?id="+spettacoli.getListaSpettacoli().get(0).getId()+"\" class=\"btnPrenota\">Prenota</a></span>");
                             out.println("</div></div></div>");
                         }
                     %>

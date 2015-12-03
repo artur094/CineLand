@@ -37,6 +37,10 @@ public class Spettacolo {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Film getFilm() {
         return film;
     }

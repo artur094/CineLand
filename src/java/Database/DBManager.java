@@ -22,6 +22,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+//TODO : 
+//          getPrenotazioniUtenteRisarcibili (incompleta)
+
+
 /**
  *
  * @author Ivan
@@ -155,6 +159,15 @@ public class DBManager implements Serializable {
             lista.add(getPrenotazione(id));
             
         }
+        
+        return lista;
+    }
+    
+    public ArrayList<Prenotazione> getPrenotazioniUtenteRisarcibili(int id_utente) throws SQLException
+    {
+        ArrayList<Prenotazione> lista = new ArrayList<>();
+        
+        
         
         return lista;
     }
@@ -303,7 +316,7 @@ public class DBManager implements Serializable {
     // Associare direttamente al film anche il genere (in stringa)
     public Film getFilm(int id) throws SQLException
     {
-        PreparedStatement ps = con.prepareStatement("SELECT f.titolo, g.descrizione, u.url_trailer, u.durata,u.trama, u.url_locandina, u.attori, u.regista, u.frase FROM film as f, genere as g WHERE f.id_film = ? and f.id_genere = g.id_genere");
+        PreparedStatement ps = con.prepareStatement("SELECT f.titolo, g.descrizione, f.URL_TRAILER, f.durata,f.trama, f.url_locandina, f.attori, f.regista, f.frase FROM film as f, genere as g WHERE f.id_film = ? and f.id_genere = g.id_genere");
         ps.setInt(1, id);
         
         ResultSet rs = ps.executeQuery();
@@ -338,6 +351,7 @@ public class DBManager implements Serializable {
         if(rs.next())
         {
             Posto p = new Posto();
+            p.setId(id);
             p.setColonna(rs.getInt("colonna"));
             p.setRiga(rs.getInt("riga"));
             p.setEsiste(rs.getBoolean("esiste"));
@@ -368,7 +382,7 @@ public class DBManager implements Serializable {
     public Sala getSala(int id_spettacolo) throws SQLException
     {
         // PRIMA QUERY: recupero informazioni base della sala
-        PreparedStatement ps = con.prepareStatement("SELECT s.id_sala, s.descrizione FROM sala as S, spettacolo AS sp WHERE sp = ? AND s.id_sala = sp.id_sala");
+        PreparedStatement ps = con.prepareStatement("SELECT s.id_sala, s.descrizione FROM sala as s, spettacolo AS sp WHERE sp.id_spettacolo = ? AND s.id_sala = sp.id_sala");
         ps.setInt(1, id_spettacolo);
         
         ResultSet rs = ps.executeQuery();
@@ -391,7 +405,7 @@ public class DBManager implements Serializable {
         int n_rows = rs.getInt("riga");
         int n_cols = rs.getInt("colonna");
         
-        Posto[][] mappa = new Posto[n_rows][n_cols];
+        Posto[][] mappa = new Posto[n_rows+1][n_cols+1];
         
         // TERZA QUERY: costruzione mappa
         ps = con.prepareStatement("SELECT id_posto FROM posto WHERE id_sala = ?");
@@ -437,6 +451,7 @@ public class DBManager implements Serializable {
         if(rs.next())
         {
             Spettacolo s = new Spettacolo();
+            s.setId(id);
             
             Timestamp ts = rs.getTimestamp("data_ora");
             Calendar c = Calendar.getInstance();
@@ -522,6 +537,7 @@ public class DBManager implements Serializable {
             
             Sala sala = getSala(rs.getInt("id_sala"));
             
+            p.setId(id);
             p.setData_ora_operazione(c);
             p.setPosto(posto);
             p.setPrezzo(prezzo);

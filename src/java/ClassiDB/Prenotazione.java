@@ -45,6 +45,10 @@ public class Prenotazione {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Utente getUtente() {
         return utente;
     }

@@ -23,7 +23,7 @@ public class Spettacoli {
     }
     
     // Ritorna una lista di spettacoli che devono ancora esser mostrati dall'ora di esecuzione
-    public Spettacoli getAllSpettacoli() throws SQLException, ClassNotFoundException
+    public static Spettacoli getAllSpettacoli() throws SQLException, ClassNotFoundException
     {
                 Spettacoli s = new Spettacoli();
         DBManager dbm = DBManager.getDBManager();
@@ -34,7 +34,7 @@ public class Spettacoli {
     }
     
     // Ritorna tutti i spettacoli programmati 
-    public Spettacoli getSpettacoliFuturi() throws SQLException, ClassNotFoundException
+    public static Spettacoli getSpettacoliFuturi() throws SQLException, ClassNotFoundException
     {
         Spettacoli s = new Spettacoli();
         DBManager dbm = DBManager.getDBManager();
@@ -45,7 +45,7 @@ public class Spettacoli {
     }
     
     // Ritorna tutti i spettacoli programmati (ancora da vedere) che hanno il film
-    public Spettacoli getSpettacoliFuturiFromFilm(int id_film) throws SQLException, ClassNotFoundException
+    public static Spettacoli getSpettacoliFuturiFromFilm(int id_film) throws SQLException, ClassNotFoundException
     {
         Spettacoli s = new Spettacoli();
         DBManager dbm = DBManager.getDBManager();
