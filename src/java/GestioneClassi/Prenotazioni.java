@@ -30,22 +30,19 @@ public class Prenotazioni {
         return pr;
     }
     
-    public Prenotazioni getPrenotazioniRisarcibili()
+    public Prenotazioni getPrenotazioniRisarcibili(int id_utente) throws SQLException, ClassNotFoundException
     {
-        return null;
+        DBManager dbm = DBManager.getDBManager();
+        Prenotazioni pr = new Prenotazioni();
+        pr.setListaPrenotazioni(dbm.getPrenotazioniUtenteRisarcibili(id_utente));
+        return pr;
     }
     
     public Prenotazioni getPrenotazioniDaPagare(int id_utente) throws SQLException, ClassNotFoundException
     {
-        Prenotazioni pr = getPrenotazioniUtente(id_utente);
-        ArrayList<Prenotazione> lista = pr.getListaPrenotazioni();
-        for (int i = 0; i < lista.size(); i++) {
-            if(lista.get(i).isPagato())
-            {
-                lista.remove(i);
-            }
-        }
-        pr.setListaPrenotazioni(lista);
+        DBManager dbm = DBManager.getDBManager();
+        Prenotazioni pr = new Prenotazioni();
+        pr.setListaPrenotazioni(dbm.getPrenotazioniUtenteDaPagare(id_utente));
         return pr;
     }
 

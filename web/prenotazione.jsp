@@ -88,8 +88,8 @@
                         }); 
                 },
                 minDate: 0, 
-                maxDate: new Date(<%= ft.format(d) %>),
-                dateFormat: 'dd/MM/yyyy'
+                maxDate: (new Date()).setTime(<%= c.getTime().getTime() %>),
+                dateFormat: 'dd/mm/yyyy'
             }
         ).datepicker("setDate", "0");
         
