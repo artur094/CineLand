@@ -25,7 +25,7 @@ public class Spettacoli {
     // Ritorna una lista di spettacoli che devono ancora esser mostrati dall'ora di esecuzione
     public static Spettacoli getAllSpettacoli() throws SQLException, ClassNotFoundException
     {
-                Spettacoli s = new Spettacoli();
+        Spettacoli s = new Spettacoli();
         DBManager dbm = DBManager.getDBManager();
         
         s.setListaSpettacoli(dbm.getAllSpettacoli());

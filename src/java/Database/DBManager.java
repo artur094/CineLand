@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 //TODO : 
-//          getPrenotazioniUtenteRisarcibili (incompleta)
+
 
 
 /**
@@ -58,7 +58,7 @@ public class DBManager implements Serializable {
         this.con = con;
     }
     
-    // VARIE FUNZIONI DI LOGIN - PAGAMENTI ...
+    // VARIE FUNZIONI DI LOGIN  ...
     
     /**
      * Funzione che si occupa di controllare se esiste l'account email-password
@@ -98,15 +98,31 @@ public class DBManager implements Serializable {
      */
     public Utente registrazione(String email, String password, String nome) throws SQLException
     {
-        PreparedStatement ps = con.prepareStatement("INSERT INTO utente(email,password,nome,ruolo) VALUES (?,?,?,?)");
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE email = ?");
+        ps.setString(1, email);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+            return null;
+        
+        ps = con.prepareStatement("SELECT id_ruolo FROM ruolo WHERE ruolo = 'verificare'");
+        rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return null;
+        int id_ruolo = rs.getInt("id_ruolo");
+        
+        ps = con.prepareStatement("INSERT INTO utente(email,password,nome,ruolo) VALUES (?,?,?,?)");
         ps.setString(1, email);
         ps.setString(2, password);
         ps.setString(3, nome);
-        ps.setInt(4, 0);
+        ps.setInt(4, id_ruolo);
         
         PreparedStatement selezione = con.prepareStatement("SELECT * FROM utente WHERE email = ? AND password = ?");
-        ResultSet rs = selezione.executeQuery();
-        return  getUtente(rs.getString("id"));
+        rs = selezione.executeQuery();
+        
+        return  getUtente(rs.getString("id_utente"));
     }
     /**
      * Funzione che abilita l'account se il codice dato in input è corretto
@@ -131,6 +147,61 @@ public class DBManager implements Serializable {
         }
         else
             return false;
+    }
+    
+    // FUNZIONI RIGUARDO PRENOTAZIONI - PAGAMENTI
+    
+    public Prenotazione insertPrenotazione(int id_utente, int id_spettacolo, int id_posto, String tipo_prezzo) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT id_prezzo FROM prezzo WHERE tipo_prezzo = ?");
+        ps.setString(1, tipo_prezzo);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return null;
+        int id_prezzo = rs.getInt("id_prezzo");
+        
+        ps = con.prepareStatement("INSERT INTO prenotazione (id_utente, id_spettacolo, id_prezzo, id_posto, pagato, data_ora_operazione) values (?,?,?,?,false,current_timestamp)");
+        ps.setInt(1, id_utente);
+        ps.setInt(2, id_spettacolo);
+        ps.setInt(3, id_prezzo);
+        ps.setInt(4, id_posto);
+        
+        ps.executeUpdate();
+        
+        ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ? AND id_spettacolo = ? AND id_posto = ?");
+        ps.setInt(1, id_utente);
+        ps.setInt(2, id_spettacolo);
+        ps.setInt(3, id_posto);
+        
+        rs = ps.executeQuery();
+        if(rs.next())
+            return getPrenotazione(rs.getInt("id_prenotazione"));
+        return null;
+    }
+    
+    public boolean pagaPrenotazione(int id_utente, int id_spettacolo, int id_posto) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ? AND id_spettacolo = ? AND id_posto = ?");
+        ps.setInt(1, id_utente);
+        ps.setInt(2, id_spettacolo);
+        ps.setInt(3, id_posto);
+        
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+            return pagaPrenotazione(rs.getInt("id_prenotazione"));
+        return false;
+    }
+    
+    public boolean pagaPrenotazione(int id_prenotazione) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("UPDATE prenotazione SET pagato = true WHERE id_prenotazione = ?");
+        ps.setInt(1, id_prenotazione);
+        int row = ps.executeUpdate();
+        if(row < 1)
+            return false;
+        return true;
     }
     
     // FUNZIONI CHE RECUPERANO UN INSIEME DI CLASSIDB
@@ -167,7 +238,36 @@ public class DBManager implements Serializable {
     {
         ArrayList<Prenotazione> lista = new ArrayList<>();
         
+        PreparedStatement ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ? AND pagato = true");
+        ps.setInt(1, id_utente);
         
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            int id = rs.getInt("id_prenotazione");
+            lista.add(getPrenotazione(id));
+            
+        }
+        
+        return lista;
+    }
+    
+    public ArrayList<Prenotazione> getPrenotazioniUtenteDaPagare(int id_utente) throws SQLException
+    {
+        ArrayList<Prenotazione> lista = new ArrayList<>();
+        
+        PreparedStatement ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ? AND pagato = false");
+        ps.setInt(1, id_utente);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            int id = rs.getInt("id_prenotazione");
+            lista.add(getPrenotazione(id));
+            
+        }
         
         return lista;
     }
@@ -186,7 +286,7 @@ public class DBManager implements Serializable {
         Calendar c = Calendar.getInstance();
         int id;
         
-        PreparedStatement ps = con.prepareStatement("SELECT id_spettacolo FROM spettacolo WHERE data_ora >= ? AND id_film = ?");
+        PreparedStatement ps = con.prepareStatement("SELECT id_spettacolo FROM spettacolo WHERE data_ora >= ? AND id_film = ? ORDER BY data_ora");
         ps.setTimestamp(1, new Timestamp(c.getTime().getTime()));
         ps.setInt(2, id_film);
         

@@ -1,4 +1,5 @@
 
+<%@page import="java.util.Calendar"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -23,6 +24,7 @@
     Spettacolo s = new Spettacolo(id_spettacolo);
     Sala sala = s.getSala();
     Film f = s.getFilm();
+    
 
     ArrayList<Spettacolo> lista = Spettacoli.getSpettacoliFuturiFromFilm(f.getId()).getListaSpettacoli();
     String date = "";
@@ -31,6 +33,10 @@
     {
         date += spett.getData_ora().toString()+"\n";
     }
+    Calendar c = lista.get(lista.size()-1).getData_ora();
+    Date d = c.getTime();
+    SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
+    String a = ft.format(d);
     
 %>
 <!DOCTYPE html>
@@ -82,8 +88,8 @@
                         }); 
                 },
                 minDate: 0, 
-                maxDate: new Date(<%=(maximumDate.getYear()+1900) + "," + maximumDate.getMonth() + "," + maximumDate.getDate()%>),
-                dateFormat: 'dd/mm/yy'
+                maxDate: new Date(<%= ft.format(d) %>),
+                dateFormat: 'dd/MM/yyyy'
             }
         ).datepicker("setDate", "0");
         
@@ -100,7 +106,7 @@
             success:function (data) {
                // alert(data);
                
-                           $(".frameSala").empty();
+                $(".frameSala").empty();
                 $(".frameSala").append(data.split('£')[1]);
                 initDrivein();
                 }
