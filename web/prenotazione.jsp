@@ -1,30 +1,37 @@
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="Bean.Spettacolo"%>
-<%@page import="Bean.Spettacoli"%>
+<%@page import="ClassiDB.Spettacolo"%>
+<%@page import="GestioneClassi.Spettacoli"%>
 <%-- 
     Document   : prenotazione
     Created on : 23-lug-2015, 21.35.09
     Author     : Utente
 --%>
 
-<%@page import="Bean.Film"%>
-<%@page import="Bean.Sala"%>
+<%@page import="ClassiDB.Film"%>
+<%@page import="ClassiDB.Sala"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
-<%@page import="Bean.Posto"%>
+<%@page import="ClassiDB.Posto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    Spettacoli s = new Spettacoli();
-    
     int id_spettacolo = Integer.parseInt(request.getParameter("id"));
-    Sala sala = new Sala(id_spettacolo);
-    Film f = Film.getFilmfromSpettacolo(id_spettacolo);
-    //List<Date> orariDisponibili = orariDisponibili = s.getSpettacoliDisponibili(f,new Date());
-    String orariDisponibili = s.getSpettacoliDisponibili(f.getId_film(), new Date());
-    Date maximumDate = s.getMaxData(f);
+    
+    Spettacolo s = new Spettacolo(id_spettacolo);
+    Sala sala = s.getSala();
+    Film f = s.getFilm();
+
+    ArrayList<Spettacolo> lista = Spettacoli.getSpettacoliFuturiFromFilm(f.getId()).getListaSpettacoli();
+    String date = "";
+    
+    for(Spettacolo spett : lista)
+    {
+        date += spett.getData_ora().toString()+"\n";
+    }
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -88,7 +95,7 @@
                 op : "refreshmappa",
                 id_film : $('#id_film').val(),
                 date : $("#datepicker").datepicker({ dateFormat: 'yyyy/MM/dd' }).val()+" "+$("#orario option:first").text()+":00.000",
-                id_sala : <%= sala.getId_sala() %>
+                id_sala : <%= sala.getId() %>
             },
             success:function (data) {
                // alert(data);
@@ -127,7 +134,7 @@
     %>
     </head>
     <body>
-        <input type="hidden" value="<%= f.getId_film()%>" name="id_film" id="id_film"/>
+        <input type="hidden" value="<%= f.getId()%>" name="id_film" id="id_film"/>
         <header>
         <div class="container-logo">
             <div class="logo" style="padding-top:20px;"> <a href="index.jsp" class="a_logo"></a></div>
@@ -159,7 +166,7 @@
                             <p>Orario:
                                 <select name="orario" id="orario">
                                     <%
-                                        out.println(orariDisponibili);
+                                        //out.println(orariDisponibili);
                                       /*for(int i = 0; i < orariDisponibili.size(); i++){
                                          Date d = orariDisponibili.get(i);
                                          SimpleDateFormat dataFormat = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
