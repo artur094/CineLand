@@ -38,13 +38,17 @@ public class Controller extends HttpServlet {
         String email = (String)request.getParameter("email");
         String password = (String)request.getParameter("pwd");
         String name = (String)request.getParameter("name");
+        Integer id_spettacolo = Integer.parseInt(request.getParameter("prenotazione"));
+        
+                
         
         // Operation deve assumere uno dei seguenti valori:
         // login
         // signup
         // logout
         // resetpsw
-        // ...
+        // prenota
+        // paga
         
         switch(operation)
         {
@@ -115,6 +119,17 @@ public class Controller extends HttpServlet {
                 else
                     error("resetpwd");
                 break;
+            case "prenota":
+                user = (Utente)request.getSession().getAttribute("user");
+                if(user != null)
+                {
+                    
+                }
+                else
+                {
+                    //redirect to login
+                }
+                    
             default:
                 break;
         }

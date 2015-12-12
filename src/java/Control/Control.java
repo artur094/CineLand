@@ -50,4 +50,20 @@ public class Control {
         return false;
     }
     
+    public static void prenotaFilm(int id_spettacolo, int id_utente, String posti)
+    {
+        try{
+            DBManager dbm = DBManager.getDBManager();
+            //dbm.insertPrenotazione(id_utente, id_spettacolo, id_utente, posti)
+        }
+        catch(SQLException ex)
+        {
+            
+        }
+        catch(ClassNotFoundException ex)
+        {
+            
+        }
+    }
+    
 }

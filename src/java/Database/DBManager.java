@@ -116,6 +116,39 @@ public class DBManager implements Serializable {
                 
         return lista;
     }
+    
+    public boolean rimborsaPrenotazione(int id_prenotazione) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement(
+                "SELECT pr.prezzo, pr.id_utente "+
+                "FROM prenotazione AS p, prezzo AS pr "+
+                "WHERE p.id_prezzo = pr.id_prezzo AND p.id_prenotazione = ?"
+        );
+        ps.setInt(1,id_prenotazione);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return false;
+        
+        int id_utente = rs.getInt("id_utente");
+        double prezzo = rs.getDouble("prezzo") * 0.8;
+        
+        Utente u = getUtente(id_utente);
+        u.setCredito(u.getCredito() + prezzo);
+        
+        ps = con.prepareStatement(
+                "UPDATE utente "+
+                "SET credito = ? "+
+                "WHERE id_utente = ?"
+        );
+        ps.setDouble(1, u.getCredito());
+        ps.setInt(2, id_utente);
+        
+        if(ps.executeUpdate() > 0)
+            return true;
+        return false;
+    }
             
     
     // VARIE FUNZIONI DI LOGIN  ...
