@@ -1,0 +1,84 @@
+.video-title{
+    position: relative;
+    top:-60px;
+    height: 60px;
+    left: 0px;
+    width: 600px;
+    color:whitesmoke;
+    font-size: 30px;
+    //z-index: 10;
+    //padding-bottom: 40px;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.rect-video{
+    margin: 0px;
+    position: relative;
+}
+
+video{
+    position: relative;
+    margin: 0px;
+    background-color: black;
+}
+
+.rect-container{
+    background-color: black;
+    margin: 0px;
+    //height: 340px;
+    width: 600px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    
+-webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 1);
+-moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 1);
+box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 1);
+}
+
+
+.container-bottom{
+    position: relative;
+    margin-top: -60px;
+    height: 80px;
+    background-color: whitesmoke;
+}
+
+.card{
+    width: 300px;
+    max-height: 500px;
+    overflow: visible;
+    margin: 12px 6px 0px 12px;
+}
+.card-image{
+    overflow: hidden;
+    max-height: 380px;
+}
+
+.card-content{
+    margin-top: -10px;
+}
+
+.dot{
+    margin-top: 10px;
+}
+
+.btn-floating{
+	position: absolute;
+}
+
+video{
+	width: 100%;
+}
+
+#index_container{
+	background-color: #212121;
+	margin-top: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	color: #fff;
+	padding-top: 1px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+}

@@ -1,0 +1,12 @@
+.tabs .tab a{
+	color: #fff;
+}
+.tabs{
+	background-color: #2B2D42;
+}
+.mtab{
+	height: 100%;
+	background-color: #212121;
+	margin-top: 45px;
+	color: #fff;
+}

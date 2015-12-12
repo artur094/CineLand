@@ -12,7 +12,7 @@
         -webkit-transform: scale(0.6);
     } 
     100% { 
-        -webkit-transform: scale(1) rotate(+=32deg);
+        -webkit-transform: scale(1) rotate(+32deg);
     } 
 }
 
