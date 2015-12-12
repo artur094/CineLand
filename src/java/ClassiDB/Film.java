@@ -13,16 +13,17 @@ import java.sql.SQLException;
  * @author Ivan
  */
 public class Film {
-    private int id;
-    private String titolo;
-    private String genere;
-    private int durata;
-    private String trama;
-    private String url_trailer;
-    private String url_locandina;
-    private String attori;
-    private String regista;
-    private String frase;
+    protected int id;
+    protected String titolo;
+    protected String genere;
+    protected int durata;
+    protected String trama;
+    protected String url_trailer;
+    protected String url_locandina;
+    protected String attori;
+    protected String regista;
+    protected String frase;
+    protected double totaleIncassi = 0; //utile solo per amministrazione
 
     public Film() {
         
@@ -132,6 +133,12 @@ public class Film {
     public void setFrase(String frase) {
         this.frase = frase;
     }
-    
-    
+
+    public double getTotaleIncassi() {
+        return totaleIncassi;
+    }
+
+    public void setTotaleIncassi(double totaleIncassi) {
+        this.totaleIncassi = totaleIncassi;
+    }
 }

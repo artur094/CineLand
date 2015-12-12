@@ -18,6 +18,7 @@ public class Utente {
     protected String email;
     protected String ruolo;
     protected double credito;
+    protected double totalePagato;
 
     public Utente() {
     }
@@ -32,6 +33,7 @@ public class Utente {
         this.email = u.email;
         this.ruolo = u.ruolo;
         this.credito = u.credito;
+        this.totalePagato = dbm.totalePagato(id);
     }
 
     public int getId() {
@@ -72,6 +74,10 @@ public class Utente {
 
     public void setCredito(double credito) {
         this.credito = credito;
+    }
+
+    public double getTotalePagato() {
+        return totalePagato;
     }
     
     

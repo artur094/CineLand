@@ -19,6 +19,7 @@ public class Posto {
     protected int colonna;
     protected boolean esiste;
     protected boolean occupato;
+    protected double prezzoPagato = 0; //utile solo per amministrazione
     
     public static Posto getPostoFromPrenotazione(int id_prenotazione) throws SQLException, ClassNotFoundException
     {
@@ -97,4 +98,14 @@ public class Posto {
     public void setOccupato(boolean occupato) {
         this.occupato = occupato;
     }
+
+    public double getPrezzoPagato() {
+        return prezzoPagato;
+    }
+
+    public void setPrezzoPagato(double prezzoPagato) {
+        this.prezzoPagato = prezzoPagato;
+    }
+    
+    
 }

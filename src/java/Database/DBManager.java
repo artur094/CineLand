@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 //TODO : 
 
@@ -57,6 +58,65 @@ public class DBManager implements Serializable {
         Connection con =  DriverManager.getConnection(URL_DB, "cineland", "cineland");
         this.con = con;
     }
+    
+    // VARIE FUNZIONI DI AMMINISTRAZIONE 
+    public List<Posto> postiVendutiperSpettacolo() throws SQLException
+    {
+        List<Posto> lista = new ArrayList<>();
+        
+        PreparedStatement ps = con.prepareStatement(
+                "SELECT "
+        );
+        
+        return lista;
+    }
+    
+    public List<Utente> topClienti() throws SQLException, ClassNotFoundException
+    {
+        List<Utente> lista = new ArrayList<>();
+        PreparedStatement ps = con.prepareStatement(
+                "SELECT u.id_utente, SUM(pr.prezzo) as totale "+
+                "FROM utente AS u, prenotazione AS p, prezzo AS pr "+ 
+                "WHERE u.ID_UTENTE = p.ID_UTENTE AND p.ID_PREZZO = pr.ID_PREZZO "+
+                "GROUP BY u.ID_UTENTE "+
+                "ORDER BY totale"
+        );
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            Utente u = new Utente(rs.getInt("id_utente"));
+            lista.add(u);
+        }
+                
+        return lista;
+    }
+    
+    public List<Film> incassiFilm() throws SQLException
+    {
+        List<Film> lista = new ArrayList<>();
+        PreparedStatement ps = con.prepareStatement(
+                "SELECT s.ID_FILM, SUM(pr.prezzo) AS totale "+
+                "FROM spettacolo AS s, prenotazione AS p, prezzo AS pr "+
+                "WHERE p.id_spettacolo = s.id_spettacolo AND p.id_prezzo = pr.id_prezzo "+
+                "GROUP BY s.id_film "+
+                "ORDER BY totale"
+        );
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            Film f = getFilm(rs.getInt("id_film"));
+            f.setTotaleIncassi(rs.getDouble("totale"));
+            
+            lista.add(f);
+        }
+                
+        return lista;
+    }
+            
     
     // VARIE FUNZIONI DI LOGIN  ...
     
@@ -148,6 +208,26 @@ public class DBManager implements Serializable {
         else
             return false;
     }
+    
+    public double totalePagato(int id_utente) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement(
+                "SELECT SUM(pr.prezzo) as totale "+
+                "FROM prenotazione AS p, prezzo AS pr "+ 
+                "WHERE p.ID_UTENTE = ? AND p.ID_PREZZO = pr.ID_PREZZO "+
+                "GROUP BY p.ID_UTENTE "
+        );
+        ps.setInt(1, id_utente);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+        {
+            return rs.getDouble("totale");
+        }
+        return 0;
+    }
+    
     
     // FUNZIONI RIGUARDO PRENOTAZIONI - PAGAMENTI
     

@@ -8,6 +8,7 @@ package Control;
 import ClassiDB.Utente;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +61,20 @@ public class Controller extends HttpServlet {
                     {
                         error("login");
                         return;
+                    }
+                    else if(user.getRuolo().equals("admin"))
+                    {
+                        try{
+                            request.getSession().setAttribute("admin", new Admin());
+                        }
+                        catch(SQLException ex)
+                        {
+                            //redirect to an error page
+                        }
+                        catch(ClassNotFoundException ex)
+                        {
+                            //redirect to an error page
+                        }
                     }
                     request.getSession().setAttribute("user", user);
                 }
