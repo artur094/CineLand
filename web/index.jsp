@@ -1,3 +1,8 @@
+    <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="GestioneClassi.Spettacoli"%>
 <%@page import="ClassiDB.Utente"%>
@@ -77,8 +82,12 @@
                 //lista spettacoli
                 spett_per_film = (Spettacoli.getSpettacoliFuturiFromFilm(films.get(i).getId())).getListaSpettacoli();
                 for(int k = 0; k < spett_per_film.size(); k++){
-                    //out.println("<p>"+spett_per_film.get(k).getData_ora()+"</p>");
-                    out.println("<p>"+spett_per_film.get(k).getSala()+"</p>");
+                    Date dataSito = spett_per_film.get(k).getData_ora().getTime();
+                    SimpleDateFormat giornata = new SimpleDateFormat("dd-MM-YY"); 
+                    SimpleDateFormat ora = new SimpleDateFormat("hh mm");
+                    
+                    out.println("<p>Spettacolo il giorno "+giornata.format(dataSito)+ " alle ore "+ ora.format(dataSito) +"</p>");
+                    out.println("<p>"+spett_per_film.get(k).getSala().getNome()+"</p>");
                     out.println("<a href=\"prenotazione.jsp?id="+spett_per_film.get(k).getId()+"class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></span>");
                 }
                 out.println("</div>");
