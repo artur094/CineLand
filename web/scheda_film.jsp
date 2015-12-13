@@ -3,21 +3,23 @@
 <!DOCTYPE html>
   <html>
     <head>
-      <!--Import Google Icon Font-->
-      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-		<!--Import index.css-->
-		<link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <!--Import index.css-->
+        <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
 
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
+    
     <% 
         int id_film = Integer.parseInt(request.getParameter("id"));
         Film film = new Film(id_film);
 
     %>
+    
     <body>
         <!-- Navigatio Bar -->
         <nav>
@@ -47,8 +49,7 @@
                 <div class="card-panel">
                     <p>Genere: <span><%= film.getGenere()%></span></p>
                     <p>Durata: <span><%= film.getDurata()%></span></p>                 
-                    <p>Trailer: <span><a href="<%= film.getUrl_trailer() %>">Guarda</a></span></p>
-                        
+                    <p>Trailer: <span><a href="<%= film.getUrl_trailer() %>">Guarda</a></span></p>           
                 </div>
               </div>
             </div>
@@ -62,11 +63,7 @@
                 </div>
               </div>
             </div>
-                  
-
-            
-        
-			
+                 			
         </div>
     </body>
 	 <footer class="page-footer">

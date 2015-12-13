@@ -5,6 +5,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="ClassiDB.Film"%>
 <%@page import="GestioneClassi.Films"%>
+<%@page import="ClassiDB.Spettacolo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>  
 
 <!DOCTYPE html>
@@ -24,6 +25,7 @@
             boolean privacy = false;
             Cookie[] cookies ;        
             List<Film> films;
+            List<Spettacolo> spett_per_film;
         %>
 
         <%
@@ -65,14 +67,20 @@
                 out.println("</div>");
                 out.println("</div>");
                 out.println("<div class=\"card-content\">");
-                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<i class=\"dot material-icons right\">more_vert</i></span>");
+                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<btn class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></btn></span>");
                 out.println("<div>");
-                out.println("<span class=\"grey-text text-darken-4\"><a href=\"scheda_film.jsp?id="+films.get(i).getId()+"\">Scheda Film</a><a class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></span>");
+                out.println("<span class=\"grey-text text-darken-4\"><a href=\"scheda_film.jsp?id="+films.get(i).getId()+"\">Scheda Film</a></span>");
                 out.println("</div>");
                 out.println("</div>");
                 out.println("<div class=\"card-reveal\">");
                 out.println("<span class=\"card-title grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<i class=\"material-icons right\">close</i></span>");
-                out.println("<p>Here is some more information about this product that is only revealed once clicked on.</p>");
+                //lista spettacoli
+                spett_per_film = (Spettacoli.getSpettacoliFuturiFromFilm(films.get(i).getId())).getListaSpettacoli();
+                for(int k = 0; k < spett_per_film.size(); k++){
+                    //out.println("<p>"+spett_per_film.get(k).getData_ora()+"</p>");
+                    out.println("<p>"+spett_per_film.get(k).getSala()+"</p>");
+                    out.println("<a href=\"prenotazione.jsp?id="+spett_per_film.get(k).getId()+"class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></span>");
+                }
                 out.println("</div>");
                 out.println("</div>");
                 }
