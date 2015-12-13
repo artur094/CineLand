@@ -1,46 +1,67 @@
   <!DOCTYPE html>
   <html>
     <head>
-      <!--Import Google Icon Font-->
-      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-		<!--Import index.css-->
-		<link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
-
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <!--Import index.css-->
+        <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
     <body>
-		 <!-- Navigatio Bar -->
-		 <nav>
-			 <div class="nav-wrapper">
-				<a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
-				<a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-				<ul class="right hide-on-med-and-down">
-					<li><a class="waves-effect waves-light btn"><i class="material-icons right"></i>Sign in/out</a></li>
-					<li><a href="index.jsp">Film</a></li>
-					<li><a href="sale.jsp">Le nostre sale</a></li>
-				  	<li><a href="aboutus.jsp">About us</a></li>
-				</ul>
-				<ul class="side-nav" id="mobile-demo">
-					<li><a class=""><i class="material-icons right"></i>Sign in/out</a></li>
-					<li><a href="index.jsp">Film</a></li>
-					<li><a href="sale.jsp">Le nostre sale</a></li>
-					<li><a href="aboutus.jsp">About us</a></li>
-				</ul>
-			 </div>
-  		</nav>
-		<!-- Main central content -->
-		<div class="container" id="index_container">
-        
-			
-      </div>
-      
+        <!-- Navigatio Bar -->
+        <nav>
+            <div class="nav-wrapper">
+                   <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
+                   <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                   <ul class="right hide-on-med-and-down">
+                        <li><a class="waves-effect waves-light btn"><i class="material-icons right"></i>Sign in/out</a></li>
+                        <li><a href="index.jsp">Film</a></li>
+                        <li><a href="sale.jsp">Le nostre sale</a></li>
+                        <li><a href="aboutus.jsp">About us</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a class=""><i class="material-icons right"></i>Sign in/out</a></li>
+                        <li><a href="index.jsp">Film</a></li>
+                        <li><a href="sale.jsp">Le nostre sale</a></li>
+                        <li><a href="aboutus.jsp">About us</a></li>
+                    </ul>
+            </div>
+       </nav>
+        <!-- Main central content -->
+        <div class="container" id="index_container">     
+        <div class="divider"></div>
+        <div class="section">
+          <h5>Sala PRINCIPALE</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eleifend sodales mauris, ut ultricies arcu volutpat eu. Pellentesque fringilla erat eu metus vehicula, 
+              id gravida purus sagittis. Nullam eu dui rhoncus, rhoncus odio in, tempor felis. Aliquam lobortis augue id velit bibendum, ac viverra neque dignissim. Praesent molestie 
+              non tellus a sodales. Donec eu sem leo. Maecenas sed risus tristique, pharetra leo sit amet, gravida felis. Vestibulum pharetra, est vitae auctor fringilla, neque erat 
+              imperdiet felis, id consequat sapien arcu sit amet ipsum. Maecenas ipsum lectus, tincidunt at tempus eget, rutrum vitae nisl.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="section">
+          <h5>Sala A</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eleifend sodales mauris, ut ultricies arcu volutpat eu. Pellentesque fringilla erat eu metus vehicula, 
+              id gravida purus sagittis. Nullam eu dui rhoncus, rhoncus odio in, tempor felis. Aliquam lobortis augue id velit bibendum, ac viverra neque dignissim. Praesent molestie 
+              non tellus a sodales. Donec eu sem leo. Maecenas sed risus tristique, pharetra leo sit amet, gravida felis. Vestibulum pharetra, est vitae auctor fringilla, neque erat 
+              imperdiet felis, id consequat sapien arcu sit amet ipsum. Maecenas ipsum lectus, tincidunt at tempus eget, rutrum vitae nisl.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="section">
+          <h5>Sala B</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eleifend sodales mauris, ut ultricies arcu volutpat eu. Pellentesque fringilla erat eu metus vehicula, 
+              id gravida purus sagittis. Nullam eu dui rhoncus, rhoncus odio in, tempor felis. Aliquam lobortis augue id velit bibendum, ac viverra neque dignissim. Praesent molestie 
+              non tellus a sodales. Donec eu sem leo. Maecenas sed risus tristique, pharetra leo sit amet, gravida felis. Vestibulum pharetra, est vitae auctor fringilla, neque erat 
+              imperdiet felis, id consequat sapien arcu sit amet ipsum. Maecenas ipsum lectus, tincidunt at tempus eget, rutrum vitae nisl.</p>
+        </div>
+
+        </div>
     </body>
-	 <footer class="page-footer">
-          <div class="container">
+    <footer class="page-footer">
+        <div class="container">
             <div class="row">
               <div class="col l6 s12">
                 <h5 class="white-text">Dove siamo</h5>
@@ -49,23 +70,23 @@
               <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Con il prezioso contributo di:</h5>
                 <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Marco</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Mattia</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Paolo</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Ivan</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">Luca</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">Linda</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Marco</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Mattia</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Paolo</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Ivan</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Luca</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Linda</a></li>
                 </ul>
               </div>
             </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-					© 2016 Copyright Cineland
-            	<a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2016 Copyright Cineland
+                    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                </div>
             </div>
-          </div>
-	  </footer>
+    </footer>
 	  <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>

@@ -92,3 +92,33 @@ video{
     padding-bottom: 0.1rem;
 
 }
+
+giornoData:first-letter{
+    text-transform: capitalize;
+}
+
+.giornoData{
+    border-bottom: 1px solid #CCC; 
+    line-height:0.1em; 
+    margin:10px 0 20px;
+}
+.giornoData span{
+background-color: white;
+padding-right: 5px;
+padding-left: 5px;
+margin-left: 8px;
+}
+.orarioSpett{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+.orarioSpett a{
+    margin-top: -10px;
+}
+
+.crono{
+    transform: translateY(3px);
+    padding-left: 5px;
+    padding-right: 5px;
+}
