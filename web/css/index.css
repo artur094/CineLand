@@ -81,3 +81,14 @@ video{
         justify-content: space-around;
         flex-wrap: wrap;
 }
+#index_container .btn{
+    padding: 0rem;
+}
+
+ a i{
+    padding-top: 0.1rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    padding-bottom: 0.1rem;
+
+}

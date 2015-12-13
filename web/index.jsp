@@ -72,7 +72,7 @@
                 out.println("</div>");
                 out.println("</div>");
                 out.println("<div class=\"card-content\">");
-                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<btn class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></btn></span>");
+                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<a class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></span>");
                 out.println("<div>");
                 out.println("<span class=\"grey-text text-darken-4\"><a href=\"scheda_film.jsp?id="+films.get(i).getId()+"\">Scheda Film</a></span>");
                 out.println("</div>");
@@ -82,13 +82,13 @@
                 //lista spettacoli
                 spett_per_film = (Spettacoli.getSpettacoliFuturiFromFilm(films.get(i).getId())).getListaSpettacoli();
                 for(int k = 0; k < spett_per_film.size(); k++){
-                    Date dataSito = spett_per_film.get(k).getData_ora().getTime();
+                    Date data_spett = spett_per_film.get(k).getData_ora().getTime();
                     SimpleDateFormat giornata = new SimpleDateFormat("dd-MM-YY"); 
                     SimpleDateFormat ora = new SimpleDateFormat("hh mm");
                     
-                    out.println("<p>Spettacolo il giorno "+giornata.format(dataSito)+ " alle ore "+ ora.format(dataSito) +"</p>");
+                    out.println("<p>"+giornata.format(data_spett)+ ":"+ ora.format(data_spett) +"</p>");
                     out.println("<p>"+spett_per_film.get(k).getSala().getNome()+"</p>");
-                    out.println("<a href=\"prenotazione.jsp?id="+spett_per_film.get(k).getId()+"class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></span>");
+                    out.println("<a href=\"prenotazione.jsp?id="+spett_per_film.get(k).getId()+"\" class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></span>");
                 }
                 out.println("</div>");
                 out.println("</div>");
