@@ -93,7 +93,7 @@ video{
 
 }
 
-giornoData:first-letter{
+.giornoData:first-letter{
     text-transform: capitalize;
 }
 

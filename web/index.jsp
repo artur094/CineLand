@@ -4,13 +4,13 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="GestioneClassi.Spettacoli"%>
-<%@page import="ClassiDB.Utente"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ClassiDB.Film"%>
-<%@page import="GestioneClassi.Films"%>
 <%@page import="ClassiDB.Spettacolo"%>
+<%@page import="ClassiDB.Utente"%>
+<%@page import="GestioneClassi.Spettacoli"%>
+<%@page import="GestioneClassi.Films"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -20,9 +20,9 @@
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-                  <!--Import index.css-->
-                  <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
-                  <link type="text/css" rel="stylesheet" href="css/index.css"  />
+        <!--Import index.css-->
+        <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/index.css"  />
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -31,10 +31,18 @@
             Cookie[] cookies ;        
             List<Film> films;
             List<Spettacolo> spett_per_film;
+            Utente user;
+            Boolean sess = false;
         %>
 
         <%
             films = (Films.getFutureFilms()).getListaFilm();
+            user = (Utente)request.getSession().getAttribute("user");
+            if(user == null){ //non è loggato
+                sess = false;
+            }else{
+                sess = true;
+            }
         %>  
     </head>
 
@@ -45,7 +53,19 @@
                 <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
                 <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a class="waves-effect waves-light modal-trigger btn" data-target="form"><i class="material-icons right"></i>Sign in</a></li>
+                    <%
+                        if(sess){
+                            out.println("<div><a class='dropdown-button btn' href='#' data-activates='user'>Io</a>"
+                                +"<ul id='user' class='dropdown-content'>"
+                                +"<li><a href=\"#!\">Acquisti</a></li>"
+                                +"<li class=\"divider\"></li>"
+                                +"<li><a href=\"#!\">Profilo</a></li>"
+                                +"</ul></div>");
+                        }else{
+                            out.println("<li><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
+                        }
+                    %>
+                    
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="sale.jsp">Le nostre sale</a></li>
                     <li><a href="">About us</a></li>
@@ -69,7 +89,7 @@
                             </ul>
                         </div>
                         <div id="in" class="col s12">
-                            <form class="col s12">
+                            <form class="col s12" action="login.js">
                                 <div class="row">
                                   <div class="input-field col s12 offset-m3 m6  ">
                                         <input id="email" type="email" class="validate">
@@ -80,6 +100,11 @@
                                     <div class="input-field col s12 offset-m3 m6 ">
                                         <input id="password" type="password" class="validate">
                                         <label for="password">Password</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s8 offset-m4 m4 ">
+                                        <div class="btn" id="btn_login">Log in</div>
                                     </div>
                                 </div>
                             </form>
@@ -153,7 +178,7 @@
                 out.println("</div>");
                 out.println("</div>");
                 }
-            %>
+            %>  
         </div>
     </body>
     <footer class="page-footer">
@@ -187,7 +212,5 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/master.js"></script>
-<!--    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>-->
     <script src="js/rect.js"></script>
   </html>
