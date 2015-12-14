@@ -43,7 +43,9 @@ public class Controller extends HttpServlet {
         String email = (String)request.getParameter("email");
         String password = (String)request.getParameter("pwd");
         String name = (String)request.getParameter("name");
-        Integer id_spettacolo = Integer.parseInt(request.getParameter("prenotazione"));
+        String posti = (String)request.getParameter("posti");
+        Integer id_spettacolo = Integer.parseInt(request.getParameter("spettacolo"));
+        Integer id_prenotazione = Integer.parseInt(request.getParameter("prenotazione"));
         
                 
         
@@ -128,12 +130,18 @@ public class Controller extends HttpServlet {
                 user = (Utente)request.getSession().getAttribute("user");
                 if(user != null)
                 {
-                    
+                    String[] listaPosti = posti.split(" ");
+                    for(String s : listaPosti)
+                    {
+                        
+                    }
                 }
                 else
                 {
                     //redirect to login
                 }
+            case "paga":
+                break;
                     
             default:
                 break;
