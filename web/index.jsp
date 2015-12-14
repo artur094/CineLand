@@ -29,7 +29,7 @@
 				 List<Film> films;
 			%>
 
-			<%
+                        <%
 				films = (Films.getFutureFilms()).getListaFilm();
 			%>  
 		 <!-- Navigatio Bar -->
