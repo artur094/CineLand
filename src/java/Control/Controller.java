@@ -44,8 +44,8 @@ public class Controller extends HttpServlet {
         String password = (String)request.getParameter("pwd");
         String name = (String)request.getParameter("name");
         String posti = (String)request.getParameter("posti");
-        Integer id_spettacolo = Integer.parseInt(request.getParameter("spettacolo"));
-        Integer id_prenotazione = Integer.parseInt(request.getParameter("prenotazione"));
+        //Integer id_spettacolo = Integer.parseInt(request.getParameter("spettacolo"));
+        //Integer id_prenotazione = Integer.parseInt(request.getParameter("prenotazione"));
         
                 
         
@@ -64,30 +64,40 @@ public class Controller extends HttpServlet {
                 // Se non lo è, controllo se email e pass sono giusti
                 // Se si, nessun problema, altrimenti vado alla pagina di errore
                 // Se è loggato, non faccio niente
+                // Ritorna una pagina con un codice di errore (AJAX)
+                // CODICI DI RITORNO:
+                // ADMIN --> 920
+                // LOGGATO --> 910
+                // ERRORE --> 900
+                int codice = 900;
                 user = (Utente)request.getSession().getAttribute("user");
-                if(user != null)
+                if(user == null)
                 {
                     user = Control.logIn(email, password);
-                    if(user == null)
+                    
+                    if(user != null)
                     {
-                        error("login");
-                        return;
-                    }
-                    else if(user.getRuolo().equals("admin"))
-                    {
-                        try{
-                            request.getSession().setAttribute("admin", new Admin());
-                        }
-                        catch(SQLException ex)
+                        codice = 910;
+                        if(user.getRuolo().equals("admin"))
                         {
-                            //redirect to an error page
+                            try{
+                                request.getSession().setAttribute("admin", new Admin());
+                                codice = 920;
+                            }
+                            catch(SQLException ex)
+                            {
+
+                            }
+                            catch(ClassNotFoundException ex)
+                            {
+                                //redirect to an error page
+                            }
                         }
-                        catch(ClassNotFoundException ex)
-                        {
-                            //redirect to an error page
-                        }
+                        request.getSession().setAttribute("user", user);
                     }
-                    request.getSession().setAttribute("user", user);
+                }
+                try (PrintWriter out = response.getWriter()) {
+                        out.println(codice);
                 }
                 break;
             // Controllo per sicurezza, se è loggato

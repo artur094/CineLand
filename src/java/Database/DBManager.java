@@ -687,7 +687,7 @@ public class DBManager implements Serializable {
     // ID, Nome, Email, Ruolo, Credito
     public Utente getUtente(int id) throws SQLException
     {
-        PreparedStatement ps = con.prepareStatement("SELECT U.email, U.name, U.credito, R.ruolo FROM Utente AS U, Ruolo AS R WHERE R.id_ruolo = U.id_ruolo AND U.id_utente = ?");
+        PreparedStatement ps = con.prepareStatement("SELECT U.email, U.nome, U.credito, R.ruolo FROM Utente AS U, Ruolo AS R WHERE R.id_ruolo = U.id_ruolo AND U.id_utente = ?");
         ps.setInt(1, id);
         
         ResultSet rs = ps.executeQuery();
@@ -698,7 +698,7 @@ public class DBManager implements Serializable {
         Utente u = new Utente();
         u.setId(id);
         u.setEmail(rs.getString("email"));
-        u.setNome(rs.getString("name"));
+        u.setNome(rs.getString("nome"));
         u.setRuolo(rs.getString("ruolo"));
         u.setCredito(rs.getDouble("credito"));
         
