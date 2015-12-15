@@ -21,7 +21,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 //TODO : 
 
@@ -59,7 +61,22 @@ public class DBManager implements Serializable {
         this.con = con;
     }
     
+    public String generateRandomKey(int length){
+        Random random = new Random(new Date().getTime());
+        String alphabet = 
+                new String("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"); //9
+        int n = alphabet.length(); //10
+
+        String result = new String(); 
+
+        for (int i=0; i<length; i++) //12
+            result = result + alphabet.charAt(random.nextInt(n)); //13
+
+        return result;
+    }
+    
     // VARIE FUNZIONI DI AMMINISTRAZIONE 
+    //DA FINIREEEEE
     public List<Posto> postiVendutiperSpettacolo() throws SQLException
     {
         List<Posto> lista = new ArrayList<>();
@@ -189,7 +206,7 @@ public class DBManager implements Serializable {
      * @param nome Nome dell'utente
      * @return 
      */
-    public Utente registrazione(String email, String password, String nome) throws SQLException
+    public String registrazione(String email, String password, String nome) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE email = ?");
         ps.setString(1, email);
@@ -199,23 +216,25 @@ public class DBManager implements Serializable {
         if(rs.next())
             return null;
         
-        ps = con.prepareStatement("SELECT id_ruolo FROM ruolo WHERE ruolo = 'verificare'");
-        rs = ps.executeQuery();
+
+        int id_ruolo = getIDRuolo("verificare");
+        if(id_ruolo<0)
+            return "";
+        String codice = generateRandomKey(64);
         
-        if(!rs.next())
-            return null;
-        int id_ruolo = rs.getInt("id_ruolo");
-        
-        ps = con.prepareStatement("INSERT INTO utente(email,password,nome,ruolo) VALUES (?,?,?,?)");
+        ps = con.prepareStatement("INSERT INTO utente(email,password,nome,ruolo, codice_attivazione, data_invio_codice_attivazione) "+
+                "VALUES (?,?,?,?,?, CURRENT_TIMESTAMP)");
         ps.setString(1, email);
         ps.setString(2, password);
         ps.setString(3, nome);
         ps.setInt(4, id_ruolo);
+        ps.setString(5, codice);
         
         PreparedStatement selezione = con.prepareStatement("SELECT * FROM utente WHERE email = ? AND password = ?");
         rs = selezione.executeQuery();
-        
-        return  getUtente(rs.getString("id_utente"));
+        if(rs.next())
+            return codice;
+        return "";
     }
     /**
      * Funzione che abilita l'account se il codice dato in input è corretto
@@ -225,21 +244,67 @@ public class DBManager implements Serializable {
      * @param code Codice ricevuto via email
      * @return 
      */
-    public boolean enableAccount(String email, double code) throws SQLException
+    public boolean enableAccount(String email, String code) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE email = ? and codice_attivazione = ?");
         ps.setString(1, email);
-        ps.setDouble(2, code);
+        ps.setString(2, code);
         ResultSet rs = ps.executeQuery();
-        //getDouble ritorna 0 se il valore è null (ovvero nel resut set non c'è nessun utente con quel codice di attivazione)
-        if(rs.getDouble("CODICE_ATTIVAZIONE") != 0){
-            PreparedStatement confermaUtente = con.prepareStatement("UPDATE utente SET id_ruolo = 1 WHERE email = ? AND codice_attivazione = ?");
-            confermaUtente.setString(1, email);
-            confermaUtente.setDouble(2, code);
-            return true;
-        }
-        else
+        int id_ruolo = getIDRuolo("user");
+        if(id_ruolo < 0)
             return false;
+        //getDouble ritorna 0 se il valore è null (ovvero nel resut set non c'è nessun utente con quel codice di attivazione)
+        if(rs.next()){
+            if(!rs.getString("CODICE_ATTIVAZIONE").equals("")){
+                PreparedStatement confermaUtente = con.prepareStatement("UPDATE utente SET id_ruolo = ? WHERE email = ? AND codice_attivazione = ?");
+                confermaUtente.setInt(1, id_ruolo);
+                confermaUtente.setString(2, email);
+                confermaUtente.setString(3, "");
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public String passwordDimenticata(String email) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("DELETE FROM password_dimenticata WHERE email = ?");
+        ps.setString(1, email);
+        ps.executeUpdate();
+        
+        String codice = generateRandomKey(64);
+        
+        ps = con.prepareStatement("INSERT INTO password_dimenticata (email, codice, data) VALUES (?,?, CURRENT_TIMESTAMP)");
+        ps.setString(1, email);
+        ps.setString(2, codice);
+        ps.executeUpdate();
+        
+        return codice;
+    }
+    
+    public boolean passwordResettata(String email, String password, String codice) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM password_dimenticata WHERE email = ? and codice = ?");
+        ps.setString(1, email);
+        ps.setString(2, codice);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return false;
+        
+        ps = con.prepareStatement("UPDATE utente SET password = ? WHERE email = ?");
+        ps.setString(1, password);
+        ps.setString(2, email);
+        
+        if(ps.executeUpdate() < 1)
+            return false;
+        
+        ps = con.prepareStatement("DELETE FROM password_dimenticata WHERE email = ?");
+        ps.setString(1, email);
+        ps.executeUpdate();
+        
+        return true;
     }
     
     public double totalePagato(int id_utente) throws SQLException
@@ -275,11 +340,12 @@ public class DBManager implements Serializable {
             return null;
         int id_prezzo = rs.getInt("id_prezzo");
         
-        ps = con.prepareStatement("INSERT INTO prenotazione (id_utente, id_spettacolo, id_prezzo, id_posto, pagato, data_ora_operazione) values (?,?,?,?,false,current_timestamp)");
+        ps = con.prepareStatement("INSERT INTO prenotazione (id_utente, id_spettacolo, id_prezzo, id_posto, pagato, data_ora_operazione) values (?,?,?,?,?,current_timestamp)");
         ps.setInt(1, id_utente);
         ps.setInt(2, id_spettacolo);
         ps.setInt(3, id_prezzo);
         ps.setInt(4, id_posto);
+        ps.setBoolean(5, true);
         
         ps.executeUpdate();
         
@@ -294,6 +360,7 @@ public class DBManager implements Serializable {
         return null;
     }
     
+    //USELESS - Prenotazione inserita al momento del pagamento
     public boolean pagaPrenotazione(int id_utente, int id_spettacolo, int id_posto) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ? AND id_spettacolo = ? AND id_posto = ?");
@@ -763,6 +830,16 @@ public class DBManager implements Serializable {
         }
         
         return null;
+    }
+    
+    public int getIDRuolo(String ruolo) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT id_ruolo FROM ruolo WHERE ruolo = ?");
+        ps.setString(1, ruolo);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+            return rs.getInt("id_ruolo");
+        return -1;
     }
     
 }

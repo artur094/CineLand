@@ -27,11 +27,7 @@ public class Control {
             Utente u = dbm.logIn(email, password);
             return u;
         }
-        catch(ClassNotFoundException ex)
-        {
-            return null;
-        }
-        catch(SQLException ex)
+        catch(Exception ex)
         {
             return null;
         }
@@ -39,15 +35,41 @@ public class Control {
     
     // Funzione che gestisce la registrazione
     // Effettuare controllo se l'email è legale (xxx@yyy.zzz)
-    public static Utente signUp(String email, String nome, String password)
+    public static boolean signUp(String email, String nome, String password)
     {
-        return null;
+        try {
+            DBManager dbm = DBManager.getDBManager();
+            String codice = dbm.registrazione(email, password, nome);
+            //INVIO EMAIL
+            return true;
+            
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    public static boolean enableAccount(String email, String codice)
+    {
+        try {
+            DBManager dbm = DBManager.getDBManager();
+            return dbm.enableAccount(email, codice);
+        } catch (Exception e) {
+            return false;
+        }
     }
     
     // Funzione che gestisce il reset della password
     public static boolean resetPassword(String email)
     {
-        return false;
+        try {
+            DBManager dbm = DBManager.getDBManager();
+            String codice = dbm.passwordDimenticata(email);
+            // INVIO EMAIL
+            return true;
+            
+        } catch (Exception e) {
+            return false;
+        }
     }
     
     public static void prenotaFilm(int id_spettacolo, int id_utente, String posti)

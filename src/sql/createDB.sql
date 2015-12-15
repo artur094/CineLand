@@ -92,7 +92,7 @@ CREATE TABLE UTENTE (
 	PASSWORD VARCHAR(50), 
 	CREDITO DOUBLE, 
 	ID_RUOLO INTEGER, -- 'verificare' in caso non sia stato ancora verificato
-	CODICE_ATTIVAZIONE DOUBLE DEFAULT 0 , --forse aggiungere anche la data (?)
+	CODICE_ATTIVAZIONE VARCHAR(300), --forse aggiungere anche la data (?)
         DATA_INVIO_CODICE_ATTIVAZIONE TIMESTAMP,
 	PRIMARY KEY (ID_UTENTE)
 );
