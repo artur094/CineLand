@@ -5,10 +5,41 @@
  */
 package Control;
 
+import java.io.ByteArrayOutputStream;
+import net.glxn.qrgen.image.ImageType;
 /**
  *
  * @author ivanmorandi
  */
 public class QRCode {
+    protected String testo;
+    protected ByteArrayOutputStream qrcode;
+    
+    public QRCode(String testo)
+    {
+        this.testo = testo;
+        qrcode = Conversione();
+    }
+    
+    protected ByteArrayOutputStream Conversione()
+    {
+        return (net.glxn.qrgen.QRCode.from(testo).to(ImageType.JPG).stream());
+    }
+
+    public String getTesto() {
+        return testo;
+    }
+
+    public void setTesto(String testo) {
+        this.testo = testo;
+        qrcode = Conversione();
+    }
+
+    public ByteArrayOutputStream getQrcode() {
+        return qrcode;
+    }
+    
+    
+    
     
 }
