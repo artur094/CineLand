@@ -48,7 +48,7 @@ box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 1);
     width: 300px;
     max-height: 500px;
     overflow: visible;
-    margin: 12px 6px 0px 12px;
+    margin: 10px 5px 5px 10px;
 }
 .card-image{
     overflow: hidden;
@@ -76,9 +76,49 @@ video{
 	margin-top: 400px;
 	margin-left: auto;
 	margin-right: auto;
-	color: #fff;
-	padding-top: 1px;
+        padding: 5px;
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
+}
+#index_container .btn{
+    padding: 0rem;
+}
+
+ a i{
+    padding-top: 0.1rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    padding-bottom: 0.1rem;
+
+}
+
+.giornoData:first-letter{
+    text-transform: capitalize;
+}
+
+.giornoData{
+    border-bottom: 1px solid #CCC; 
+    line-height:0.1em; 
+    margin:10px 0 20px;
+}
+.giornoData span{
+background-color: white;
+padding-right: 5px;
+padding-left: 5px;
+margin-left: 8px;
+}
+.orarioSpett{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+.orarioSpett a{
+    margin-top: -10px;
+}
+
+.crono{
+    transform: translateY(3px);
+    padding-left: 5px;
+    padding-right: 5px;
 }

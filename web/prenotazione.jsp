@@ -1,24 +1,23 @@
 
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="Bean.Spettacolo"%>
-<%@page import="Bean.Spettacoli"%>
+<%@page import="ClassiDB.Spettacolo"%>
+<%@page import="GestioneClassi.Spettacoli"%>
 <%-- 
     Document   : prenotazione
     Created on : 23-lug-2015, 21.35.09
     Author     : Utente
 --%>
 
-<%@page import="Bean.Film"%>
-<%@page import="Bean.Sala"%>
+<%@page import="ClassiDB.Film"%>
+<%@page import="ClassiDB.Sala"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
-<%@page import="Bean.Posto"%>
+<%@page import="ClassiDB.Posto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    Spettacoli s = new Spettacoli();
-    
+    Spettacolo s = Spettacoli.getSpettacoliFuturi();
     int id_spettacolo = Integer.parseInt(request.getParameter("id"));
     Sala sala = new Sala(id_spettacolo);
     Film f = Film.getFilmfromSpettacolo(id_spettacolo);
