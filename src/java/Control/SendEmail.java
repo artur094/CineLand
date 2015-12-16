@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 public class SendEmail {
     String indirizzo_cineland = "progettoWeb@gmail.com";
-    String password_email = "";
+    String password_email = "passwordMoltoSicura";
     Properties props;
     
     protected static SendEmail sendEmail;
@@ -36,7 +36,6 @@ public class SendEmail {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("isSSL","true");
-        //props.put("mail.smtp.startssl.enable", "true");
         props.put( "mail.debug", "true" );
         
     }
@@ -48,3 +47,7 @@ public class SendEmail {
     
     
 }
+
+//private class SMTPAuthenticator extends javax.mail.Authenticator{
+//    public
+//}
