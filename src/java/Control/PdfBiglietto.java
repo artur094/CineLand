@@ -9,8 +9,10 @@ import ClassiDB.Prenotazione;
 import ClassiDB.Spettacolo;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
 /**
@@ -20,6 +22,7 @@ import java.util.Date;
 public class PdfBiglietto {
     String nomeFile;
     Prenotazione prenotazione;
+    ByteArrayOutputStream datiBiglietto;
     
     //metadati
     String autore = "Sistema distribuzione biglietti CineLand";
@@ -30,15 +33,18 @@ public class PdfBiglietto {
     public PdfBiglietto(String nomeFile, Prenotazione prenotazione) {
         this.nomeFile = nomeFile;
         this.prenotazione = prenotazione;
+        datiBiglietto = new ByteArrayOutputStream();
     }
 
     public PdfBiglietto(Prenotazione prenotazione) {
         this.prenotazione = prenotazione;
     }
     
-    private void costruisciPdf(String nomeFile) throws DocumentException, FileNotFoundException{
+    private void costruisciPdf(String nomeFile) throws DocumentException{
       Document biglietto = new Document();
-      PdfWriter.getInstance(biglietto, new FileOutputStream(nomeFile));
+      //PdfWriter.getInstance(biglietto, new FileOutputStream(nomeFile));
+      PdfWriter.getInstance(biglietto, datiBiglietto);
+      
       biglietto.open();
       Paragraph titolo = new Paragraph(prenotazione.getSpettacolo().getFilm().getTitolo());
       titolo.add(Integer.toString(prenotazione.getSpettacolo().getId()));
