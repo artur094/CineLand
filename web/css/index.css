@@ -122,3 +122,11 @@ margin-left: 8px;
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.off{
+    display: none;
+}
+
+.on{
+    display: list-item;
+}

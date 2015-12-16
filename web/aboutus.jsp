@@ -1,4 +1,6 @@
-  <!DOCTYPE html>
+  <%@page import="ClassiDB.Utente"%>
+<%@page import="ClassiDB.Film"%>
+<!DOCTYPE html>
   <html>
     <head>
         <!--Import Google Icon Font-->
@@ -12,6 +14,20 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
+    <%!
+        boolean privacy = false;
+        Cookie[] cookies ;        
+        Utente user;
+        Boolean sess = false;
+    %>
+    <%
+        user = (Utente)request.getSession().getAttribute("user");
+        if(user == null){ //non è loggato
+            sess = false;
+        }else{
+            sess = true;
+        }
+    %>  
 
     <body>
     <!-- Navigatio Bar -->
@@ -20,11 +36,31 @@
             <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
             <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a class="waves-effect waves-light btn"><i class="material-icons right"></i>Sign in/out</a></li>
-                <li><a href="index.jsp">Film</a></li>
-                <li><a href="sale.jsp">Le nostre sale</a></li>
-                <li><a href="aboutus.jsp">About us</a></li>
-            </ul>
+                    <%
+                        if(sess){
+                            out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>Io</a>"
+                                +"<ul id='user' class='dropdown-content'>"
+                                +"<li><a href=\"#!\">Acquisti</a></li>"
+                                +"<li class=\"divider\"></li>"
+                                +"<li><a href=\"#!\">Profilo</a></li>"
+                                +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                +"</ul></div></li>");
+                            out.println("<li id=\"login\" class=\"off\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
+                        }else{
+                            out.println("<li  id=\"logout\" class=\"off\"><div><a class='dropdown-button btn' href='#' data-activates='user'>Io</a>"
+                                +"<ul id='user' class='dropdown-content'>"
+                                +"<li><a href=\"#!\">Acquisti</a></li>"
+                                +"<li class=\"divider\"></li>"
+                                +"<li><a href=\"#!\">Profilo</a></li>"
+                                +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                +"</ul></div></li>");
+                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
+                        }
+                    %>
+                    <li><a href="index.jsp">Film</a></li>
+                    <li><a href="sale.jsp">Le nostre sale</a></li>
+                    <li><a href="aboutus.jsp">About us</a></li>
+                </ul>
             <ul class="side-nav" id="mobile-demo">
                 <li><a class=""><i class="material-icons right"></i>Sign in/out</a></li>
                 <li><a href="index.jsp">Film</a></li>
@@ -33,6 +69,68 @@
             </ul>
         </div>
     </nav>
+                    
+    <div id="form" class="modal">
+            <div class="modal-content">
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s6"><a class="active" href="#in">Sign IN</a></li>
+                                <li class="tab col s6"><a href="#up">Sign UP</a></li>
+                            </ul>
+                        </div>
+                        <div id="in" class="col s12">
+                            <form class="col s12" action="login.js">
+                                <div class="row">
+                                  <div class="input-field col s12 offset-m3 m6  ">
+                                        <input id="email" type="email" class="validate">
+                                        <label for="email">Email</label>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 offset-m3 m6 ">
+                                        <input id="password" type="password" class="validate">
+                                        <label for="password">Password</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s8 offset-m4 m4 ">
+                                        <div class="btn" id="btn_login">Log in</div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="up" class="col s12">
+                            <div class="row">
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input id="first_name" type="text" class="validate">
+                                            <label for="first_name">First Name</label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input id="last_name" type="text" class="validate">
+                                            <label for="last_name">Last Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6 offset-m3">
+                                            <input id="email" type="email" class="validate">
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                      <div class="row">
+                                      <div class="input-field col s12 m6">
+                                        <input id="password" type="password" class="validate">
+                                        <label for="password">Password</label>
+                                      </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
     <!-- Main central content -->
     <div class="container" id="index_container">
         <p>

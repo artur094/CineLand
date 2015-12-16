@@ -52,25 +52,35 @@
             <div class="nav-wrapper">
                 <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
                 <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                
                 <ul class="right hide-on-med-and-down">
                     <%
                         if(sess){
-                            out.println("<div><a class='dropdown-button btn' href='#' data-activates='user'>Io</a>"
+                            out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>Io</a>"
                                 +"<ul id='user' class='dropdown-content'>"
                                 +"<li><a href=\"#!\">Acquisti</a></li>"
                                 +"<li class=\"divider\"></li>"
                                 +"<li><a href=\"#!\">Profilo</a></li>"
-                                +"</ul></div>");
+                                +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                +"</ul></div></li>");
+                            out.println("<li id=\"login\" class=\"off\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
                         }else{
-                            out.println("<li><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
+                            out.println("<li  id=\"logout\" class=\"off\"><div><a class='dropdown-button btn' href='#' data-activates='user'>Io</a>"
+                                +"<ul id='user' class='dropdown-content'>"
+                                +"<li><a href=\"#!\">Acquisti</a></li>"
+                                +"<li class=\"divider\"></li>"
+                                +"<li><a href=\"#!\">Profilo</a></li>"
+                                +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                +"</ul></div></li>");
+                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
                         }
                     %>
-                    
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="sale.jsp">Le nostre sale</a></li>
-                    <li><a href="">About us</a></li>
+                    <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
+                    
                     <li><a class=""><i class="material-icons right"></i>Sign in/out</a></li>
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="sale.jsp">Le nostre sale</a></li>

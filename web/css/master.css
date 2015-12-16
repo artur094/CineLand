@@ -32,3 +32,10 @@ nav{
 footer.page-footer{
 	background-color: #212121;
 }
+.off{
+    display: none;
+}
+
+.on{
+    display: list-item;
+}
