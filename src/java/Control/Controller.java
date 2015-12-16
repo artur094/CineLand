@@ -107,6 +107,7 @@ public class Controller extends HttpServlet {
                 String nome ="";
                 double credito = 0;
                 
+                response.setContentType("application/json");
                 user = (Utente)request.getSession().getAttribute("user");
                 
                 if(user == null)
