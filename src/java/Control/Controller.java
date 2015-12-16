@@ -70,7 +70,11 @@ public class Controller extends HttpServlet {
                 // LOGGATO --> 910
                 // ERRORE --> 900
                 int codice = 900;
+                String nome ="";
+                double credito = 0;
+                
                 user = (Utente)request.getSession().getAttribute("user");
+                
                 if(user == null)
                 {
                     user = Control.logIn(email, password);
@@ -84,20 +88,23 @@ public class Controller extends HttpServlet {
                                 request.getSession().setAttribute("admin", new Admin());
                                 codice = 920;
                             }
-                            catch(SQLException ex)
+                            catch(Exception ex)
                             {
 
                             }
-                            catch(ClassNotFoundException ex)
-                            {
-                                //redirect to an error page
-                            }
                         }
                         request.getSession().setAttribute("user", user);
+                        nome = user.getNome();
+                        credito = user.getCredito();
                     }
                 }
                 try (PrintWriter out = response.getWriter()) {
-                        out.println(codice);
+                    String json = "{ "+
+                            "codice: "+codice+", "+
+                            "nome: '"+nome+"', "+
+                            "credito: "+credito+
+                            "}";
+                    out.println(json);
                 }
                 break;
             // Controllo per sicurezza, se è loggato
