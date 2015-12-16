@@ -19,7 +19,7 @@ import javax.mail.internet.MimeMessage;
  * @author ivanmorandi
  */
 public class SendEmail extends javax.mail.Authenticator{
-    String indirizzo = "progettoWeb@gmail.com";
+    String indirizzo = "progettoweb94@gmail.com";
     String password = "passwordMoltoSicura";
     Properties props;
     
