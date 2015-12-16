@@ -56,9 +56,19 @@ public class Controller extends HttpServlet {
         // resetpsw
         // prenota
         // paga
+        // test
         
         switch(operation)
         {
+            case "test":
+                SendEmail send = SendEmail.getInstance();
+                try{
+                    send.send("zaraki094@gmail.com", "Testing", "Unit Testing");
+                }catch(Exception e)
+                {
+                    
+                }
+                break;
             case "login":
                 // Controllo per sicurezza, se è loggato
                 // Se non lo è, controllo se email e pass sono giusti
