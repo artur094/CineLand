@@ -8,6 +8,7 @@ package Control;
 import ClassiDB.Film;
 import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
+import Database.DBManager;
 import GestioneClassi.Films;
 import GestioneClassi.Spettacoli;
 import java.awt.image.BufferedImage;
@@ -65,9 +66,32 @@ public class Controller extends HttpServlet {
         
         switch(operation)
         {
+            case "test_qrcode_html":
+                QRCode qrcode = new QRCode("TEST");
+                byte[] array = qrcode.getQrcode().toByteArray();
+                response.setContentType("image/jpg");
+                response.setContentLength(array.length);
+                response.getOutputStream().write(array);
+                
+                break;
+            case "test_qrcode":
+                try (PrintWriter out = response.getWriter()) {
+                    out.print("<img src='");
+                    out.print("http://localhost:8084/NuovoBackend/Controller?op=test1");
+                    out.print("' />");
+                    
+                }
+                break;
             case "test":
-                
-                
+                                try{
+                    DBManager dbm = DBManager.getDBManager();
+                    PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
+                    response.setContentType("application/pdf");
+                    pdf.costruisciPdf("test", response.getOutputStream());
+                }catch(Exception e)
+                {
+                    
+                }
                 break;
             case "login":
                 // Controllo per sicurezza, se è loggato

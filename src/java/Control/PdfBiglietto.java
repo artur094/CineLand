@@ -40,10 +40,10 @@ public class PdfBiglietto {
         this.prenotazione = prenotazione;
     }
     
-    private void costruisciPdf(String nomeFile) throws DocumentException{
+    public void costruisciPdf(String nomeFile, OutputStream stream) throws DocumentException{
       Document biglietto = new Document();
       //PdfWriter.getInstance(biglietto, new FileOutputStream(nomeFile));
-      PdfWriter.getInstance(biglietto, datiBiglietto);
+      PdfWriter.getInstance(biglietto, stream);
       
       biglietto.open();
       Paragraph titolo = new Paragraph(prenotazione.getSpettacolo().getFilm().getTitolo());
@@ -58,7 +58,18 @@ public class PdfBiglietto {
       prezzo.add("");
       
       Paragraph fondo = new Paragraph(new Date().toString());       //ricordarsi di inserire un formatter
+      
+      biglietto.add(titolo);
+      biglietto.add(info);
+      biglietto.add(prezzo);
+      biglietto.add(fondo);
      
       biglietto.close();
     }
+
+    public ByteArrayOutputStream getPDF() {
+        return datiBiglietto;
+    }
+    
+    
 }

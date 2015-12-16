@@ -815,7 +815,7 @@ public class DBManager implements Serializable {
             Calendar c = Calendar.getInstance();
             c.setTime(ts);
             
-            Sala sala = getSala(rs.getInt("id_sala"));
+            Sala sala = getSala(posto.getId_sala());
             
             p.setId(id);
             p.setData_ora_operazione(c);
