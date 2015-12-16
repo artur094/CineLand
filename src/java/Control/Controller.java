@@ -10,10 +10,14 @@ import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import GestioneClassi.Films;
 import GestioneClassi.Spettacoli;
+import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,19 +66,13 @@ public class Controller extends HttpServlet {
         switch(operation)
         {
             case "test":
-                String potatoes = "";
-                SendEmail send = SendEmail.getInstance();
-                try{
-                    send.send("zaraki094@gmail.com", "Testing", "Unit Testing");
-                    potatoes = "INVIATO";
-                }catch(MessagingException e)
-                {
-                    potatoes = e.getMessage();
-                }
+                QRCode qrcode = new QRCode("TEST");
+                response.setContentType("image/gif");
                 try (PrintWriter out = response.getWriter()) {
                     
-                    out.println(potatoes);
+                    out.println(qrcode.getQrcode());
                 }
+                
                 break;
             case "login":
                 // Controllo per sicurezza, se è loggato
