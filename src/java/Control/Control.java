@@ -5,10 +5,13 @@
  */
 package Control;
 
+import ClassiDB.Prenotazione;
 import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -76,24 +79,51 @@ public class Control {
     public static void prenotaFilm(int id_spettacolo, int id_utente, String posti)
     {
         try{
-            DBManager dbm = DBManager.getDBManager();
-            Spettacolo s = dbm.getSpettacolo(id_spettacolo);
-            String[] posti_prenotati = posti.split(" ");
+            List<Prenotazione> nuovePrenotazioni;
+            Prenotazione p;
+            DBManager dbm;
+            Spettacolo s;
+            String prezzo;
+            String[] info_posto;
+            String[] posti_prenotati;
+            int riga;
+            int colonna;
+            int id_posto;
+            
+            dbm = DBManager.getDBManager();
+            nuovePrenotazioni = new ArrayList<>();
+            s = dbm.getSpettacolo(id_spettacolo);
+            posti_prenotati = posti.split(" ");
+            
             for(String posto : posti_prenotati)
             {
-                String[] info_posto = posto.split(",");
+                info_posto = posto.split(",");
                 
                 //RIGA,COLONNA,PREZZO
-                int riga = Integer.parseInt(info_posto[0]);
-                int colonna = Integer.parseInt(info_posto[1]);
-                String prezzo = info_posto[2];
+                riga = Integer.parseInt(info_posto[0]);
+                colonna = Integer.parseInt(info_posto[1]);
                 
-                int id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
+                prezzo = info_posto[2];
                 
-                dbm.insertPrenotazione(id_utente, id_spettacolo, id_posto, prezzo);
+                switch(prezzo)
+                {
+                    case "N": prezzo = "normale"; break;
+                    case "R": prezzo = "ridotto"; break;
+                    case "S": prezzo = "studente";break;
+                    case "M": prezzo = "militare";break;
+                    case "D": prezzo = "disabile";break;
+                    default: return;
+                }
+                
+                id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
+                
+                p = dbm.insertPrenotazione(id_utente, id_spettacolo, id_posto, prezzo);
+                nuovePrenotazioni.add(p);
             }
             
-            //dbm.insertPrenotazione(id_utente, id_spettacolo, id_utente, posti)
+            // CREAZIONE QRCODE
+            // CREAZIONE PDF CON UN BIGLIETTO PER PAGINA (CON QRCODE)
+            // INVIO EMAIL DEL PDF
         }
         catch(SQLException ex)
         {
