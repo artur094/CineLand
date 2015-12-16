@@ -5,6 +5,7 @@
  */
 package Control;
 
+import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
 import java.sql.SQLException;
@@ -76,6 +77,22 @@ public class Control {
     {
         try{
             DBManager dbm = DBManager.getDBManager();
+            Spettacolo s = dbm.getSpettacolo(id_spettacolo);
+            String[] posti_prenotati = posti.split(" ");
+            for(String posto : posti_prenotati)
+            {
+                String[] info_posto = posto.split(",");
+                
+                //RIGA,COLONNA,PREZZO
+                int riga = Integer.parseInt(info_posto[0]);
+                int colonna = Integer.parseInt(info_posto[1]);
+                String prezzo = info_posto[2];
+                
+                int id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
+                
+                dbm.insertPrenotazione(id_utente, id_spettacolo, id_posto, prezzo);
+            }
+            
             //dbm.insertPrenotazione(id_utente, id_spettacolo, id_utente, posti)
         }
         catch(SQLException ex)

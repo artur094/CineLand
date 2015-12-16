@@ -842,4 +842,21 @@ public class DBManager implements Serializable {
         return -1;
     }
     
+    public int getIDPosto(int id_sala, int riga, int colonna) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT id_posto FROM posto WHERE id_sala = ? AND riga=? AND colonna=?");
+        ps.setInt(1, id_sala);
+        ps.setInt(2, riga);
+        ps.setInt(3, colonna);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+        {
+            int id_posto = rs.getInt("id_posto");
+            return id_posto;
+        }
+        return -1;
+    }
+    
 }

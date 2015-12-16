@@ -108,13 +108,14 @@ public class Controller extends HttpServlet {
                 user = (Utente)request.getSession().getAttribute("user");
                 if(user != null)
                 {
-                    user = Control.signUp(email,name, password);
-                    if(user == null)
+                    if(Control.signUp(email,name, password))
+                    {
+                        //REDIRECT
+                    }
+                    else 
                     {
                         error("signup");
-                        return;
                     }
-                    request.getSession().setAttribute("user", user);
                 }
                 break;
             // Gestisco il logout, prima controllo se è loggato
