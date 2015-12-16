@@ -11,6 +11,15 @@ import net.glxn.qrgen.image.ImageType;
  *
  * @author ivanmorandi
  */
+
+/*
+                QRCode qrcode = new QRCode("TEST");
+                byte[] array = qrcode.getQrcode().toByteArray();
+                response.setContentType("image/jpg");
+                response.setContentLength(array.length);
+                response.getOutputStream().write(array);
+
+*/
 public class QRCode {
     protected String testo;
     protected ByteArrayOutputStream qrcode;

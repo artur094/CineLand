@@ -66,12 +66,7 @@ public class Controller extends HttpServlet {
         switch(operation)
         {
             case "test":
-                QRCode qrcode = new QRCode("TEST");
-                response.setContentType("image/gif");
-                try (PrintWriter out = response.getWriter()) {
-                    
-                    out.println(qrcode.getQrcode());
-                }
+                
                 
                 break;
             case "login":
