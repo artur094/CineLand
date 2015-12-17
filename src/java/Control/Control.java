@@ -39,12 +39,21 @@ public class Control {
     
     // Funzione che gestisce la registrazione
     // Effettuare controllo se l'email è legale (xxx@yyy.zzz)
-    public static boolean signUp(String email, String nome, String password)
+    public static boolean signUp(String email, String nome, String password, String url_cineland)
     {
         try {
             DBManager dbm = DBManager.getDBManager();
             String codice = dbm.registrazione(email, password, nome);
             //INVIO EMAIL
+            String link = url_cineland + "?op=enable&email="+email+"&codice="+codice;
+            String oggetto = "Attivazione account CineLand";
+            String messaggio = "Gentile "+nome+ ",\n"+
+                    "Per attivare l'account prema il seguente link:\n"+
+                    "\t\t"+ link + "\n"+
+                    "Nel caso non sia il proprietario dell'account, basta che elimini la email";
+            SendEmail sendEmail = new SendEmail();
+            sendEmail.send(email, oggetto, messaggio);
+            
             return true;
             
         } catch (Exception e) {
@@ -63,12 +72,21 @@ public class Control {
     }
     
     // Funzione che gestisce il reset della password
-    public static boolean resetPassword(String email)
+    public static boolean resetPassword(String email, String url_cineland)
     {
         try {
             DBManager dbm = DBManager.getDBManager();
+            Utente u = dbm.getUtente(email);
             String codice = dbm.passwordDimenticata(email);
             // INVIO EMAIL
+            String link = url_cineland + "?op=resetpsw&email="+email+"&codice="+codice;
+            String oggetto = "Reset Password CineLand";
+            String messaggio = "Gentile "+u.getNome()+ ",\n"+
+                    "Per resettare la password prema il seguente link:\n"+
+                    "\t\t"+ link + "\n"+
+                    "Nel caso non sia il proprietario dell'account, basta che elimini la email";
+            SendEmail sendEmail = new SendEmail();
+            sendEmail.send(email, oggetto, messaggio);
             return true;
             
         } catch (Exception e) {

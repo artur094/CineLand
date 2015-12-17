@@ -50,7 +50,7 @@ public class Controller extends HttpServlet {
         String password = (String)request.getParameter("pwd");
         String name = (String)request.getParameter("name");
         String posti = (String)request.getParameter("posti");
-        //Integer id_spettacolo = Integer.parseInt(request.getParameter("spettacolo"));
+        String code = (String)request.getParameter("codice");
         //Integer id_prenotazione = Integer.parseInt(request.getParameter("prenotazione"));
         
                 
@@ -59,6 +59,7 @@ public class Controller extends HttpServlet {
         // login
         // signup
         // logout
+        // enable
         // resetpsw
         // prenota
         // paga
@@ -67,7 +68,7 @@ public class Controller extends HttpServlet {
         switch(operation)
         {
             case "test_qrcode":
-                QRCode qrcode = new QRCode("TEST");
+                QRCode qrcode = new QRCode("CINELAND");
                 byte[] array = qrcode.getQrcode().toByteArray();
                 response.setContentType("image/jpg");
                 response.setContentLength(array.length);
@@ -77,13 +78,13 @@ public class Controller extends HttpServlet {
             case "test_qrcode_html":
                 try (PrintWriter out = response.getWriter()) {
                     out.print("<img src='");
-                    out.print("http://localhost:8084/NuovoBackend/Controller?op=test_qrcode");
+                    out.print(request.getRequestURL()+ "?op=test_qrcode");
                     out.print("' />");
                     
                 }
                 break;
             case "test":
-                                try{
+                try{
                     DBManager dbm = DBManager.getDBManager();
                     PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
                     response.setContentType("application/pdf");
@@ -150,7 +151,7 @@ public class Controller extends HttpServlet {
                 user = (Utente)request.getSession().getAttribute("user");
                 if(user != null)
                 {
-                    if(Control.signUp(email,name, password))
+                    if(Control.signUp(email,name, password, request.getRequestURL().toString()))
                     {
                         //REDIRECT
                     }
@@ -171,7 +172,7 @@ public class Controller extends HttpServlet {
                 break;
             // Gestione del reset della password
             case "resetpsw":
-                if(Control.resetPassword(email))
+                if(Control.resetPassword(email, request.getRequestURL().toString()))
                 {
                     // andata a buon fine, quindi redirezionare ad una pagina
                     // o nemmeno, comunque avvertendo che la email è stata inviata
@@ -179,15 +180,22 @@ public class Controller extends HttpServlet {
                 else
                     error("resetpwd");
                 break;
+            case "enable":
+                if(Control.enableAccount(email, code))
+                {
+                    //account attivato
+                }
+                else
+                {
+                    //errore
+                }
+                break;
             case "prenota":
                 user = (Utente)request.getSession().getAttribute("user");
                 if(user != null)
                 {
-                    String[] listaPosti = posti.split(" ");
-                    for(String s : listaPosti)
-                    {
-                        
-                    }
+                    Integer id_spettacolo = Integer.parseInt(request.getParameter("spettacolo"));
+                    Control.prenotaFilm(id_spettacolo, user.getId(), posti);
                 }
                 else
                 {
