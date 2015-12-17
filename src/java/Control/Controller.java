@@ -135,9 +135,9 @@ public class Controller extends HttpServlet {
                 }
                 try (PrintWriter out = response.getWriter()) {
                     String json = "{ "+
-                            "codice: "+codice+", "+
-                            "nome: '"+nome+"', "+
-                            "credito: "+credito+
+                            "\"codice\": "+codice+", "+
+                            "\"nome\": \""+nome+"\", "+
+                            "\"credito\": "+credito+
                             "}";
                     out.println(json);
                 }
