@@ -62,9 +62,9 @@
                                 +"<li><a href=\"#!\">Profilo</a></li>"
                                 +"<li><a id=\"btn_logout\">Log out</a></li>"
                                 +"</ul></div></li>");
-                            out.println("<li id=\"login\" class=\"off\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
+                            out.println("<li id=\"login\" class=\"off\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
                         }else{
-                                String redirectURL = "http://whatever.com/myJSPFile.jsp";
+                                String redirectURL = "sess_error.jsp";
                                 response.sendRedirect(redirectURL);
                         }
                     %>

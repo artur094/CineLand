@@ -73,7 +73,7 @@
                                 +"<li><a href=\"#!\">Profilo</a></li>"
                                 +"<li><a id=\"btn_logout\">Log out</a></li>"
                                 +"</ul></div></li>");
-                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
+                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
                         }
                     %>
                     <li><a href="index.jsp">Film</a></li>
@@ -107,7 +107,7 @@
                     <div class="row">
                         <div class="col s12">
                             <ul class="tabs">
-                                <li class="tab col s6"><a class="active" href="#in">Sign IN</a></li>
+                                <li class="tab col s6"><a class="" href="#in">Sign IN</a></li>
                                 <li class="tab col s6"><a href="#up">Sign UP</a></li>
                             </ul>
                         </div>
@@ -140,10 +140,6 @@
                                             <input id="first_name" type="text" class="validate">
                                             <label for="first_name">First Name</label>
                                         </div>
-                                        <div class="input-field col s12 m6">
-                                            <input id="last_name" type="text" class="validate">
-                                            <label for="last_name">Last Name</label>
-                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12 m6 offset-m3">
@@ -157,6 +153,11 @@
                                         <label for="password">Password</label>
                                       </div>
                                     </div>
+                                    <div class="row">
+                                    <div class="col s8 offset-m4 m4 ">
+                                        <div class="btn" id="btn_signup">Sign up</div>
+                                    </div>
+                                </div>
                                 </form>
                             </div>
                         </div>
@@ -176,7 +177,7 @@
                 out.println("</div>");
                 out.println("</div>");
                 out.println("<div class=\"card-content\">");
-                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<a class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></span>");
+                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<a class=\"btn right\"><i class=\"material-icons\">theaters</i></a></span>");
                 out.println("<div>");
                 out.println("<span class=\"grey-text text-darken-4\"><a href=\"scheda_film.jsp?id="+films.get(i).getId()+"\">Scheda Film</a></span>");
                 out.println("</div>");

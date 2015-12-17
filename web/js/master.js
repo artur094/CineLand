@@ -27,32 +27,38 @@ $( document ).ready(function(){
     $("#btn_login").click(function(){
         var email = document.getElementById("email").value;
         var pwd = document.getElementById("password").value;
-        $.ajax({
-        type : 'POST',
-        url : 'Controller',           
-        data: {
-            op : "login",
-            email: email,
-            pwd: pwd
-        },
-        success:function (data) {
-           if(data.codice===900){
-               
-            }else if(data.codice===910){
-                $("#login").addClass("off");
-                $("#logout").removeClass("off");
-                $('#form').closeModal();
-                $('.dropdown-button').dropdown({
-                    inDuration: 300,
-                    outDuration: 225,
-                    constrain_width: false, // Does not change width of dropdown to that of the activator
-                    gutter: 0, // Spacing from edge
-                    belowOrigin: false, // Displays dropdown below the button
-                    alignment: 'left' // Displays dropdown with edge aligned to the left of button
-                });
-            }          
+        if(email==="" || pwd === ""){
+            var $toastContent = $('<span>Email e password vuoti</span>');
+            Materialize.toast($toastContent, 3000);
+        }else{
+            $.ajax({
+            type : 'POST',
+            url : 'Controller',           
+            data: {
+                op : "login",
+                email: email,
+                pwd: pwd
+            },
+            success:function (data) {
+               if(data.codice===900){
+                    var $toastContent = $('<span>Email o password errati</span>');
+                    Materialize.toast($toastContent, 3000); 
+                }else if(data.codice===910){
+                    $("#login").addClass("off");
+                    $("#logout").removeClass("off");
+                    $('#form').closeModal();
+                    $('.dropdown-button').dropdown({
+                        inDuration: 300,
+                        outDuration: 225,
+                        constrain_width: false, // Does not change width of dropdown to that of the activator
+                        gutter: 0, // Spacing from edge
+                        belowOrigin: false, // Displays dropdown below the button
+                        alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                    });
+                }          
+            }
+            });
         }
-        });
     });
     
     
