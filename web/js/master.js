@@ -11,29 +11,34 @@ $( document ).ready(function(){
     });
     
     $("#btn_logout").click(function(){
-        $.post("Controller",
-        {
-            op: "logout"
+        $.ajax({
+        type : 'POST',
+        url : 'Controller',           
+        data: {
+            op : "logout",
         },
-        function(data, status){
-            $("#login").removeClass("off");
-            $("#logout").addClass("off");
+        success:function (data) {
+           $("#login").removeClass("off");
+           $("#logout").addClass("off");         
+        }
         });
     });
 
     $("#btn_login").click(function(){
         var email = document.getElementById("email").value;
         var pwd = document.getElementById("password").value;
-        $.post("Controller",
-        {
-            op: "login",
+        $.ajax({
+        type : 'POST',
+        url : 'Controller',           
+        data: {
+            op : "login",
             email: email,
             pwd: pwd
         },
-        function(data, status){
-            if(data==900){
-                
-            }else if(data==910){
+        success:function (data) {
+           if(data.codice===900){
+               
+            }else if(data.codice===910){
                 $("#login").addClass("off");
                 $("#logout").removeClass("off");
                 $('#form').closeModal();
@@ -45,7 +50,8 @@ $( document ).ready(function(){
                     belowOrigin: false, // Displays dropdown below the button
                     alignment: 'left' // Displays dropdown with edge aligned to the left of button
                 });
-            }
+            }          
+        }
         });
     });
     

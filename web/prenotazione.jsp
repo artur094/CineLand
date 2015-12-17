@@ -17,28 +17,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    Spettacolo s = Spettacoli.getSpettacoliFuturi();
     int id_spettacolo = Integer.parseInt(request.getParameter("id"));
     Sala sala = new Sala(id_spettacolo);
-    Film f = Film.getFilmfromSpettacolo(id_spettacolo);
-    //List<Date> orariDisponibili = orariDisponibili = s.getSpettacoliDisponibili(f,new Date());
-    String orariDisponibili = s.getSpettacoliDisponibili(f.getId_film(), new Date());
-    Date maximumDate = s.getMaxData(f);
 %>
 <!DOCTYPE html>
 <html>
     <head>
-        <!--<script src="../jquery-1.9.1.js"></script>-->
-        <script src="js/jquery-1.11.3.js"></script>
-        <script src="js/jquery-ui.js"></script>
-        <script src="js/<%= sala.getNome().toLowerCase()%>.js"></script>
-        <script src="js/infoHome.js"></script>
-        <!--<script src="../jquery-ui.min.js"></script>-->
-        <!--<script src="../jquery.min.js"></script>-->
-        <link href="css/Prenotazione.css" type="text/css" rel="stylesheet">
-        <link href="css/jquery-ui.css" type="text/css" rel="stylesheet">
-        <link href="css/login.css" type="text/css" rel="stylesheet">
-        <link href="css/<%= sala.getNome().toLowerCase()%>.css" rel="stylesheet">
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <!--Import index.css-->
+        <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/prenotazione.css"  />
         
         <!--<link rel="stylesheet" href="jquery-ui-1.7.2.custom.css" type="text/css">-->
         <script>
@@ -47,37 +38,8 @@
   {
       
       
-	$.datepicker.setDefaults($.datepicker.regional['it']);
-        //alert($("#id_film").val());
-        $( "#datepicker" ).datepicker
-        (
-            {
-                onSelect: function()
-                {
-                    var dateObject = $(this).datepicker('getDate'); 
-                    alert($("#id_film").val()+"    "+$("#datepicker").datepicker({ dateFormat: 'yyyy/mm/dd' }).val());
-                    $("#orario").empty();
-                    //var ahah = ""; 
-                    $.ajax({
-                        type : 'POST',
-                        url : 'Controller',           
-                        data: {
-                            op : "hour",
-                            f : $('#id_film').val(),
-                            date : $("#datepicker").datepicker({ dateFormat: 'yyyy/mm/dd' }).val()
-                        },
-                        success:function (data) {
-                           // alert(data);
-                            $("#orario").append(data);
-                            refreshMappa();
-                            }
-                        }); 
-                },
-                minDate: 0, 
-                maxDate: new Date(<%=(maximumDate.getYear()+1900) + "," + maximumDate.getMonth() + "," + maximumDate.getDate()%>),
-                dateFormat: 'dd/mm/yy'
-            }
-        ).datepicker("setDate", "0");
+	
+        
         
         function refreshMappa(){
             $.ajax({
