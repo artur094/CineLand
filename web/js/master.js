@@ -42,7 +42,8 @@ $( document ).ready(function(){
             success:function (data) {
                if(data.codice===900){
                     var $toastContent = $('<span>Email o password errati</span>');
-                    Materialize.toast($toastContent, 3000); 
+                    Materialize.toast($toastContent, 3000);
+                    
                 }else if(data.codice===910){
                     $("#login").addClass("off");
                     $("#logout").removeClass("off");
@@ -58,6 +59,8 @@ $( document ).ready(function(){
                 }          
             }
             });
+            document.getElementById("email").value = "";
+            document.getElementById("password").value = "";
         }
     });
     
