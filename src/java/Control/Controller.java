@@ -66,7 +66,7 @@ public class Controller extends HttpServlet {
         
         switch(operation)
         {
-            case "test_qrcode_html":
+            case "test_qrcode":
                 QRCode qrcode = new QRCode("TEST");
                 byte[] array = qrcode.getQrcode().toByteArray();
                 response.setContentType("image/jpg");
@@ -74,10 +74,10 @@ public class Controller extends HttpServlet {
                 response.getOutputStream().write(array);
                 
                 break;
-            case "test_qrcode":
+            case "test_qrcode_html":
                 try (PrintWriter out = response.getWriter()) {
                     out.print("<img src='");
-                    out.print("http://localhost:8084/NuovoBackend/Controller?op=test1");
+                    out.print("http://localhost:8084/NuovoBackend/Controller?op=test_qrcode");
                     out.print("' />");
                     
                 }
