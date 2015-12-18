@@ -222,15 +222,20 @@ public class DBManager implements Serializable {
             return "";
         String codice = generateRandomKey(64);
         
-        ps = con.prepareStatement("INSERT INTO utente(email,password,nome,ruolo, codice_attivazione, data_invio_codice_attivazione) "+
-                "VALUES (?,?,?,?,?, CURRENT_TIMESTAMP)");
+        ps = con.prepareStatement("INSERT INTO utente(email,password,nome,credito,id_ruolo, codice_attivazione, data_invio_codice_attivazione) "+
+                "VALUES (?,?,?,?,?,?, CURRENT_TIMESTAMP)");
         ps.setString(1, email);
         ps.setString(2, password);
         ps.setString(3, nome);
-        ps.setInt(4, id_ruolo);
-        ps.setString(5, codice);
+        ps.setDouble(4, 0);
+        ps.setInt(5, id_ruolo);
+        ps.setString(6, codice);
+        
+        ps.executeUpdate();
         
         PreparedStatement selezione = con.prepareStatement("SELECT * FROM utente WHERE email = ? AND password = ?");
+        selezione.setString(1, email);
+        selezione.setString(2, password);
         rs = selezione.executeQuery();
         if(rs.next())
             return codice;
@@ -256,11 +261,13 @@ public class DBManager implements Serializable {
         //getDouble ritorna 0 se il valore è null (ovvero nel resut set non c'è nessun utente con quel codice di attivazione)
         if(rs.next()){
             if(!rs.getString("CODICE_ATTIVAZIONE").equals("")){
-                PreparedStatement confermaUtente = con.prepareStatement("UPDATE utente SET id_ruolo = ? WHERE email = ? AND codice_attivazione = ?");
+                PreparedStatement confermaUtente = con.prepareStatement("UPDATE utente SET id_ruolo = ?, codice_attivazione = ? WHERE email = ? AND codice_attivazione = ?");
                 confermaUtente.setInt(1, id_ruolo);
-                confermaUtente.setString(2, email);
-                confermaUtente.setString(3, "");
-                return true;
+                confermaUtente.setString(2,"");
+                confermaUtente.setString(3, email);
+                confermaUtente.setString(4, code);
+                if(confermaUtente.executeUpdate() > 0)
+                    return true;
             }
         }
         return false;
