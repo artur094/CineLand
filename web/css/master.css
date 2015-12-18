@@ -1,5 +1,6 @@
 html{
 	background-color: #2B2D42;
+        min-width: 480px;
 }
 
 #index_container{

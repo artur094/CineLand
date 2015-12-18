@@ -85,29 +85,37 @@
             <div class="row" id="titolo">
                 <h3><%out.println(spett.getFilm().getTitolo());%></h3>
             </div>
-            <div>
+            <div><p class="countPostiSel">Posti selezionati: 0</p>
                 <ul>
                     <li class="row">
-                        <div class="campo col offset-m1">Posto  : 1A</div>
+                        <div class="campo col offset-m1">Studenti: </div>
                         <div class="input-field col">
-                            <select>
-                              <option value="0" selected>Normale</option>
-                              <option value="1">Studente*</option>
-                              <option value="2">Militare*</option>
-                              <option value="3">Anziano*</option>
-                              <option value="4">Disabile</option>
+                            <select class="selStudenti">
+                              <option value="0" selected>0</option>
                             </select>
                         </div>
                     </li>
                     <li class="row">
-                        <div class="campo col offset-m1">Posto  : 2A</div>
+                        <div class="campo col offset-m1">Militari: </div>
                         <div class="input-field col">
-                            <select>
-                              <option value="0" selected>Normale</option>
-                              <option value="1">Studente</option>
-                              <option value="2">Militare</option>
-                              <option value="3">Anziano</option>
-                              <option value="4">Disabile</option>
+                            <select class="selMilitari">
+                              <option value="0" selected>0</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="campo col offset-m1">Anziani: </div>
+                        <div class="input-field col">
+                            <select class="selAnziani">
+                              <option value="0" selected>0</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="campo col offset-m1">Disabili: </div>
+                        <div class="input-field col">
+                            <select class="selDisabili">
+                              <option value="0" selected>0</option>
                             </select>
                         </div>
                     </li>
@@ -121,7 +129,415 @@
         </div>
         
         <div id="map_cont" class="container">
-            
+            <div class="row">
+                <div class="col s3">&emsp;</div>
+                <div class="col s6 schermo">
+                    &emsp;
+                </div>
+                <div class="col s3">&emsp;</div>
+            </div>
+            <div class="row"><div class="col s12">&nbsp;</div></div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chairRed.png" class="img_posto prenotato"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+            <div class="row fila_posti">
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s2">
+                    <div class="stair">
+                        <div class="stair_up">
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+                <div class="posto col s1">
+                    <img src="img/chair20.png" class="img_posto"/>
+                </div>
+            </div>
+
         </div>
                 <div class="container" id="leggenda">
                 <blockquote>
