@@ -60,6 +60,8 @@ public class Controller extends HttpServlet {
         // signup
         // logout
         // enable
+        // pswdimenticata
+        // paginaresetpsw --> usata per redirezionare da email a controller
         // resetpsw
         // prenota
         // paga
@@ -149,7 +151,7 @@ public class Controller extends HttpServlet {
             // Se è loggato, non faccio niente
             case "signup":
                 user = (Utente)request.getSession().getAttribute("user");
-                if(user != null)
+                if(user == null)
                 {
                     if(Control.signUp(email,name, password, request.getRequestURL().toString()))
                     {
@@ -171,14 +173,39 @@ public class Controller extends HttpServlet {
                 }
                 break;
             // Gestione del reset della password
-            case "resetpsw":
-                if(Control.resetPassword(email, request.getRequestURL().toString()))
+            case "pswdimenticata":
+                if(Control.passwordDimenticata(email, request.getRequestURL().toString()))
                 {
                     // andata a buon fine, quindi redirezionare ad una pagina
                     // o nemmeno, comunque avvertendo che la email è stata inviata
                 }
                 else
-                    error("resetpwd");
+                    error("pswdimenticata");
+                break;
+            case "paginaresetpsw":
+            {
+                //REDIRECT PAGINA PER CAMBIO PASS
+            }
+            case "resetpsw":
+                if(password == null)
+                {
+                    //ERRORE
+                }
+                else if(password == "")
+                {
+                    // ERRORE
+                }
+                else 
+                {
+                    if(Control.resetPassword(email, password, code))
+                    {
+                        //pass cambiata
+                    }
+                    else
+                    {
+                        //ERRORE
+                    }
+                }
                 break;
             case "enable":
                 if(Control.enableAccount(email, code))

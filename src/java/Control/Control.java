@@ -72,14 +72,14 @@ public class Control {
     }
     
     // Funzione che gestisce il reset della password
-    public static boolean resetPassword(String email, String url_cineland)
+    public static boolean passwordDimenticata(String email, String url_cineland)
     {
         try {
             DBManager dbm = DBManager.getDBManager();
             Utente u = dbm.getUtente(email);
             String codice = dbm.passwordDimenticata(email);
             // INVIO EMAIL
-            String link = url_cineland + "?op=resetpsw&email="+email+"&codice="+codice;
+            String link = url_cineland + "?op=paginaresetpsw&email="+email+"&codice="+codice;
             String oggetto = "Reset Password CineLand";
             String messaggio = "Gentile "+u.getNome()+ ",\n"+
                     "Per resettare la password prema il seguente link:\n"+
@@ -92,6 +92,21 @@ public class Control {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    public static boolean resetPassword(String email, String password, String codice)
+    {
+        try{
+            DBManager dbm = DBManager.getDBManager();
+            if(dbm.passwordResettata(email, password, codice))
+            {
+                return true;
+            }
+        }catch(Exception ex)
+        {
+            
+        }
+        return false;
     }
     
     public static void prenotaFilm(int id_spettacolo, int id_utente, String posti)
