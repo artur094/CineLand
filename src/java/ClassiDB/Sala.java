@@ -84,7 +84,27 @@ public class Sala {
     // Trasformare la mappa in una stringa
     public String toString()
     {
-        return null;
+        String nonEsiste = "N";
+        String occupato = "O";
+        String libero = "L";
+        String str_map = "";
+        for(int i=0; i<mappa.length; i++)
+        {
+            for(int j=0; j<mappa[i].length; j++)
+            {
+                if(!mappa[i][j].isEsiste())
+                    str_map += nonEsiste;
+                else if(mappa[i][j].isOccupato())
+                {
+                    str_map += occupato;
+                }
+                else
+                    str_map += libero;
+            }
+            str_map+="\n";
+        }
+        str_map = str_map.substring(0, str_map.length()-1);
+        return str_map;
     }
     
     

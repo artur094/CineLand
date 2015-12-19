@@ -9,7 +9,7 @@ import ClassiDB.Prenotazione;
 import ClassiDB.Spettacolo;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+//import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
