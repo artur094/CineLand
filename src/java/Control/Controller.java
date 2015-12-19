@@ -6,6 +6,8 @@
 package Control;
 
 import ClassiDB.Film;
+import ClassiDB.Posto;
+import ClassiDB.Sala;
 import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
@@ -86,11 +88,27 @@ public class Controller extends HttpServlet {
                 }
                 break;
             case "test":
-                try{
-                    DBManager dbm = DBManager.getDBManager();
-                    PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
-                    response.setContentType("application/pdf");
-                    pdf.costruisciPdf("test", response.getOutputStream());
+                try(PrintWriter out = response.getWriter()){
+                    //DBManager dbm = DBManager.getDBManager();
+                    //PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
+                    //response.setContentType("application/pdf");
+                    //pdf.costruisciPdf("test", response.getOutputStream());
+                    Sala s = new Sala(1);
+                    out.println("TOSTRING");
+                    out.println(s.toString());
+                    out.println("STRING[][]");
+                    String[][] mappa = s.getStringMappa();
+                    
+                    for(int i = 0;i < mappa.length;i++)
+                    {
+                        for(int j=0;j<mappa[i].length; j++)
+                        {
+                            out.print(mappa[i][j]);
+                        }
+                        out.println();
+                    }
+                    
+                    
                 }catch(Exception e)
                 {
                     
