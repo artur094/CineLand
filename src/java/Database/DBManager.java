@@ -76,6 +76,42 @@ public class DBManager implements Serializable {
     }
     
     // VARIE FUNZIONI DI AMMINISTRAZIONE 
+    public boolean creaPostoVuoto(int id_sala, int riga, int colonna) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT id_posto FROM posto WHERE id_sala = ? AND riga = ? AND colonna = ?");
+        ps.setInt(1, id_sala);
+        ps.setInt(2, riga);
+        ps.setInt(3, colonna);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+        {
+            ps = con.prepareStatement("UPDATE posto SET esiste = false WHERE id_posto = ?");
+            ps.setInt(1, rs.getInt("id_posto"));
+            
+            int rows = ps.executeUpdate();
+            if(rows > 0)
+                return true;
+        }
+        return false;
+    }
+    
+    public boolean insertSpettacolo(int id_sala, int id_film, Timestamp data) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement(
+                "INSERT INTO spettacolo (id_film, id_sala, data_ora) VALUES (?,?,?)"
+        );
+        ps.setInt(1, id_film);
+        ps.setInt(2, id_sala);
+        ps.setTimestamp(3, data);
+        
+        int rows = ps.executeUpdate();
+        if(rows < 1)
+            return false;
+        return true;
+    }
+    
     //DA FINIREEEEE
     public List<Posto> postiVendutiperSpettacolo() throws SQLException
     {
@@ -723,6 +759,32 @@ public class DBManager implements Serializable {
         }
         s.setMappa(mappa); //fine??? thanks god!
         return s;
+    }
+    
+    public int getIdSala(String nome) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT id_sala FROM sala WHERE LOWER(descrizione) = ?");
+        ps.setString(1,nome.toLowerCase());
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+        {
+            return rs.getInt("id_sala");
+        }
+        return -1;
+    }
+    
+    public List<Integer> getListaIDSale() throws SQLException
+    {
+        List<Integer> listaSale = new ArrayList<>();
+        PreparedStatement ps = con.prepareStatement("SELECT id_sala FROM sala");
+        ResultSet rs = ps.executeQuery();
+        while(rs.next())
+        {
+            listaSale.add(rs.getInt("id_sala"));
+        }
+        return listaSale;
     }
     
     // Prendere lo spettacolo dal DB

@@ -6,6 +6,8 @@
 package Control;
 
 import ClassiDB.Film;
+import ClassiDB.Posto;
+import ClassiDB.Sala;
 import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
@@ -50,6 +52,7 @@ public class Controller extends HttpServlet {
         String password = (String)request.getParameter("pwd");
         String name = (String)request.getParameter("name");
         String posti = (String)request.getParameter("posti");
+        String nome_sala = (String)request.getParameter("sala");
         String code = (String)request.getParameter("codice");
         //Integer id_prenotazione = Integer.parseInt(request.getParameter("prenotazione"));
         
@@ -64,11 +67,30 @@ public class Controller extends HttpServlet {
         // paginaresetpsw --> usata per redirezionare da email a controller
         // resetpsw
         // prenota
-        // paga
+        // paga --> da cancellare
+        // creabuco --> solo admin, posti dati in input: riga,colonna riga,colonna...
         // test
+        // script
         
         switch(operation)
         {
+            case "script":
+                try{
+                    int x = Integer.parseInt(request.getParameter("x"));
+                    Control.script(x);
+                }
+                catch(SQLException ex){
+                    try(PrintWriter out = response.getWriter()){
+                        out.println("SQL Exception");
+                    }
+                }
+                catch(ClassNotFoundException cl)
+                {
+                    try(PrintWriter out = response.getWriter()){
+                        out.println("ClassNotFound Exception");
+                    }
+                }
+                break;
             case "test_qrcode":
                 QRCode qrcode = new QRCode("CINELAND");
                 byte[] array = qrcode.getQrcode().toByteArray();
@@ -86,11 +108,27 @@ public class Controller extends HttpServlet {
                 }
                 break;
             case "test":
-                try{
-                    DBManager dbm = DBManager.getDBManager();
-                    PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
-                    response.setContentType("application/pdf");
-                    pdf.costruisciPdf("test", response.getOutputStream());
+                try(PrintWriter out = response.getWriter()){
+                    //DBManager dbm = DBManager.getDBManager();
+                    //PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
+                    //response.setContentType("application/pdf");
+                    //pdf.costruisciPdf("test", response.getOutputStream());
+                    Sala s = new Sala(1);
+                    out.println("TOSTRING");
+                    out.println(s.toString());
+                    out.println("STRING[][]");
+                    String[][] mappa = s.getStringMappa();
+                    
+                    for(int i = 0;i < mappa.length;i++)
+                    {
+                        for(int j=0;j<mappa[i].length; j++)
+                        {
+                            out.print(mappa[i][j]);
+                        }
+                        out.println();
+                    }
+                    
+                    
                 }catch(Exception e)
                 {
                     
@@ -170,6 +208,9 @@ public class Controller extends HttpServlet {
                 if(user != null)
                 {
                     request.getSession().removeAttribute("user");
+                    Admin admin = (Admin)request.getSession().getAttribute("admin");
+                    if(admin != null)
+                        request.getSession().removeAttribute("admin");
                 }
                 break;
             // Gestione del reset della password
@@ -229,6 +270,14 @@ public class Controller extends HttpServlet {
                     //redirect to login
                 }
             case "paga":
+                break;
+            
+            case "creabuco":
+                Admin admin = (Admin) request.getSession().getAttribute("admin");
+                if(admin != null)
+                {
+                    int ris = Control.creaBuchiSala(nome_sala, posti);
+                }
                 break;
                     
             default:

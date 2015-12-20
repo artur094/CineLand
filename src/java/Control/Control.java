@@ -5,13 +5,19 @@
  */
 package Control;
 
+import ClassiDB.Film;
 import ClassiDB.Prenotazione;
 import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
+import GestioneClassi.Films;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -109,6 +115,45 @@ public class Control {
         return false;
     }
     
+    /**
+     * Funzione che invia la richiesta al DBManager di 'cancellare' dei posti (perchè rotti)
+     * @param posti Stringa che contiene i posti da 'cancellare'. Formato stringa: "riga,colonna riga,colonna ... riga,colonna"
+     * @param nome_sala Nome della sala a cui effettuare la modifica
+     * @return intero che indica quante operazioni sono andate a buon fine
+     */
+    public static int creaBuchiSala(String nome_sala, String posti)
+    {
+        try{
+            String[] array;
+            String[] posto;
+            int riga;
+            int colonna;
+            int risultato = 0;
+            
+            DBManager dbm = DBManager.getDBManager();
+            int id_sala = dbm.getIdSala(nome_sala);
+            
+            if(id_sala < 0)
+                return 0;
+            
+            array = posti.split(" ");
+            for (String s : array) {
+                posto = s.split(",");
+                riga = Integer.parseInt(posto[0]);
+                colonna = Integer.parseInt(posto[1]);
+                
+                if(dbm.creaPostoVuoto(id_sala, riga, colonna))
+                    risultato++;
+                
+            }
+            return risultato;
+        }
+        catch(Exception ex)
+        {
+            return 0;
+        }
+    }
+    
     public static void prenotaFilm(int id_spettacolo, int id_utente, String posti)
     {
         try{
@@ -166,6 +211,25 @@ public class Control {
         {
             
         }
+    }
+    
+    public static void script(int X) throws SQLException, ClassNotFoundException
+    {
+        DBManager dbm = DBManager.getDBManager();
+        List<Film> lista_film = Films.getAllFilms().getListaFilm();
+        List<Integer> lista_sale = dbm.getListaIDSale();
+        Random r = new Random((new Date()).getTime());
+        for (int i = 0; i < lista_sale.size(); i++) {
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.MINUTE, r.nextInt(X+1));
+            
+            for (int j = 0; j < 15; j++) {
+                Timestamp ts = new Timestamp(c.getTime().getTime());
+                dbm.insertSpettacolo(lista_sale.get(i), lista_film.get(i).getId(), ts);
+                c.add(Calendar.MINUTE, X);
+            }
+        }
+        
     }
     
 }
