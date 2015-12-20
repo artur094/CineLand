@@ -165,7 +165,7 @@
             </div>
         </div>
         <!-- Main central content -->
-        <div class="container" id="index_container">
+        <div id="index_container">
             <%
                 for(int i = 0; i < films.size(); i++){    
                 out.println("<div class=\"card\">");

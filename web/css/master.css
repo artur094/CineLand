@@ -1,19 +1,20 @@
 html{
-	background-color: #2B2D42;
+	background-color: #ffffff;
         min-width: 480px;
 }
 
 #index_container{
 	height: 100%;
-	background-color: #212121;
-	margin-top: 400px;
+	background-color: #CCCCCC;
+	position: relative;
 	margin-left: auto;
 	margin-right: auto;
 	padding-top: 1px;
+        top: 496px;
 }
 
 nav{
-	background-color: inherit;
+	background-color: #212121;
 }
 
 .side-nav{
@@ -28,6 +29,11 @@ nav{
 	background-repeat: no-repeat;
 	height: 55px;
 	width: 290px;
+}
+
+footer.page-footer{
+    position: relative;
+    top: 496px;
 }
 
 footer.page-footer{
