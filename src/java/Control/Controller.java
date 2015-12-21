@@ -167,21 +167,24 @@ public class Controller extends HttpServlet {
                             }
                             catch(Exception ex)
                             {
-
+                                RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+                                dispatcher.forward(request, response);
                             }
                         }
                         request.getSession().setAttribute("user", user);
                         //nome = user.getNome();
                         //credito = user.getCredito();
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("demo.jsp");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
                         dispatcher.forward(request, response);
                     }
                 }
+                RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+                dispatcher.forward(request, response);
                 /*try (PrintWriter out = response.getWriter()) {
                     String json = "{ "+
                             "\"codice\": "+codice+", "+
-                            "\"nome\": \""+nome+"\", "+
-                            "\"credito\": "+credito+
+                            //"\"nome\": \""+nome+"\", "+
+                            //"\"credito\": "+credito+
                             "}";
                     out.println(json);
                 }*/
