@@ -215,6 +215,7 @@ public class Control {
     
     public static void script(int X) throws SQLException, ClassNotFoundException
     {
+        /*
         DBManager dbm = DBManager.getDBManager();
         List<Film> lista_film = Films.getAllFilms().getListaFilm();
         List<Integer> lista_sale = dbm.getListaIDSale();
@@ -229,7 +230,22 @@ public class Control {
                 c.add(Calendar.MINUTE, X);
             }
         }
-        
+        */  
+        DBManager dbm = DBManager.getDBManager();
+        List<Film> lista_film = Films.getAllFilms().getListaFilm();
+        List<Integer> lista_sale = dbm.getListaIDSale();
+        Random r = new Random((new Date()).getTime());
+        for (int i = 0; i < lista_film.size(); i++) {
+            int indice_sala = i % lista_sale.size();
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.MINUTE, r.nextInt(X+1));
+            
+            for (int j = 0; j < 15; j++) {
+                Timestamp ts = new Timestamp(c.getTime().getTime());
+                dbm.insertSpettacolo(lista_sale.get(indice_sala), lista_film.get(i).getId(), ts);
+                c.add(Calendar.MINUTE, X);
+            }
+        }
     }
     
 }
