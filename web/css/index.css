@@ -121,14 +121,6 @@ margin-left: 8px;
     padding-right: 5px;
 }
 
-.off{
-    display: none;
-}
-.modal .modal-content{
-    background-color: #2B2D42;
-    color: #fff;
-}
-
 .tabs .tab a{
     color: #e65100;
 }

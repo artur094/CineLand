@@ -18,8 +18,7 @@ $( document ).ready(function(){
             op : "logout",
         },
         success:function (data) {
-           $("#login").removeClass("off");
-           $("#logout").addClass("off");         
+            window.location.replace("index.jsp");
         }
         });
     });
@@ -45,17 +44,11 @@ $( document ).ready(function(){
                     Materialize.toast($toastContent, 3000);
                     
                 }else if(data.codice===910){
-                    $("#login").addClass("off");
-                    $("#logout").removeClass("off");
                     $('#form').closeModal();
-                    $('.dropdown-button').dropdown({
-                        inDuration: 300,
-                        outDuration: 225,
-                        constrain_width: false, // Does not change width of dropdown to that of the activator
-                        gutter: 0, // Spacing from edge
-                        belowOrigin: false, // Displays dropdown below the button
-                        alignment: 'left' // Displays dropdown with edge aligned to the left of button
-                    });
+                    window.location.replace("index.jsp");
+                }else if(data.codice===920){
+                    $('#form').closeModal();
+                    window.location.replace("index.jsp");
                 }          
             }
             });

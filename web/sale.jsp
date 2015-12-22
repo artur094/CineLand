@@ -5,7 +5,7 @@
         <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/materialize/materialize.min.css"  media="screen,projection"/>
         <!--Import css-->
         <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="css/sale.css"  media="screen,projection"/>
@@ -36,23 +36,25 @@
                     <ul class="right hide-on-med-and-down">
                     <%
                         if(sess){
-                            out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>Io</a>"
-                                +"<ul id='user' class='dropdown-content'>"
-                                +"<li><a href=\"#!\">Acquisti</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a href=\"#!\">Profilo</a></li>"
-                                +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                +"</ul></div></li>");
-                            out.println("<li id=\"login\" class=\"off\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
+                            if(user.getRuolo().equals("admin")){
+                                out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
+                                    +"<ul id='user' class='dropdown-content'>"
+                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                    +"</ul></div></li>");    
+                            }else{
+                                out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
+                                    +"<ul id='user' class='dropdown-content'>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                    +"</ul></div></li>");
+                            }
+                           
                         }else{
-                            out.println("<li  id=\"logout\" class=\"off\"><div><a class='dropdown-button btn' href='#' data-activates='user'>Io</a>"
-                                +"<ul id='user' class='dropdown-content'>"
-                                +"<li><a href=\"#!\">Acquisti</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a href=\"#!\">Profilo</a></li>"
-                                +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                +"</ul></div></li>");
-                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\"><i class=\"material-icons right\"></i>Sign in</a></li>");
+                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
                         }
                     %>
                     <li><a href="index.jsp">Film</a></li>
@@ -186,6 +188,6 @@
     </footer>
 	  <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
 		<script type="text/javascript" src="js/master.js"></script>
   </html>

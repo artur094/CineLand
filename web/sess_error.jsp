@@ -12,7 +12,7 @@
         <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/materialize/materialize.min.css"  media="screen,projection"/>
         <!--Import index.css-->
         <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="css/error.css"  media="screen,projection"/>

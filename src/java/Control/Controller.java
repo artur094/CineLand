@@ -145,9 +145,9 @@ public class Controller extends HttpServlet {
                 // ADMIN --> 920
                 // LOGGATO --> 910
                 // ERRORE --> 900
-                //int codice = 900;
-                //String nome ="";
-                //double credito = 0;
+                int codice = 900;
+                String nome ="";
+                double credito = 0;
                 
                 response.setContentType("application/json");
                 user = (Utente)request.getSession().getAttribute("user");
@@ -158,12 +158,12 @@ public class Controller extends HttpServlet {
                     
                     if(user != null)
                     {
-                        //codice = 910;
+                        codice = 910;
                         if(user.getRuolo().equals("admin"))
                         {
                             try{
                                 request.getSession().setAttribute("admin", new Admin());
-                                //codice = 920;
+                                codice = 920;
                             }
                             catch(Exception ex)
                             {
@@ -172,22 +172,18 @@ public class Controller extends HttpServlet {
                             }
                         }
                         request.getSession().setAttribute("user", user);
-                        //nome = user.getNome();
-                        //credito = user.getCredito();
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                        dispatcher.forward(request, response);
+                        nome = user.getNome();
+                        credito = user.getCredito();   
                     }
                 }
-                RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
-                dispatcher.forward(request, response);
-                /*try (PrintWriter out = response.getWriter()) {
+                try (PrintWriter out = response.getWriter()) {
                     String json = "{ "+
                             "\"codice\": "+codice+", "+
-                            //"\"nome\": \""+nome+"\", "+
-                            //"\"credito\": "+credito+
+                            "\"nome\": \""+nome+"\", "+
+                            "\"credito\": "+credito+
                             "}";
                     out.println(json);
-                }*/
+                }
                 break;
             // Controllo per sicurezza, se è loggato
             // Se non lo è, provo a inserire mail, nome e password
