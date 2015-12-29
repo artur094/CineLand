@@ -1,38 +1,3 @@
-.video-title{
-    position: relative;
-    top:-60px;
-    height: 60px;
-    left: 0px;
-    width: 600px;
-    color:whitesmoke;
-    font-size: 30px;
-    background-color: rgba(0,0,0,0.6);
-}
-
-.rect-video{
-    margin: 0px;
-    position: relative;
-}
-
-video{
-    position: relative;
-    margin: 0px;
-    background-color: black;
-}
-
-.rect-container{
-    background-color: black;
-    margin: 0px;
-    width: 600px;
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    
--webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 1);
--moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 1);
-box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 1);
-}
-
 
 .container-bottom{
     position: relative;
@@ -64,19 +29,10 @@ box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 1);
 	position: absolute;
 }
 
-video{
-	width: 100%;
-}
-
 #index_container{
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top:5px;
-    padding-left: 25px;
-    padding-right: 25px;
+    width: 75%;
     display: flex;
-    justify-content: space-between;
+    justify-content: initial;
     flex-wrap: wrap;
 }
 #index_container .btn{
@@ -124,3 +80,47 @@ margin-left: 8px;
 .tabs .tab a{
     color: #e65100;
 }
+
+ul{
+    
+    margin: 0px;
+}
+
+@media only screen and (max-width: 799px){
+    .card{
+        margin-left: auto;
+        margin-right: auto;
+        width: 375px;
+    }
+}
+
+/* Portrait and Landscape */
+@media only screen and (min-width: 800px) and (max-width: 1280px) {
+    li.card.showcase{
+        width: 90%;
+        height: 100%;
+        min-width: 700px;
+        max-width: 1000px;
+        margin-top: 3vh;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (min-width: 1280px){
+    .wrapper{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    li.card.showcase{
+        width: 45%;
+        height: 100%;
+        min-width: 600px;
+        max-width: 700px;
+        margin-top: 3vh;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+

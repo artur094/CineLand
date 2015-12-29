@@ -60,13 +60,11 @@
                         }
                     %>
                     <li><a href="index.jsp">Film</a></li>
-                    <li><a href="sale.jsp">Le nostre sale</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
             <ul class="side-nav" id="mobile-demo">
                 <li><a class=""><i class="material-icons right"></i>Sign in/out</a></li>
                 <li><a href="index.jsp">Film</a></li>
-                <li><a href="sale.jsp">Le nostre sale</a></li>
                 <li><a href="aboutus.jsp">About us</a></li>
             </ul>
         </div>
@@ -134,62 +132,48 @@
             </div>
         </div>
     <!-- Main central content -->
-    <div class="container" id="index_container">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius facilisis mi quis lobortis. Praesent consectetur eros sit amet laoreet blandit. 
-            Maecenas vulputate lectus vulputate velit viverra hendrerit. Nam interdum libero sed rhoncus pellentesque. Nam a posuere justo. Donec suscipit, est ac pretium congue, quam
-            eros vehicula odio, quis lobortis eros orci eu mauris. Quisque tempor erat eros, vel rutrum orci mollis nec. Suspendisse metus lacus, ultricies non rutrum eget, finibus quis mi. 
-            Etiam volutpat nulla nulla, et efficitur justo elementum et.
-            Etiam maximus ipsum vulputate, faucibus leo a, eleifend metus. Nulla maximus ornare tempus. Donec volutpat lorem eget purus congue, ac hendrerit dolor rhoncus. Nullam tempus 
-            nulla eu efficitur
-            elementum. Nam lacinia ante at nisl feugiat rutrum. Nullam feugiat, felis eget interdum laoreet, est felis accumsan ex, id iaculis sapien ligula eget lectus. Sed a molestie turpis, 
-            ac bibendum eros. Cras convallis nisi vel nulla ornare suscipit. Maecenas aliquet pretium ipsum sit amet scelerisque. Donec ipsum leo, aliquet nec lorem nec, ornare porta metus. 
-            In et turpis erat. Nulla facilisi. Phasellus efficitur tortor viverra malesuada iaculis. Nulla sodales mi ornare massa tristique, a facilisis tortor eleifend. Nulla facilisi.
-            Etiam diam magna, facilisis eget dictum accumsan, euismod et mi. Ut lobortis nibh ac enim blandit lacinia. Morbi diam tortor, ullamcorper at neque in, fermentum suscipit est. 
-            Ut sollicitudin ante tortor. Phasellus id finibus tellus. Phasellus egestas nibh in mauris feugiat, a viverra magna rutrum. Proin condimentum lectus eu turpis viverra hendrerit. 
-            Nam fringilla magna a odio placerat, sit amet fringilla turpis consectetur. Aenean vulputate congue tortor, vitae commodo nibh imperdiet sodales. Sed commodo sem id efficitur 
-            . Nam viverra ligula nec quam laoreet elementum. Curabitur a elit diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus elementum 
-            est accumsan, ultricies elit id, tristique est.
-            Quisque at sagittis magna, id bibendum magna. Nulla vitae fermentum erat, sed viverra quam. Pellentesque purus nisi, consequat nec lorem ultrices, consequat pretium risus. Vivamus
-            sagittis nunc urna, non vulputate lorem tempor blandit. Vestibulum odio felis, congue vel efficitur vitae, accumsan eget enim. Ut vel mollis mauris, eu rhoncus ligula. 
-            Sed ac eros sit amet mi condimentum dignissim vel sit amet urna. In vitae justo velit. Fusce bibendum velit metus, finibus laoreet nisl iaculis eget
-            Suspendisse ut turpis sed massa fringilla auctor eu sit amet justo. Morbi quis consectetur nisi. Interdum et malesuada fames ac ante ipsum primis in faucibus. 
-            In id urna venenatis leo rutrum auctor sit amet iaculis tortor. Nullam interdum bibendum nisl, eget euismod felis gravida finibus. Duis in diam sapien. 
-            Aliquam egestas bibendum tellus, vel euismod sapien tincidunt a. Etiam vehicula tortor quis justo rhoncus, ut gravida magna dictum. Nam tempus venenatis ante, at vehicula urna 
-            malesuada at. Nam egestas tortor metus, vel interdum odio tempus at. Vestibulum eu libero ac orci suscipit fermentum nec nec metus. Fusce a porttitor augue. Maecenas ut egestas 
-            eros, eu rhoncus ante. Proin sollicitudin ornare felis, ut efficitur arcu fringilla mattis. Nullam varius iaculis quam, in placerat mauris ullamcorper quis. Nam ac erat ac 
-            turpis consectetur porttitor.
-        </p>
+    <div id="index_container">
+        <div class="row">
+            <h5 class="white-text">Dove siamo</h5>
+            <div class="col s12 m6">
+                <p class="grey-text text-lighten-4"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1388.7129075311707!2d11.020149873016887!3d45.88279612832539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47820eec18ff6f33%3A0x12423f50a6d6989e!2sVia+alla+Moia%2C+38068+Rovereto+TN!5e0!3m2!1sit!2sit!4v1435409420597" width="100%" height="500px" frameborder="0" style="border:0; z-index:11;" allowfullscreen=""></iframe></p>
+            </div>
+            <div class="col s12 m6">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius facilisis mi quis lobortis. Praesent consectetur eros sit amet laoreet blandit. 
+                Maecenas vulputate lectus vulputate velit viverra hendrerit. Nam interdum libero sed rhoncus pellentesque. Nam a posuere justo. Donec suscipit, est ac pretium congue, quam
+                eros vehicula odio, quis lobortis eros orci eu mauris. Quisque tempor erat eros, vel rutrum orci mollis nec. Suspendisse metus lacus, ultricies non rutrum eget, finibus quis mi. 
+                Etiam volutpat nulla nulla, et efficitur justo elementum et.
+                Etiam maximus ipsum vulputate, faucibus leo a, eleifend metus. Nulla maximus ornare tempus. Donec volutpat lorem eget purus congue, ac hendrerit dolor rhoncus. Nullam tempus 
+                nulla eu efficitur
+                elementum. Nam lacinia ante at nisl feugiat rutrum. Nullam feugiat, felis eget interdum laoreet, est felis accumsan ex, id iaculis sapien ligula eget lectus. Sed a molestie turpis, 
+                ac bibendum eros. Cras convallis nisi vel nulla ornare suscipit. Maecenas aliquet pretium ipsum sit amet scelerisque. Donec ipsum leo, aliquet nec lorem nec, ornare porta metus. 
+                In et turpis erat. Nulla facilisi. Phasellus efficitur tortor viverra malesuada iaculis. Nulla sodales mi ornare massa tristique, a facilisis tortor eleifend. Nulla facilisi.
+                Etiam diam magna, facilisis eget dictum accumsan, euismod et mi. Ut lobortis nibh ac enim blandit lacinia. Morbi diam tortor, ullamcorper at neque in, fermentum suscipit est. 
+                Ut sollicitudin ante tortor. Phasellus id finibus tellus. Phasellus egestas nibh in mauris feugiat, a viverra magna rutrum. Proin condimentum lectus eu turpis viverra hendrerit. 
+                Nam fringilla magna a odio placerat, sit amet fringilla turpis consectetur. Aenean vulputate congue tortor, vitae commodo nibh imperdiet sodales. Sed commodo sem id efficitur 
+                . Nam viverra ligula nec quam laoreet elementum. Curabitur a elit diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus elementum 
+                est accumsan, ultricies elit id, tristique est.
+                Quisque at sagittis magna, id bibendum magna. Nulla vitae fermentum erat, sed viverra quam. Pellentesque purus nisi, consequat nec lorem ultrices, consequat pretium risus. Vivamus
+                sagittis nunc urna, non vulputate lorem tempor blandit. Vestibulum odio felis, congue vel efficitur vitae, accumsan eget enim. Ut vel mollis mauris, eu rhoncus ligula. 
+                Sed ac eros sit amet mi condimentum dignissim vel sit amet urna. In vitae justo velit. Fusce bibendum velit metus, finibus laoreet nisl iaculis eget
+                Suspendisse ut turpis sed massa fringilla auctor eu sit amet justo. Morbi quis consectetur nisi. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+            </div>
+        </div>
+        
+        <h5 class="white-text">Contatti telefonici</h5>            
+        <div class="row">
+            <div class="col l4 offset-l2 s12">
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Ufficio: 000202022 </a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Assistenza: 21212121</a></li>
+                </ul>
+          </div>
+        </div>
 
     </div>
     </body>
-	 <footer class="page-footer">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Dove siamo</h5>
-                <p class="grey-text text-lighten-4"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1388.7129075311707!2d11.020149873016887!3d45.88279612832539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47820eec18ff6f33%3A0x12423f50a6d6989e!2sVia+alla+Moia%2C+38068+Rovereto+TN!5e0!3m2!1sit!2sit!4v1435409420597" width="400" height="250" frameborder="0" style="border:0; z-index:11;" allowfullscreen=""></iframe></p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Con il prezioso contributo di:</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Marco</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Mattia</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Paolo</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Ivan</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">Luca</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">Linda</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-					© 2016 Copyright Cineland
-            	<a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-          </div>
-	  </footer>
+	 
+          
 	 <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize/materialize.min.js"></script>

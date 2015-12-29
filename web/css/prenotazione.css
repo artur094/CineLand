@@ -1,15 +1,16 @@
 #list_con{
    min-height: 150px;
-   background-color: #212121;
+   background-color: #2B2D42;
    margin-top: 25px;
    margin-bottom: 25px;
    color: #fff;
    position: relative;
+   padding: 8px;
 }
 
 #map_cont{
     //min-height: 500px;
-    background-color: #212121;
+    background-color: #2B2D42;
     margin-top: 25px;
     margin-bottom: 25px;
     color: #fff;
@@ -20,7 +21,7 @@
 }
 
 #leggenda{
-    background-color: #212121;
+    background-color: #2B2D42;
     margin-top: 25px;
     margin-bottom: 25px;
     color: #fff;
@@ -132,3 +133,22 @@ blockquote{
 .selezionato{
 
 }
+.riduzioni{
+    display: none;
+}
+.check_ridotti{
+    color: #fff;
+}
+
+[type="checkbox"]+label:before{
+        border: 2px solid #26a69a;
+}
+
+label{
+    color: #26a69a;
+}
+
+.show{
+    display: flex;
+}
+

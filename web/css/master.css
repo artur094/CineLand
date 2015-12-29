@@ -1,20 +1,25 @@
 html{
-	background-color: #ffffff;
-        min-width: 480px;
+    height: 100%;
+    background-color: #2B2D42;
+}
+body{
+    height: 100%;
 }
 
 #index_container{
 	height: 100%;
-	background-color: #CCCCCC;
+	background-color: #2B2D42;
 	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	padding-top: 1px;
-        top: 496px;
+        padding-top:20px;
+        padding-bottom:20px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-left: auto;
+        margin-right: auto;
 }
 
 nav{
-	background-color: #212121;
+	background-color: #2B2D42;
 }
 
 .side-nav{
@@ -31,18 +36,15 @@ nav{
 	width: 290px;
 }
 
-footer.page-footer{
-    position: relative;
-    top: 496px;
-}
 
-footer.page-footer{
-	background-color: #212121;
-}
 .off{
     display: none;
 }
 
 .on{
     display: list-item;
+}
+
+.verified_user{
+    color: #43a047;
 }

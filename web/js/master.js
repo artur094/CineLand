@@ -22,10 +22,23 @@ $( document ).ready(function(){
         }
         });
     });
+    
+    $("#side_btn_logout").click(function(){
+        $.ajax({
+        type : 'POST',
+        url : 'Controller',           
+        data: {
+            op : "logout",
+        },
+        success:function (data) {
+            window.location.replace("index.jsp");
+        }
+        });
+    });
 
     $("#btn_login").click(function(){
-        var email = document.getElementById("email").value;
-        var pwd = document.getElementById("password").value;
+        var email = document.getElementById("email_lgn").value;
+        var pwd = document.getElementById("password_lgn").value;
         if(email==="" || pwd === ""){
             var $toastContent = $('<span>Email e password vuoti</span>');
             Materialize.toast($toastContent, 3000);
@@ -54,6 +67,34 @@ $( document ).ready(function(){
             });
             document.getElementById("email").value = "";
             document.getElementById("password").value = "";
+        }
+    });
+    $("#btn_signup").click(function(){
+        var name = document.getElementById("first_name").value;
+        var email = document.getElementById("email_sgnup").value;
+        var pwd = document.getElementById("password_sgnup").value;
+        if(email==="" || pwd === "" || name==""){
+            var $toastContent = $('<span>Tutti i campi sono obbligatori</span>');
+            Materialize.toast($toastContent, 3000);
+        }else{
+            $.ajax({
+            type : 'POST',
+            url : 'Controller',           
+            data: {
+                op : "signup",
+                email: email,
+                name: name,
+                pwd: pwd
+            },
+            success:function (data) {
+                $('#form').closeModal();
+                alert("Ti è stata inviata una e-mail al tuo indirizzo. Controlla la posta.");        
+            }
+            });
+            document.getElementById("email_sgnup").value = "";
+            document.getElementById("password_sgnup").value = "";
+            document.getElementById("first_name").value = "";
+
         }
     });
     

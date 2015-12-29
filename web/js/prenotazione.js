@@ -93,6 +93,14 @@ $('select').material_select();
         creaEventi();
     }
     
+    $('.check_ridotti').on('click',function(){
+        if(document.getElementById("ridotti").checked){
+            $('.riduzioni').addClass("show");
+        }else{
+            $('.riduzioni').removeClass("show");
+        }
+    });
+    
     $('.img_posto').on("click", function(){
         if(!$(this).hasClass("prenotato"))
         {
@@ -127,7 +135,7 @@ $('select').material_select();
                     $('.selDisabili').append("<option value=\""+(countPosti-studenti-militari-anziani)+"\">"+(countPosti-studenti-militari-anziani)+"</option>");
                 }
             }
-            $('.countPostiSel').text("Posti selezionati: "+countPosti + " Posti rimanenti: "+(countPosti-studenti-militari-anziani-disabili));
+            $('.countPostiSel').text("Posti selezionati: "+countPosti);
             $('select').material_select();
             creaEventi();
         }

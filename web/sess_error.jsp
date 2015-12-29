@@ -27,13 +27,11 @@
                 
                 <ul class="right hide-on-med-and-down">
                     <li><a href="index.jsp">Film</a></li>
-                    <li><a href="sale.jsp">Le nostre sale</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">  
                     <li><a class=""><i class="material-icons right"></i>Sign in/out</a></li>
                     <li><a href="index.jsp">Film</a></li>
-                    <li><a href="sale.jsp">Le nostre sale</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
             </div>

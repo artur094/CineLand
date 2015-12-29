@@ -73,29 +73,53 @@
                             }
                            
                         }else{
-                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                            String redirectURL = "sess_error.jsp";
+                            response.sendRedirect(redirectURL);
                         }
                     %>
                     <li><a href="index.jsp">Film</a></li>
-                    <li><a href="sale.jsp">Le nostre sale</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    
-                    <li><a class=""><i class="material-icons right"></i>Sign in/out</a></li>
+                    <%
+                        if(sess){
+                            if(user.getRuolo().equals("admin")){
+                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
+                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }else{
+                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                                        }
+                           
+                        }else{
+                            out.println("<li id=\"login\"><a class=\" modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                        }
+                    %>
                     <li><a href="index.jsp">Film</a></li>
-                    <li><a href="sale.jsp">Le nostre sale</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
             </div>
         </nav>
         <div id="list_con" class="container">
             <div class="row" id="titolo">
-                <h3><%out.println(spett.getFilm().getTitolo());%></h3>
+                <h3>FILM: <%out.println(spett.getFilm().getTitolo());%></h3>
             </div>
-            <div><p class="countPostiSel">Posti selezionati: 0</p>
-                <ul>
-                    <li class="row">
+            <div>
+                <div class=" row">
+                    <p class=" col countPostiSel">Posti selezionati: 0</p>
+                    <p class="col check_ridotti">
+                        <input type="checkbox" id="ridotti" />
+                        <label for="ridotti">Seleziona ridotti</label>
+                    </p>
+                </div>
+                    
+                <ul class="row riduzioni">
+                    <li class="col s2">
                         <div class="campo col offset-m1">Studenti: </div>
                         <div class="input-field col">
                             <select class="selStudenti">
@@ -103,7 +127,7 @@
                             </select>
                         </div>
                     </li>
-                    <li class="row">
+                    <li class="row col s2">
                         <div class="campo col offset-m1">Militari: </div>
                         <div class="input-field col">
                             <select class="selMilitari">
@@ -111,7 +135,7 @@
                             </select>
                         </div>
                     </li>
-                    <li class="row">
+                    <li class="row col s2">
                         <div class="campo col offset-m1">Anziani: </div>
                         <div class="input-field col">
                             <select class="selAnziani">
@@ -119,7 +143,7 @@
                             </select>
                         </div>
                     </li>
-                    <li class="row">
+                    <li class="row col s2">
                         <div class="campo col offset-m1">Disabili: </div>
                         <div class="input-field col">
                             <select class="selDisabili">

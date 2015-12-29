@@ -79,107 +79,43 @@
                         }
                     %>
                     <li><a href="index.jsp">Film</a></li>
-                    <li><a href="sale.jsp">Le nostre sale</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    
-                    <li><a class=""><i class="material-icons right"></i>Sign in/out</a></li>
+                    <%
+                        if(sess){
+                            if(user.getRuolo().equals("admin")){
+                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
+                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }else{
+                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                                        }
+                           
+                        }else{
+                            out.println("<li id=\"login\"><a class=\" modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                        }
+                    %>
                     <li><a href="index.jsp">Film</a></li>
-                    <li><a href="sale.jsp">Le nostre sale</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
             </div>
         </nav>
-        <!-- Slider -->
-        <div class="slider-container">  <!-- dimensione   width: 100%;  height: 400px; -->
-            <div class="slider">
-                    <div class="slider-img" id="slider1"></div>    
-                    <div class="slider-img" id="slider2"></div>    
-                    <div class="slider-img" id="slider3"></div>    
-                    <div class="slider-img" id="slider4"></div>    
-                    <div class="slider-img" id="slider5"></div> 
-            </div>
-            <div class="opacita"></div>
-        </div>  <!-- end slider-->
                     
-        <!-- Modal Structure -->
-        <div id="form" class="modal">
-            <div class="modal-content">
-                    <div class="row">
-                        <div class="col s12">
-                            <ul class="tabs">
-                                <li class="tab col s6"><a class="" href="#in">Sign IN</a></li>
-                                <li class="tab col s6"><a href="#up">Sign UP</a></li>
-                            </ul>
-                        </div>
-                        <div id="in" class="col s12">
-                            <form class="col s12" action="login.js">
-                                <div class="row">
-                                  <div class="input-field col s12 offset-m3 m6  ">
-                                        <input id="email" type="email" class="validate">
-                                        <label for="email">Email</label>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12 offset-m3 m6 ">
-                                        <input id="password" type="password" class="validate">
-                                        <label for="password">Password</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s8 offset-m4 m4 ">
-                                        <div class="btn" id="btn_login">Log in</div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div id="up" class="col s12">
-                            <div class="row">
-                                <form class="col s12">
-                                    <div class="row">
-                                        <div class="input-field col s12 m6">
-                                            <input id="first_name" type="text" class="validate">
-                                            <label for="first_name">First Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s12 m6 offset-m3">
-                                            <input id="email" type="email" class="validate">
-                                            <label for="email">Email</label>
-                                        </div>
-                                    </div>
-                                      <div class="row">
-                                      <div class="input-field col s12 m6">
-                                        <input id="password" type="password" class="validate">
-                                        <label for="password">Password</label>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                    <div class="col s8 offset-m4 m4 ">
-                                        <div class="btn" id="btn_signup">Sign up</div>
-                                    </div>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-        <!-- Main central content -->
-        <div id="index_container">
+        <ul class="wrapper">  <!-- dimensione   width: 100%;  height: 400px; -->
             <%
                 for(int i = 0; i < films.size(); i++){    
-                out.println("<div class=\"card\">");
+                out.println("<li class=\"card showcase\">");
                 out.println("<div class=\"card-image\">");
-                out.println("<div class=\"rect-video\">");
-                out.println("<video muted poster=\"img/locandine/" + films.get(i).getTitolo().replaceAll("\\s+","") +".jpg\">");
-                out.println("<source src=\"\" type=\"video/mp4\">");
-                out.println("</video>");
-                out.println("</div>");
+                out.println("<img src=\"img/Slider/" + films.get(i).getTitolo().replaceAll("\\s+","") +".jpg\">");
                 out.println("</div>");
                 out.println("<div class=\"card-content\">");
-                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<a class=\"btn right\"><i class=\"material-icons\">theaters</i></a></span>");
+                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<a class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></span>");
                 out.println("<div>");
                 out.println("<span class=\"grey-text text-darken-4\"><a href=\"scheda_film.jsp?id="+films.get(i).getId()+"\">Scheda Film</a></span>");
                 out.println("</div>");
@@ -202,42 +138,85 @@
                     out.println("<a href=\"prenotazione.jsp?id="+spett_per_film.get(k).getId()+"\" class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></p>");
                 }
                 out.println("</div>");
-                out.println("</div>");
+                out.println("</li>");
                 }
-            %>  
-        </div>
-    </body>
-    <footer class="page-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Dove siamo</h5>
-                    <p class="grey-text text-lighten-4"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1388.7129075311707!2d11.020149873016887!3d45.88279612832539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47820eec18ff6f33%3A0x12423f50a6d6989e!2sVia+alla+Moia%2C+38068+Rovereto+TN!5e0!3m2!1sit!2sit!4v1435409420597" width="400" height="250" frameborder="0" style="border:0; z-index:11;" allowfullscreen=""></iframe></p>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Con il prezioso contributo di:</h5>
-                    <ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Marco</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Mattia</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Paolo</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Ivan</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Luca</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Linda</a></li>
-                    </ul>
-                </div>
+            %>                    
+        </ul>  <!-- end slider-->
+                    
+        <!-- Modal Structure -->
+        <div id="form" class="modal">
+            <div class="modal-content">
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s6"><a class="" href="#in">Sign IN</a></li>
+                                <li class="tab col s6"><a href="#up">Sign UP</a></li>
+                            </ul>
+                        </div>
+                        <div id="in" class="col s12">
+                            <form class="col s12" action="login.js">
+                                <div class="row">
+                                  <div class="input-field col s12 center">
+                                        <input id="email_lgn" type="email" class="validate">
+                                        <label for="email">Email</label>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 center">
+                                        <input id="password_lgn" type="password" class="validate">
+                                        <label for="password">Password</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 center ">
+                                        <div class="btn" id="btn_login">Log in</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 center ">
+                                        <a>Hai dimenticato la password?</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="up" class="col s12">
+                            <div class="row">
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12 center">
+                                            <input id="first_name" type="text" class="validate">
+                                            <label for="first_name">First Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 center">
+                                            <input id="email_sgnup" type="email" class="validate">
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                      <div class="row">
+                                      <div class="input-field col s12 center">
+                                        <input id="password_sgnup" type="password" class="validate">
+                                        <label for="password">Password</label>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="col s12 center">
+                                        <div class="btn" id="btn_signup">Sign up</div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
-     <div class="footer-copyright">
-        <div class="container">
-            © 2016 Copyright Cineland
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-        </div>
-    </div>
-    </footer>
+        <!-- Main central content -->
+    </body>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
     <script type="text/javascript" src="js/master.js"></script>
     <script src="js/rect.js"></script>
-    <script src="js/slider2.js"></script>
+    <!--<script src="js/slider2.js"></script>-->
   </html>
