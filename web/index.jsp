@@ -134,7 +134,7 @@
                         ex_data_spett = data_spett;
                         out.println("<p class=\"giornoData\"><span>"+giornata.format(data_spett)+ "</span></p>");
                     }
-                    out.println("<p class=\"orarioSpett\"><i class=\"tiny material-icons crono\">query_builder</i>"+ora.format(data_spett)+"");
+                    out.println("<p class=\"orarioSpett\"><i class=\"tiny material-icons crono\">query_builder</i>"+ora.format(data_spett)+" Sala: "+spett_per_film.get(k).getSala().getNome()+"");
                     out.println("<a href=\"prenotazione.jsp?id="+spett_per_film.get(k).getId()+"\" class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></p>");
                 }
                 out.println("</div>");

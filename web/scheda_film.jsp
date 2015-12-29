@@ -174,8 +174,10 @@
                 <div class="col s12 m6">
                     <div>
                         <p class="left">Genere:<div class="chip"><%= film.getGenere()%></div></p>
-                        <p>Durata: <span><%= film.getDurata()%></span></p>                 
-                        <p>Trailer: <span><a href="<%= film.getUrl_trailer() %>">Guarda</a></span></p>           
+                        <p>Regista: <span><%= film.getRegista()%></span></p>
+                        <p>Durata: <span><%= film.getDurata()%>'</span></p>                 
+                        <p>Trailer: <span><a href="<%= film.getUrl_trailer() %>">Guarda</a></span></p>
+                        <p>Trama: <span><%= film.getTrama()%></span></p>
                     </div>
                 </div>   			
             </div>
