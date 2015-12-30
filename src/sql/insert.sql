@@ -20,6 +20,38 @@ INSERT INTO FILM (TITOLO, ID_GENERE, URL_TRAILER, DURATA, TRAMA, URL_LOCANDINA, 
 INSERT INTO FILM (TITOLO, ID_GENERE, URL_TRAILER, DURATA, TRAMA, URL_LOCANDINA, ATTORI, REGISTA, FRASE) 
 	VALUES ('Wolf Children', 2, '', 117, '', '', NULL, NULL, 'Cosa vuoi? Vivere come un umano o come un lupo?');
  
+
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('Big Hero 6',2, 'https://www.youtube.com/watch?v=DlLHLlk84cg',108, '' ,' ',' ','Don Hall', 'Questa armatura potrebbe compromettere il mio aspetto rassicurante e coccoloso');
+
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('Lo Hobbit-La battaglia delle cinque armate',4, 'https://www.youtube.com/watch?v=yDE_p_n1Do0',144, '' ,' ',' ','Peter Jackson', 'Mi seguirete....un''ultima volta?');
+
+
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('Il ponte delle spie',5, 'https://www.youtube.com/watch?v=8JICEhUw9C0',140, '' ,' ',' ','Steven Spielberg', 'Dimmi che non sei in pericolo, dammi qualcosa a cui aggrapparmi. La verità non mi interessa');
+
+
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('Alvin Superstar-Nessuno ci può fermare',5, 'https://www.youtube.com/watch?v=1bvMzChAEhY',93, '' ,' ',' ','Tim Hill', 'ARRIVIAMO!');
+
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('Macbeth',2, 'https://www.youtube.com/watch?v=T6tqxEFvXvY',113, '' ,' ',' ','Justin Kurzel', 'Non avevo mai visto un giorno cosi'' bello e brutto allo stesso tempo.');
+
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('Predestination',4, 'https://www.youtube.com/watch?v=lPobRCyD3lI',97, '' ,' ',' ','Michael Spierig', 'Cosa faresti se ti mettessi davanti chi ti ha rovinato la vita? Lo uccideresti?');
+
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('Città di carta',3, 'https://www.youtube.com/watch?v=WlYN628zR7A',109, '' ,' ',' ','Jake Schreier', 'Entrerai nelle città di carta e non tornerai più indietro.');
+
+
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('Ribelle-The Brave',5, 'https://www.youtube.com/watch?v=5dsKVQlfzQw',93, '' ,' ',' ','Mark Andrews', 'Merida una principessa non posa le sue armi sul tavolo.');
+
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('I love radio rock',2, 'https://www.youtube.com/watch?v=UaBnqJSePK4',135, '' ,' ',' ','Richard Curtis', 'Il vantaggio di essere al governo è che se qualcosa che non ti piace puoi sempre fare una legge che la renda illegale.');
+INSERT INTO FILM (TITOLO,ID_GENERE,URL_TRAILER,DURATA,TRAMA,URL_LOCANDINA,ATTORI,REGISTA,FRASE) 
+VALUES ('Maze Runner-La Fuga',4, 'https://www.youtube.com/watch?v=keLYv7bzf_8',132, '' ,' ',' ','Wes Ball', 'Non siete obbligati a seguirmi, ma possiamo farcela.'); 
  
  --tabella genere
 INSERT INTO GENERE (DESCRIZIONE) 
@@ -98,32 +130,7 @@ INSERT INTO SALA (DESCRIZIONE)
 	VALUES ('Sala con 50 posti a sedere');
 
 --tabella spettacolo
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (1, '2016-02-21 13:20:00.0', 2);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (1, '2016-02-20 20:00:00.0', 3);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (1, '2016-02-20 19:00:00.0', 3);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (2, '2016-11-20 00:00:00.0', 1);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (2, '2016-11-20 00:00:00.0', 3);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (2, '2015-12-20 00:00:00.0', 1);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (3, '2016-11-20 15:15:00.0', 4);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (4, '2016-11-20 00:00:00.0', 3);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (4, '2016-11-20 00:00:00.0', 4);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (5, '2016-11-20 00:00:00.0', 1);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (9, '2016-11-20 00:00:00.0', 2);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (7, '2015-12-04 18:08:00.0', 2);
-INSERT INTO SPETTACOLO (ID_FILM, DATA_ORA, ID_SALA) 
-	VALUES (10, '2015-12-04 15:57:00.0', 2);
+
 
 --tabella utente
 INSERT INTO UTENTE (EMAIL, PASSWORD, CREDITO, ID_RUOLO, CODICE_ATTIVAZIONE) 
