@@ -5,8 +5,8 @@
  */
 
 var price = 8; //price
-var price_s_a_d = 5;
-var price_m = 6;
+var ridotto1 = 5;
+var ridotto2 = 6;
 var countPosti = 0;
 var maxCount = 15;
 var studenti= 0;
@@ -109,9 +109,8 @@ $(document).ready(function() {
     });
     //sold seat
     sc.get(['1_2', '4_4','4_5','6_6','6_7','8_5','8_6','8_7','8_8', '10_1', '10_2']).status('unavailable');
-		
-});
-//sum total money
+    
+    //sum total money
 function recalculateTotal(sc) {
 	var total = 0;
 	sc.find('selected').each(function () {
@@ -124,24 +123,28 @@ function recalculateTotal(sc) {
     function creaEventi(){
         $('.selStudenti .select-dropdown li span').on("click",function(){
             studenti = $(this).text();
+            $total.text(recalculateTotal(sc)-((price-ridotto1)*studenti));
             creaDrop();
             $('select').material_select();
             creaEventi();
         });
         $('.selMilitari .select-dropdown li span').on("click",function(){
             militari = $(this).text();
+            $total.text(recalculateTotal(sc)-((price-ridotto2)*militari));
             creaDrop();
             $('select').material_select();
             creaEventi();
         });
         $('.selAnziani .select-dropdown li span').on("click",function(){
             anziani = $(this).text();
+            $total.text(recalculateTotal(sc)-((price-ridotto1)*anziani));
             creaDrop();
             $('select').material_select();
             creaEventi();
         });
         $('.selDisabili .select-dropdown li span').on("click",function(){
             disabili = $(this).text();
+            $total.text(recalculateTotal(sc)-((price-ridotto1)*disabili));
             creaDrop();
             $('select').material_select();
             creaEventi();
@@ -203,4 +206,9 @@ function recalculateTotal(sc) {
         creaEventi();
     }
 
+		
+});
+
+    
+    
 
