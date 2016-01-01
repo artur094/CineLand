@@ -8,7 +8,7 @@ var price = 8; //price
 var price_s_a_d = 5;
 var price_m = 6;
 var countPosti = 0;
-var maxCount = 10;
+var maxCount = 15;
 var studenti= 0;
 var militari=0;
 var anziani=0;
@@ -56,26 +56,24 @@ $(document).ready(function() {
                     items : [
                             [ 'a', 'available',   'Option' ],
                             [ 'a', 'unavailable', 'Sold']
+                            
                     ]					
             },
             click: function () { //Click event
-                console.log(this.status());
                     if (this.status() == 'available') { //optional seat
                         if(countPosti<maxCount){
                             $('<li>R'+(this.settings.row+1)+' S'+this.settings.label+'</li>')
                                     .attr('id', 'cart-item-'+this.settings.id)
                                     .data('seatId', this.settings.id)
                                     .appendTo($cart);
-
                             $counter.text(sc.find('selected').length+1);
                             $total.text(recalculateTotal(sc)+price);
-                            
-                                countPosti++;
-                                $('select').material_select('destroy');
-                                $('.selStudenti').append("<option value=\""+(countPosti-militari-anziani-disabili)+"\">"+(countPosti-militari-anziani-disabili)+"</option>");
-                                $('.selMilitari').append("<option value=\""+(countPosti-studenti-anziani-disabili)+"\">"+(countPosti-studenti-anziani-disabili)+"</option>");
-                                $('.selAnziani').append("<option value=\""+(countPosti-studenti-militari-disabili)+"\">"+(countPosti-studenti-militari-disabili)+"</option>");
-                                $('.selDisabili').append("<option value=\""+(countPosti-studenti-militari-anziani)+"\">"+(countPosti-studenti-militari-anziani)+"</option>");
+                            countPosti++;
+                            $('select').material_select('destroy');
+                            $('.selStudenti').append("<option value=\""+(countPosti-militari-anziani-disabili)+"\">"+(countPosti-militari-anziani-disabili)+"</option>");
+                            $('.selMilitari').append("<option value=\""+(countPosti-studenti-anziani-disabili)+"\">"+(countPosti-studenti-anziani-disabili)+"</option>");
+                            $('.selAnziani').append("<option value=\""+(countPosti-studenti-militari-disabili)+"\">"+(countPosti-studenti-militari-disabili)+"</option>");
+                            $('.selDisabili').append("<option value=\""+(countPosti-studenti-militari-anziani)+"\">"+(countPosti-studenti-militari-anziani)+"</option>");
                             $('select').material_select();
                             creaEventi();
                             return 'selected';

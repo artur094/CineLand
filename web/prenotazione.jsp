@@ -112,12 +112,12 @@
         </nav>
         <div id="list_con" class="container">
             <div class="row">
-                <div class="col s12 m3">
+                <div class="col s12 m4">
                     <div class="card-image">
                         <%out.println("<img src='img/locandine/" + spett.getFilm().getTitolo().replaceAll("\\s+","") + ".jpg' alt='"+ spett.getFilm().getTitolo() +"'/>");%>
                     </div>
                 </div>
-                <div class="col s12 m9">
+                <div class="col s12 m8">
                     <div class="row">
                         <!--<div class="col s12 m2"><p>Film: <%out.println(spett.getFilm().getTitolo());%></p></div>-->
                         <div class="col s12 m2"><p>Tickets: <span id="counter">0</span></div>
