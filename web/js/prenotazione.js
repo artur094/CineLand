@@ -1,97 +1,8 @@
-$('select').material_select();
   $(document).ready(function() {
     $('select').material_select();
-    var countPosti = 0;
-    var maxCount = 10;
-    var studenti= 0;
-    var militari=0;
-    var anziani=0;
-    var disabili = 0;
-    
-    function creaEventi()
-    {
-        $('.selStudenti .select-dropdown li span').on("click",function(){
-            studenti = $(this).text();
-            creaDrop();
-            $('select').material_select();
-            creaEventi();
-        });
-        $('.selMilitari .select-dropdown li span').on("click",function(){
-            militari = $(this).text();
-            creaDrop();
-            $('select').material_select();
-            creaEventi();
-        });
-        $('.selAnziani .select-dropdown li span').on("click",function(){
-            anziani = $(this).text();
-            creaDrop();
-            $('select').material_select();
-            creaEventi();
-        });
-        $('.selDisabili .select-dropdown li span').on("click",function(){
-            disabili = $(this).text();
-            creaDrop();
-            $('select').material_select();
-            creaEventi();
-        });
-    }
-    
-    function creaDrop()
-    {
-        $('select').empty();
-        $('select').material_select('destroy');
-        //$('.selStudenti').append("<option value=\""+countPosti+"\">"+countPosti+"</option>");
-       
-        
-        for(var i = 0; i <= countPosti-militari-anziani-disabili; i++)
-        {
-            //$('select').material_select('destroy');
-            //alert(i);
-            if(i==studenti)
-            {
-               $('.selStudenti').append("<option value=\""+i+"\" selected>"+i+"</option>"); 
-            }
-            else
-                $('.selStudenti').append("<option value=\""+i+"\">"+i+"</option>");
-            
-            //$('select').material_select();
-        }
-        
-        for(var i = 0; i <= countPosti-studenti-anziani-disabili; i++)
-        {
-            if(i==militari)
-            {
-               $('.selMilitari').append("<option value=\""+i+"\" selected>"+i+"</option>"); 
-            }
-            else
-                $('.selMilitari').append("<option value=\""+i+"\">"+i+"</option>");
-        }
-        
-        for(var i = 0; i <= countPosti-studenti-militari-disabili; i++)
-        {
-            if(i==anziani)
-            {
-               $('.selAnziani').append("<option value=\""+i+"\" selected>"+i+"</option>"); 
-            }
-            else
-                $('.selAnziani').append("<option value=\""+i+"\">"+i+"</option>");
-        }
-        
-        
-        for(var i = 0; i <= countPosti-studenti-militari-anziani; i++)
-        {
-            if(i==disabili)
-            {
-               $('.selDisabili').append("<option value=\""+i+"\" selected>"+i+"</option>"); 
-            }
-            else
-                $('.selDisabili').append("<option value=\""+i+"\">"+i+"</option>");
-        }
-        
-        //$('select').material_select('destroy');
-        $('.countPostiSel').text("Posti selezionati: "+countPosti + " Posti rimanenti: "+(countPosti-studenti-militari-anziani-disabili));
-        creaEventi();
-    }
+
+
+ 
     
     $('.check_ridotti').on('click',function(){
         if(document.getElementById("ridotti").checked){
@@ -100,12 +11,10 @@ $('select').material_select();
             $('.riduzioni').removeClass("show");
         }
     });
-    
+    $('#now').text(Date());
     $('.img_posto').on("click", function(){
-        if(!$(this).hasClass("prenotato"))
-        {
-            if($(this).hasClass("selezionato"))
-            {
+        if(!$(this).hasClass("prenotato")){
+            if($(this).hasClass("selezionato")){
                 $(this).removeClass("selezionato");
                 $(this).attr("src","img/chair20.png");
                 countPosti--;
@@ -119,9 +28,7 @@ $('select').material_select();
                 }
                 
                 creaDrop();
-            }
-            else
-            {
+            }else{
                 if(countPosti<maxCount)
                 {
                     $(this).addClass("selezionato");
@@ -139,6 +46,6 @@ $('select').material_select();
             $('select').material_select();
             creaEventi();
         }
-    });
-    
 });
+  });
+ 

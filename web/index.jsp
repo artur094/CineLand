@@ -106,7 +106,7 @@
                 </ul>
             </div>
         </nav>
-                    
+        <!-- Main central content -->            
         <ul class="wrapper">  <!-- dimensione   width: 100%;  height: 400px; -->
             <%
                 for(int i = 0; i < films.size(); i++){    
@@ -149,7 +149,7 @@
                     <div class="row">
                         <div class="col s12">
                             <ul class="tabs">
-                                <li class="tab col s6"><a class="" href="#in">Sign IN</a></li>
+                                <li class="tab col s6"><a href="#in">Sign IN</a></li>
                                 <li class="tab col s6"><a href="#up">Sign UP</a></li>
                             </ul>
                         </div>
@@ -211,12 +211,11 @@
                     </div>
             </div>
         </div>
-        <!-- Main central content -->
+        
     </body>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
     <script type="text/javascript" src="js/master.js"></script>
     <script src="js/rect.js"></script>
-    <!--<script src="js/slider2.js"></script>-->
   </html>
