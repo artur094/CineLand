@@ -13,14 +13,7 @@ var studenti= 0;
 var militari=0;
 var anziani=0;
 var disabili = 0;
-$(document).ready(function() {
-
-    var $cart = $('#selected-seats'), //Sitting Area
-    $counter = $('#counter'), //Votes
-    $total = $('#total'); //Total money
-
-    var sc = $('#seat-map').seatCharts({
-            map: [  //Seating chart
+var sala1 = [  //Seating chart
         'aaaaaaaaa_aaaaaaaaaa',
         'aaaaaaaaa_aaaaaaaaaa',
         'aaaaaaaaa_aaaaaaaaaa',
@@ -31,7 +24,27 @@ $(document).ready(function() {
         'aaaaaaaaa_aaaaaaaaaa',
         'aaaaaaaaa_aaaaaaaaaa',
         'aaaaaaaaa_aaaaaaaaaa'
-            ],
+            ];
+var sala2 = [  //Seating chart
+        '_aaaaaaaaaaaaaaaaa_',
+        '_aaaaaaaaaaaaaaaaa_',
+        '_aaaaaaaaaaaaaaaaa_',
+        '_aaaaaaaaaaaaaaaaa_',
+        '_aaaaaaaaaaaaaaaaa_',
+        '_aaaaaaaaaaaaaaaaa_',
+        '_aaaaaaaaaaaaaaaaa_',
+        '_aaaaaaaaaaaaaaaaa_',
+        '_aaaaaaaaaaaaaaaaa_',
+        '_aaaaaaaaaaaaaaaaa_'
+            ];
+$(document).ready(function() {
+
+    var $cart = $('#selected-seats'), //Sitting Area
+    $counter = $('#counter'), //Votes
+    $total = $('#total'); //Total money
+
+    var sc = $('#seat-map').seatCharts({
+            map: sala2,
             naming : {
                     top : false,
                     getLabel : function (character, row, column) {
@@ -48,6 +61,7 @@ $(document).ready(function() {
             click: function () { //Click event
                 console.log(this.status());
                     if (this.status() == 'available') { //optional seat
+                        if(countPosti<maxCount){
                             $('<li>R'+(this.settings.row+1)+' S'+this.settings.label+'</li>')
                                     .attr('id', 'cart-item-'+this.settings.id)
                                     .data('seatId', this.settings.id)
@@ -55,17 +69,19 @@ $(document).ready(function() {
 
                             $counter.text(sc.find('selected').length+1);
                             $total.text(recalculateTotal(sc)+price);
-                            if(countPosti<maxCount){
+                            
                                 countPosti++;
                                 $('select').material_select('destroy');
                                 $('.selStudenti').append("<option value=\""+(countPosti-militari-anziani-disabili)+"\">"+(countPosti-militari-anziani-disabili)+"</option>");
                                 $('.selMilitari').append("<option value=\""+(countPosti-studenti-anziani-disabili)+"\">"+(countPosti-studenti-anziani-disabili)+"</option>");
                                 $('.selAnziani').append("<option value=\""+(countPosti-studenti-militari-disabili)+"\">"+(countPosti-studenti-militari-disabili)+"</option>");
                                 $('.selDisabili').append("<option value=\""+(countPosti-studenti-militari-anziani)+"\">"+(countPosti-studenti-militari-anziani)+"</option>");
-                            }
                             $('select').material_select();
                             creaEventi();
                             return 'selected';
+                        }
+                            return 'available';
+                            
                     } else if (this.status() == 'selected') { //Checked
                                     //Update Number
                                     $counter.text(sc.find('selected').length-1);
@@ -107,8 +123,7 @@ function recalculateTotal(sc) {
 	return total;
 }
 
-    function creaEventi()
-    {
+    function creaEventi(){
         $('.selStudenti .select-dropdown li span').on("click",function(){
             studenti = $(this).text();
             creaDrop();
@@ -135,8 +150,7 @@ function recalculateTotal(sc) {
         });
     }
     
-    function creaDrop()
-    {
+    function creaDrop(){
         $('select').empty();
         $('select').material_select('destroy');
         //$('.selStudenti').append("<option value=\""+countPosti+"\">"+countPosti+"</option>");

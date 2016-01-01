@@ -18,14 +18,14 @@ and open the template in the editor.
     margin-left: auto;
     margin-right: auto;
 } 
-.booking-details {
-    float: right;
-    position: relative;
-    width:200px;
-    height: 450px;
+.booking-details h3 {
+    margin: 5px 5px 0 0;
+    font-size: 16px;
 } 
-.booking-details h3 {margin: 5px 5px 0 0;font-size: 16px;} 
-.booking-details p{line-height:26px; font-size:16px; color:#999} 
+.booking-details p{
+    line-height:26px;
+    font-size:16px;
+    color:#999} 
 .booking-details p span{color:#666} 
 div.seatCharts-cell {
     color: #182C4E;
@@ -59,10 +59,20 @@ div.seatCharts-container {
     border-top: 1px dotted #adadad;
     padding: 20px;
 } 
-div.seatCharts-legend {padding-left: 0px;position: absolute;bottom: 16px;} 
-ul.seatCharts-legendList {padding-left: 0px;} 
-.seatCharts-legendItem{float:left; width:90px;margin-top: 10px;line-height: 2;} 
-span.seatCharts-legendDescription {margin-left: 5px;line-height: 30px;} 
+div.seatCharts-legend {
+    padding-left: 0px;
+} 
+ul.seatCharts-legendList {
+    padding-left: 0px;
+} 
+.seatCharts-legendItem{
+    float:left;
+    margin-top: 10px;
+} 
+span.seatCharts-legendDescription {
+    margin-left: 5px;
+    color: white;
+} 
 .checkout-button {display: block;width:80px; height:24px; line-height:20px;margin: 10px auto;border:1px solid #999;font-size: 14px; cursor:pointer} 
 #selected-seats {
     color: black;

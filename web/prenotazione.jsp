@@ -176,18 +176,14 @@
             </div>
 
         </div>
-                
-        
-
-            
-        
         <div class="demo container">
-   		<div id="seat-map">
-			<div class="front">SCREEN</div>					
-		</div>
-		<div class="booking-details">
+            <div class="booking-details">
 			<div id="legend"></div>
-		</div>
+            </div>
+            <div id="seat-map">
+                    <div class="front">SCREEN</div>					
+            </div>
+		
         </div>	
 
         <div class="container" id="leggenda">
