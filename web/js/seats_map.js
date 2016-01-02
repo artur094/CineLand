@@ -85,7 +85,6 @@ $(document).ready(function() {
                                     $counter.text(sc.find('selected').length-1);
                                     //update totalnum
                                     $total.text(recalculateTotal(sc)-price);
-
                                     //Delete reservation
                                     $('#cart-item-'+this.settings.id).remove();
                                     //optional
@@ -116,35 +115,39 @@ function recalculateTotal(sc) {
 	sc.find('selected').each(function () {
 		total += price;
 	});
-			
-	return total;
+        var riduzione_militari = (price-ridotto2)*militari;
+        var riduzione_studenti = (price-ridotto1)*studenti;
+        var riduzione_anziani = (price-ridotto1)*anziani;
+        var riduzione_disabili = (price-ridotto1)*disabili;
+        var totale = total-riduzione_militari-riduzione_studenti-riduzione_disabili-riduzione_anziani;
+	return totale;
 }
 
     function creaEventi(){
         $('.selStudenti .select-dropdown li span').on("click",function(){
             studenti = $(this).text();
-            $total.text(recalculateTotal(sc)-((price-ridotto1)*studenti));
+            $total.text(recalculateTotal(sc));
             creaDrop();
             $('select').material_select();
             creaEventi();
         });
         $('.selMilitari .select-dropdown li span').on("click",function(){
             militari = $(this).text();
-            $total.text(recalculateTotal(sc)-((price-ridotto2)*militari));
+            $total.text(recalculateTotal(sc));
             creaDrop();
             $('select').material_select();
             creaEventi();
         });
         $('.selAnziani .select-dropdown li span').on("click",function(){
             anziani = $(this).text();
-            $total.text(recalculateTotal(sc)-((price-ridotto1)*anziani));
+            $total.text(recalculateTotal(sc));
             creaDrop();
             $('select').material_select();
             creaEventi();
         });
         $('.selDisabili .select-dropdown li span').on("click",function(){
             disabili = $(this).text();
-            $total.text(recalculateTotal(sc)-((price-ridotto1)*disabili));
+            $total.text(recalculateTotal(sc));
             creaDrop();
             $('select').material_select();
             creaEventi();
@@ -154,9 +157,6 @@ function recalculateTotal(sc) {
     function creaDrop(){
         $('select').empty();
         $('select').material_select('destroy');
-        //$('.selStudenti').append("<option value=\""+countPosti+"\">"+countPosti+"</option>");
-       
-        
         for(var i = 0; i <= countPosti-militari-anziani-disabili; i++)
         {
             //$('select').material_select('destroy');
