@@ -30,13 +30,13 @@
 
 <%
     user = (Utente)request.getSession().getAttribute("user");
+    int id_spettacolo = Integer.parseInt(request.getParameter("id"));
+    sala = new Sala(id_spettacolo);
+    spett = new Spettacolo(id_spettacolo);
     if(user == null){ //non è loggato
         sess = false;
     }else{
         sess = true;
-        int id_spettacolo = Integer.parseInt(request.getParameter("id"));
-        sala = new Sala(id_spettacolo);
-        spett = new Spettacolo(id_spettacolo);
     }
 %>
 <!DOCTYPE html>
