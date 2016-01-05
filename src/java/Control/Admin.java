@@ -47,7 +47,16 @@ public class Admin {
      */
     public List<Film> getIncassiFilm() throws SQLException
     {
-        return dbm.incassiFilm();
+        List<Film> incassi = dbm.incassiFilm();
+        List<Film> all_film = dbm.getAllFilms();
+        
+        for (int i = 0; i < all_film.size(); i++) {
+            for (Film film : incassi) {
+                if(all_film.get(i).getId() == film.getId())
+                    all_film.set(i, film);
+            }
+        }
+        return all_film;
     }
     
     /**
