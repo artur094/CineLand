@@ -42,6 +42,9 @@ public class Film {
         this.trama = f.trama;
         this.url_locandina = f.url_locandina;
         this.url_trailer = f.url_trailer;
+        this.regista = f.regista;
+        this.attori = f.attori;
+        this.frase = f.frase;
     }
 
     public Film(int id, String titolo, String genere, int durata, String trama, String url_trailer, String url_locandina) {
