@@ -810,7 +810,7 @@ public class DBManager implements Serializable {
             Film f = getFilm(rs.getInt("id_film"));
             s.setFilm(f);
             
-            Sala sala = getSala(rs.getInt("id_sala"));
+            Sala sala = getSala(id);
             s.setSala(sala);
             
             return s;
