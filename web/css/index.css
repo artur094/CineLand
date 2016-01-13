@@ -111,13 +111,17 @@ ul{
     .wrapper{
         display: flex;
         flex-wrap: wrap;
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5vh;
     }
     
     li.card.showcase{
         width: 45%;
         height: 100%;
-        min-width: 600px;
-        max-width: 700px;
+        min-width: 580px;
+        max-width: 580px;
         margin-top: 3vh;
         margin-left: auto;
         margin-right: auto;
