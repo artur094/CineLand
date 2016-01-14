@@ -83,11 +83,12 @@ blockquote{
 .stair{
     margin-left: 5%;
     margin-right: auto;
-    min-width: 64px;
+    /* min-width: 64px; */
     position: relative;
-    //display: block;
+    display: block;
     width: 90%;
-    //height: 70%;
+    height: 40%;
+    top: 50%;
     border: white solid 3px;
     border-bottom-color: transparent;
     margin-top: 10%;

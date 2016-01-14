@@ -14,16 +14,16 @@ var militari=0;
 var anziani=0;
 var disabili = 0;
 var sala1 = [  //Seating chart
-        'aaaaaaaaa_aaaaaaaaaa',
-        'aaaaaaaaa_aaaaaaaaaa',
-        'aaaaaaaaa_aaaaaaaaaa',
-        'aaaaaaaaa_aaaaaaaaaa',
-        'aaaaaaaaa_aaaaaaaaaa',
-        'aaaaaaaaa_aaaaaaaaaa',
-        'aaaaaaaaa_aaaaaaaaaa',
-        'aaaaaaaaa_aaaaaaaaaa',
-        'aaaaaaaaa_aaaaaaaaaa',
-        'aaaaaaaaa_aaaaaaaaaa'
+        'aaaaaaaaa_aaaaaaaaa',
+        'aaaaaaaaa_aaaaaaaaa',
+        'aaaaaaaaa_aaaaaaaaa',
+        'aaaaaaaaa_aaaaaaaaa',
+        'aaaaaaaaa_aaaaaaaaa',
+        'aaaaaaaaa_aaaaaaaaa',
+        'aaaaaaaaa_aaaaaaaaa',
+        'aaaaaaaaa_aaaaaaaaa',
+        'aaaaaaaaa_aaaaaaaaa',
+        'aaaaaaaaa_aaaaaaaaa'
             ];
 var sala2 = [  //Seating chart
         '_aaaaaaaaaaaaaaaaa_',
@@ -37,6 +37,17 @@ var sala2 = [  //Seating chart
         '_aaaaaaaaaaaaaaaaa_',
         '_aaaaaaaaaaaaaaaaa_'
             ];
+var sala3 = [
+    '__aa___aa__',
+    '_aaaa_aaaa_',
+    '_aaaaaaaaaa_',
+    '_aaaaaaaaaa_',
+    '__aaaaaaaa__',
+    '___aaaaaa___',
+    '____aaaa____',
+    '_____aa_____',
+    '_____a_____'
+];
 $(document).ready(function() {
 
     var $cart = $('#selected-seats'), //Sitting Area
@@ -44,25 +55,25 @@ $(document).ready(function() {
     $total = $('#total'); //Total money
 
     var sc = $('#seat-map').seatCharts({
-            map: sala2,
+            map: sala3,
             naming : {
                     top : false,
+                    left:false,
                     getLabel : function (character, row, column) {
-                            return column;
+                            return "";
                     }
             },
             legend : { //Definition legend
                     node : $('#legend'),
                     items : [
-                            [ 'a', 'available',   'Option' ],
-                            [ 'a', 'unavailable', 'Sold']
-                            
-                    ]					
+                            [ 'a', 'selected-legend',   'Option' ],
+                            [ 'a', 'unavailable', 'Sold'],
+                    ]
             },
             click: function () { //Click event
                     if (this.status() == 'available') { //optional seat
                         if(countPosti<maxCount){
-                            $('<li>R'+(this.settings.row+1)+' S'+this.settings.label+'</li>')
+                            $('<li>R'+(this.settings.id.toString().split('_')[0])+' P'+(this.settings.id.toString().split('_')[1])+'</li>')
                                     .attr('id', 'cart-item-'+this.settings.id)
                                     .data('seatId', this.settings.id)
                                     .appendTo($cart);
@@ -104,12 +115,19 @@ $(document).ready(function() {
                     } else {
                             return this.style();
                     }
-            }
+            },
+            focus: function(){return this.style();} 
     });
     //sold seat
     sc.get(['1_2', '4_4','4_5','6_6','6_7','8_5','8_6','8_7','8_8', '10_1', '10_2']).status('unavailable');
     
     //sum total money
+    
+    $('.seatCharts-space').each(function(){
+        $(this).append("<div class=\"stair\"><div class=\"stair_up\"></div>&nbsp;</div>");
+        
+    });
+    
 function recalculateTotal(sc) {
 	var total = 0;
 	sc.find('selected').each(function () {
