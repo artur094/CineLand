@@ -5,6 +5,16 @@ html{
 body{
     height: 100%;
 }
+form{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12px;
+    
+}
+.modal{
+    width: 45%;
+}
 
 #index_container{
 	height: 100%;
@@ -20,6 +30,9 @@ body{
 
 nav{
 	background-color: #2B2D42;
+        position: fixed;
+        top: 0px;
+        z-index: 999;
 }
 
 .side-nav{

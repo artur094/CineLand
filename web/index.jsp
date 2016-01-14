@@ -106,6 +106,15 @@
                 </ul>
             </div>
         </nav>
+               
+        <div class="slider-container">  <!-- dimensione   width: 100%;  height: 400px; -->
+            <div class="slider">
+                    <div class="slider-img" id="slider1"></div>    
+                    <div class="slider-img" id="slider2"></div>    
+                    <div class="slider-img" id="slider3"></div>    
+                    <div class="slider-img" id="slider4"></div>            
+            </div>
+        </div>
         <!-- Main central content -->            
         <ul class="wrapper">  <!-- dimensione   width: 100%;  height: 400px; -->
             <%
@@ -135,26 +144,26 @@
                         out.println("<p class=\"giornoData\"><span>"+giornata.format(data_spett)+ "</span></p>");
                     }
                     out.println("<p class=\"orarioSpett\"><i class=\"tiny material-icons crono\">query_builder</i>"+ora.format(data_spett)+" Sala: "+spett_per_film.get(k).getSala().getNome()+"");
-                    out.println("<a href=\"prenotazione.jsp?id="+spett_per_film.get(k).getId()+"\" class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></p>");
+                    out.println("<a href=\"prenotazione.jsp?id="+spett_per_film.get(k).getId()+"&x?sala="+spett_per_film.get(k).getSala().getNome()+"\" class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></p>");
                 }
                 out.println("</div>");
                 out.println("</li>");
                 }
             %>                    
         </ul>  <!-- end slider-->
-                    
+
+
         <!-- Modal Structure -->
         <div id="form" class="modal">
             <div class="modal-content">
-                    <div class="row">
-                        <div class="col s12">
+                        <div class="">
                             <ul class="tabs">
                                 <li class="tab col s6"><a href="#in">Sign IN</a></li>
                                 <li class="tab col s6"><a href="#up">Sign UP</a></li>
                             </ul>
                         </div>
-                        <div id="in" class="col s12">
-                            <form class="col s12" action="login.js">
+                        <div id="in" class="">
+                            <form class="" action="login.js">
                                 <div class="row">
                                   <div class="input-field col s12 center">
                                         <input id="email_lgn" type="email" class="validate">
@@ -181,7 +190,7 @@
                         </div>
                         <div id="up" class="col s12">
                             <div class="row">
-                                <form class="col s12">
+                                <form>
                                     <div class="row">
                                         <div class="input-field col s12 center">
                                             <input id="first_name" type="text" class="validate">
@@ -208,7 +217,6 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
             </div>
         </div>
         
