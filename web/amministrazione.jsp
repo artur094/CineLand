@@ -17,6 +17,8 @@
         <link type="text/css" rel="stylesheet" href="css/materialize/materialize.min.css"  media="screen,projection"/>
         <!--Import local style-->
         <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/seats.css"  media="screen,projection"/>
+
         <link type="text/css" rel="stylesheet" href="css/amministrazione.css"  media="screen,projection"/>
 
       <!--Let browser know website is optimized for mobile-->
@@ -24,7 +26,7 @@
     </head>
     <%!
         boolean privacy = false;
-        Cookie[] cookies;        
+        Cookie[] cookies ;        
         Utente user;
         List<Utente> topten;
         List<Film> incassi_film;
@@ -105,7 +107,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="row">
+        <div class="tabhead">
             <div class="col s12">
                    <ul class="tabs">
                        <li class="tab col s3"><a href="#tab_programmazione">Spettacoli</a></li>
@@ -116,9 +118,9 @@
             </div>
         </div>
         <!--Tab programmazione-->
-        <div id="tab_programmazione" class="container mtab">
+        <div id="tab_programmazione" class="mtab">
             <div class="row">
-                <div class="col s12 m3 l2">
+                <div class="col s12 m2 lista_spett">
                     <ul>
                         <% 
                             for(int i=0;  i < films.size();i++){
@@ -127,19 +129,25 @@
                                    Spettacolo s = spett_per_film.get(k);
                                    Date data_spett = s.getData_ora().getTime();
                                    SimpleDateFormat ora = new SimpleDateFormat("hh:mm");
-                                   out.println("<li><a>"+s.getId()+" "+s.getFilm().getTitolo()+" "+ora.format(data_spett)+"</a></li>");
+                                   out.println("<li class=\"item_spett\" data-sala=\""+s.getSala().getNome()+"\" data-id_spett=\""+s.getId()+"\"><a>"+s.getId()+" "+s.getFilm().getTitolo()+" "+ora.format(data_spett)+"</a></li>");
                                }
                             }
                         %>
                     </ul>
                 </div>
-                <div class="col s12 m9 l10">
-                    
+                <div class="col s12 m10 ">
+                    <div></div>
+                    <div class="demo container">
+                        <div class="booking-details">
+                            <div id="legend"></div>
+                        </div>
+                        <div class="front">SCREEN</div>					
+                    </div>	
                 </div>
             </div>
         </div>
         <div id="tab_incassi" class="container mtab">
-            <table class="highlight responsive-table centered">
+            <table class="highlight responsive-table">
                 <thead>
                     <tr>
                       <th data-field="id">ID</th>
@@ -163,7 +171,7 @@
         </div>
         <!--Tab top clienti-->
         <div id="tab_clienti" class="container mtab">
-            <table class="highlight responsive-table centered">
+            <table class="highlight responsive-table">
                 <thead>
                     <tr>
                       <th data-field="id">Nome</th>
@@ -188,6 +196,8 @@
 	 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.seat-charts.min.js"></script> 
+    <script type="text/javascript" src="js/amministrazione.js"></script> 
     <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
     <script type="text/javascript" src="js/master.js"></script>
   </html>

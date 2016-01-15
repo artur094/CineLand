@@ -2,11 +2,45 @@
 	color: #fff;
 }
 .tabs{
-background-color: #2B2D42;
+	background-color: #1B1D32;
 }
 .mtab{
 	height: 100%;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
 	background-color: #2B2D42;
 	margin-top: 45px;
 	color: #fff;
+}
+
+.tabhead{
+    margin-top: 79px;
+}
+
+.item_spett{
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    cursor: pointer;
+}
+
+.item_spett.activeitem>a{
+    color: #26a69a !important;
+}
+
+.item_spett>a{
+    color: #fff;
+}
+
+.lista_spett{
+    margin-top: 20px;
+    border-right: 1px dotted #adadad;
+}
+
+table.highlight>tbody>tr:hover{
+    color:black;
+}
+
+.seatCharts-container{
+    display: none;
 }
