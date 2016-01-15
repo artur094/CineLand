@@ -24,7 +24,7 @@
     </head>
     <%!
         boolean privacy = false;
-        Cookie[] cookies ;        
+        Cookie[] cookies;        
         Utente user;
         List<Utente> topten;
         List<Film> incassi_film;

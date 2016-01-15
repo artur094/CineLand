@@ -18,7 +18,7 @@
 
 <%!
     boolean privacy = false;
-    Cookie[] cookies ;        
+    Cookie[] cookies;        
     Utente user;
     Boolean sess = false;
     Spettacolo spett;
