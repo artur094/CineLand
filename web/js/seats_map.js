@@ -48,6 +48,26 @@ var sala3 = [
     '_____aa_____',
     '_____a_____'
 ];
+var sala4 = [
+    '________aaaaaa________',
+    '_______a___a__a_______',
+    '______a____a___a______',
+    '______a________a______',
+    '______a________a______',
+    '______a________a______',
+    '_______aaaaaaaa_______',
+    '_______a______a_______',
+    '_______a______a_______',
+    '_______a______a_______',
+    '_______a______a_______',
+    '_______a______a_______',
+    '_______a______a_______',
+    '_______a______a_______',
+    '__aaa__a______a__aaa__',
+    '_a___a_a______a_a___a_',
+    'a_____aa______aa_____a',
+    'a_____aa______aa_____a'
+];
 $(document).ready(function() {
 
     var $cart = $('#selected-seats'), //Sitting Area
@@ -55,7 +75,7 @@ $(document).ready(function() {
     $total = $('#total'); //Total money
 
     var sc = $('#seat-map').seatCharts({
-            map: sala3,
+            map: sala4,
             naming : {
                     top : false,
                     left:false,

@@ -6,6 +6,14 @@
     background-color: whitesmoke;
 }
 
+.img-small{
+    display: none;
+}
+
+.img-big{
+    display: block;
+}
+
 .card{
     width: 300px;
     max-height: 500px;
@@ -87,15 +95,58 @@ ul{
 }
 
 @media only screen and (max-width: 799px){
-    .card{
+    //quando devono diventare sottili e alte
+    /*.card{
         margin-left: auto;
         margin-right: auto;
         width: 375px;
+        height: 500px;
+    }*/
+    
+    .card{
+        width: 30px;
+        height: 500px;
+        max-height: 500px;
+        overflow: visible;
+        margin: 10px 5px 5px 10px;
+    }
+    
+    .card-image{
+        overflow: hidden;
+        height: 500px;
+        
+    }
+    
+    .img-big{
+        display: none;
+    }
+    
+    .img-small{
+        display: block;
+    }
+    
+    .wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        //width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 35vh;
+    }
+    
+    li.card.showcase{
+        margin-top: 3vh;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .btn{
+        
     }
 }
 
 /* Portrait and Landscape */
-@media only screen and (min-width: 800px) and (max-width: 1280px) {
+/*@media only screen and (min-width: 800px) and (max-width: 1280px) {
     li.card.showcase{
         width: 90%;
         height: 100%;
@@ -105,9 +156,9 @@ ul{
         margin-left: auto;
         margin-right: auto;
     }
-}
+}*/
 
-@media only screen and (min-width: 1280px){
+@media only screen and (min-width: 800px){
     .wrapper{
         display: flex;
         flex-wrap: wrap;
@@ -125,6 +176,20 @@ ul{
         margin-top: 3vh;
         margin-left: auto;
         margin-right: auto;
+    }
+    
+    .img-small{
+        display: none !important;
+    }
+
+    .img-big{
+        display: block;
+    }
+    
+    .rect-video{
+        width: 580px;
+        height: 380px;
+        background-color: black;
     }
 }
 
