@@ -112,7 +112,9 @@
                     <div class="slider-img" id="slider1"></div>    
                     <div class="slider-img" id="slider2"></div>    
                     <div class="slider-img" id="slider3"></div>    
-                    <div class="slider-img" id="slider4"></div>            
+                    <div class="slider-img" id="slider4"></div>        
+                    <div class="slider-img" id="slider5"></div>        
+                    <div class="slider-img" id="slider6"></div>            
             </div>
         </div>
         <!-- Main central content -->            
@@ -229,4 +231,5 @@
     <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
     <script type="text/javascript" src="js/master.js"></script>
     <script src="js/rect.js"></script>
+    <script src="js/slider2.js"></script>
   </html>
