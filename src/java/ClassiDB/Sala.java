@@ -7,6 +7,7 @@ package ClassiDB;
 
 import Database.DBManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -119,6 +120,21 @@ public class Sala {
             }
         }
         return str_map;
+    }
+    
+    public String[] getVettorePostiOccupati(){
+        String[] tmp = {"0"};
+        int pos = 0;
+        for(int i=0; i<mappa.length; i++)
+        {
+            for(int j=0; j<mappa[i].length; j++)
+            {
+                if(mappa[i][j].isOccupato())
+                  tmp[pos] = (i + "_" + j);
+                  pos++;
+            }
+        }
+      return tmp;   
     }
     
     // Trasformare la mappa in una stringa

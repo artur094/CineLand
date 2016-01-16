@@ -108,6 +108,17 @@ public class Controller extends HttpServlet {
                     
                 }
                 break;
+            case "test_posti":
+                try(PrintWriter out = response.getWriter()){
+                Sala s = new Sala(2);
+                //out.println("HOWDY!");
+                out.println(s.getVettorePostiOccupati()[0]);
+                
+                }catch(Exception e)
+                {
+                    
+                }
+                break;
             case "test":
                 try(PrintWriter out = response.getWriter()){
                     //DBManager dbm = DBManager.getDBManager();
