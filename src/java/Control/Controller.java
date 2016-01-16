@@ -109,11 +109,11 @@ public class Controller extends HttpServlet {
                 }
                 break;
             case "test_posti":
+                //eliminare questo blocco case se funziona tutto correttamente
                 try(PrintWriter out = response.getWriter()){
-                Sala s = new Sala(2);
-                //out.println("HOWDY!");
-                out.println(s.getVettorePostiOccupati()[0]);
-                
+                Sala s = new Sala(1);
+                out.println(s.getVettorePostiOccupati());
+                out.println(s.getStringMatricePostiSala());
                 }catch(Exception e)
                 {
                     

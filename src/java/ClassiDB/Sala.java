@@ -122,19 +122,46 @@ public class Sala {
         return str_map;
     }
     
-    public String[] getVettorePostiOccupati(){
-        String[] tmp = {"0"};
+    /**
+     * Ritorna una stringa contenente i posti occupati
+     * @return stringa dei posti occupati
+     */
+    public String getVettorePostiOccupati(){
+        String tmp = "";
         int pos = 0;
         for(int i=0; i<mappa.length; i++)
         {
             for(int j=0; j<mappa[i].length; j++)
             {
                 if(mappa[i][j].isOccupato())
-                  tmp[pos] = (i + "_" + j);
+                  tmp += (i + "_" + j);
                   pos++;
             }
         }
       return tmp;   
+    }
+    
+    /**
+     * Ritorna una stringa contenete una mappa dei posti della sala
+     * NON include i posti occupati.
+     * @return String che contiene la mappa dei posti.
+     */
+    public String getStringMatricePostiSala(){
+        String str_matrice_sala = "";
+        for(int i=0; i<mappa.length; i++)
+        {
+            for(int j=0; j<mappa[i].length; j++)
+            {
+                if(!mappa[i][j].isEsiste())
+                    str_matrice_sala += "_";
+                else
+                {
+                    str_matrice_sala += "A";
+                }
+            }
+            str_matrice_sala += "\n";
+        }
+        return str_matrice_sala;
     }
     
     // Trasformare la mappa in una stringa
