@@ -182,14 +182,7 @@
                 </div>   			
             </div>
         </div>
-   
-	<footer class="page-footer">
-            <div class="footer-copyright">
-                <div class="container">
-                    © 2016 Copyright Cineland<a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-                </div>
-            </div>
-	</footer>
+  
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize/materialize.min.js"></script>

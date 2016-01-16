@@ -15,6 +15,12 @@ html{
     color: #b71c1c ;
 }
 
+#error{
+    position: relative;
+    top: 100px;
+}
+
+
 .err_text{
     line-height: 10rem;
 }

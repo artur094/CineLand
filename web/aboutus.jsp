@@ -62,73 +62,95 @@
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
-            <ul class="side-nav" id="mobile-demo">
-                <li><a class=""><i class="material-icons right"></i>Sign in/out</a></li>
-                <li><a href="index.jsp">Film</a></li>
-                <li><a href="aboutus.jsp">About us</a></li>
-            </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <%
+                        if(sess){
+                            if(user.getRuolo().equals("admin")){
+                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
+                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }else{
+                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                                        }
+                           
+                        }else{
+                            out.println("<li id=\"login\"><a class=\" modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                        }
+                    %>
+                    <li><a href="index.jsp">Film</a></li>
+                    <li><a href="aboutus.jsp">About us</a></li>
+                </ul>
         </div>
     </nav>
-                    
+    <!-- Modal Structure -->
     <div id="form" class="modal">
             <div class="modal-content">
-                    <div class="row">
-                        <div class="col s12">
+                        <div class="">
                             <ul class="tabs">
-                                <li class="tab col s6"><a class="active" href="#in">Sign IN</a></li>
+                                <li class="tab col s6"><a href="#in">Sign IN</a></li>
                                 <li class="tab col s6"><a href="#up">Sign UP</a></li>
                             </ul>
                         </div>
-                        <div id="in" class="col s12">
-                            <form class="col s12" action="login.js">
+                        <div id="in" class="">
+                            <form class="" action="login.js">
                                 <div class="row">
-                                  <div class="input-field col s12 offset-m3 m6  ">
-                                        <input id="email" type="email" class="validate">
+                                  <div class="input-field col s12 center">
+                                        <input id="email_lgn" type="email" class="validate">
                                         <label for="email">Email</label>
                                   </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input-field col s12 offset-m3 m6 ">
-                                        <input id="password" type="password" class="validate">
+                                    <div class="input-field col s12 center">
+                                        <input id="password_lgn" type="password" class="validate">
                                         <label for="password">Password</label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col s8 offset-m4 m4 ">
+                                    <div class="col s12 center ">
                                         <div class="btn" id="btn_login">Log in</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 center ">
+                                        <a>Hai dimenticato la password?</a>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div id="up" class="col s12">
                             <div class="row">
-                                <form class="col s12">
+                                <form>
                                     <div class="row">
-                                        <div class="input-field col s12 m6">
+                                        <div class="input-field col s12 center">
                                             <input id="first_name" type="text" class="validate">
                                             <label for="first_name">First Name</label>
                                         </div>
-                                        <div class="input-field col s12 m6">
-                                            <input id="last_name" type="text" class="validate">
-                                            <label for="last_name">Last Name</label>
-                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="input-field col s12 m6 offset-m3">
-                                            <input id="email" type="email" class="validate">
+                                        <div class="input-field col s12 center">
+                                            <input id="email_sgnup" type="email" class="validate">
                                             <label for="email">Email</label>
                                         </div>
                                     </div>
                                       <div class="row">
-                                      <div class="input-field col s12 m6">
-                                        <input id="password" type="password" class="validate">
+                                      <div class="input-field col s12 center">
+                                        <input id="password_sgnup" type="password" class="validate">
                                         <label for="password">Password</label>
                                       </div>
                                     </div>
+                                    <div class="row">
+                                    <div class="col s12 center">
+                                        <div class="btn" id="btn_signup">Sign up</div>
+                                    </div>
+                                </div>
                                 </form>
                             </div>
                         </div>
-                    </div>
             </div>
         </div>
     <!-- Main central content -->

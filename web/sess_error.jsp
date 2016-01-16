@@ -36,7 +36,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="row">
+        <div id="error" class="row">
             <li class=" col offset-m2 material-icons error">error_outline</li>
             <p class="m5 flow-text err_text">Purtroppo non sei autenticato, prova a fare <a>Login</a> o se non sei registrato <a>Registrati</a></p>
         </div>

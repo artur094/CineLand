@@ -19,7 +19,6 @@ form{
 }
 
 #index_container{
-	height: 100%;
 	background-color: #2B2D42;
 	position: relative;
         padding-top:20px;
@@ -64,4 +63,8 @@ nav{
 
 .verified_user{
     color: #43a047;
+}
+
+#form{
+    min-width: 360px;
 }

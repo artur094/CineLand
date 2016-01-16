@@ -77,6 +77,8 @@
                            
                         }else{
                             out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                            String redirectURL = "sess_error.jsp";
+                            response.sendRedirect(redirectURL);
                         }
                     %>
                     <li><a href="index.jsp">Film</a></li>
