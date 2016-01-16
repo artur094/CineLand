@@ -34,7 +34,7 @@
  
  
  #slider1{
-     background-image: url(../img/Slider/LEGOMovie.jpg);
+     background-image: url(../img/Slider/SharkTale.jpg);
      background-size:cover;
  }
  #slider2{
@@ -42,7 +42,7 @@
      background-size: cover;
  }
  #slider3{
-     background-image: url(../img/Slider/Rush.jpg);
+     background-image: url(../img/Slider/DearJohn.jpg);
      background-size: cover;
  }
  #slider4{
@@ -50,7 +50,11 @@
      background-size: cover;
  }
  #slider5{
-     background-image: url(../img/Slider/SharkTale.jpg);
+     background-image: url(../img/Slider/LoSqualo.jpg);
+     background-size: cover;
+ }
+ #slider6{
+     background-image: url(../img/Slider/TheAvengers.jpg);
      background-size: cover;
  }
  
