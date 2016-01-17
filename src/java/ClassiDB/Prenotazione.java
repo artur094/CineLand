@@ -23,9 +23,18 @@ public class Prenotazione {
     protected boolean pagato;
     protected Calendar data_ora_operazione;
 
+    /**
+     * Costruttore vuoto per impostare l'oggetto con i set
+     */
     public Prenotazione() {
     }
 
+    /**
+     * Costruttore che ritorna la prenotazione con quell'id (dal DB)
+     * @param id ID della prenotazione
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public Prenotazione(int id) throws SQLException, ClassNotFoundException{
         this.id = id;
         

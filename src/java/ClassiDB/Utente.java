@@ -20,9 +20,18 @@ public class Utente {
     protected double credito;
     protected double totalePagato;
 
+    /**
+     * Costruttore vuoto per settare i dati con i set
+     */
     public Utente() {
     }
     
+    /**
+     * Costruttore che crea l'utente in base all'id dato
+     * @param id ID utente
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public Utente(int id) throws SQLException, ClassNotFoundException{
         this.id = id;
         
@@ -78,9 +87,5 @@ public class Utente {
 
     public double getTotalePagato() {
         return totalePagato;
-    }
-    
-    
-    
-    
+    }    
 }

@@ -18,6 +18,9 @@ public class Sala {
     protected String nome;
     protected Posto[][] mappa;
 
+    /**
+     * Costruttore vuoto per settare i dati con i set
+     */
     public Sala() {
         
     }
@@ -142,7 +145,7 @@ public class Sala {
     }
     
     /**
-     * Ritorna una stringa contenete una mappa dei posti della sala
+     * Ritorna una stringa contenente una mappa dei posti della sala
      * NON include i posti occupati.
      * @return String che contiene la mappa dei posti.
      */
