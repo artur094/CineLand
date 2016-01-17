@@ -1,0 +1,42 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17-gen-2016, 18.38.45
+    Author     : Buffin
+*/
+
+.container_profilo{
+    position:relative;
+    margin-top: 100px;
+    
+    text-align: center;
+}
+
+.container_profilo table{
+    width: 50%;
+    margin-left: 25%;
+    
+    margin-bottom: 30px;
+}
+
+.container_profilo h3{
+    color: #26a69a;
+}
+
+.container_profilo td{
+    color: whitesmoke;
+}
+.container_profilo td:first-child{
+    color: orange;
+}
+
+.container_profilo h4{
+    color:#26a69a;
+}
+
+#btn_cambiaPassword{
+    margin-left: -10px;
+}
