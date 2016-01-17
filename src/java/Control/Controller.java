@@ -298,6 +298,10 @@ public class Controller extends HttpServlet {
         }
     }
     
+    /**
+     * Funzione per la gestione degli errori
+     * @param error 
+     */
     protected void error(String error)
     {
         switch(error)

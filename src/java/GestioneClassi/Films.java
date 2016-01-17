@@ -17,11 +17,20 @@ import java.util.ArrayList;
 public class Films {
     ArrayList<Film> listaFilm;
     
+    /**
+     * Costruttore
+     */
     protected Films()
     {
         listaFilm = new ArrayList<>();
     }
     
+    /**
+     * Funzione che ritorna la classe con tutti i film
+     * @return Oggetto Films che contiene tutti i film nel DB
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static Films getAllFilms() throws SQLException, ClassNotFoundException
     {
         Films fs = new Films();
@@ -33,6 +42,12 @@ public class Films {
         return fs;
     }
     
+    /**
+     * Ritorna classe Films che contiene tutti i film che verranno presentati al cinema
+     * @return Oggetto films che contiene tutti i film che verranno presentati al cinema
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static Films getFutureFilms() throws SQLException, ClassNotFoundException
     {
         Films fs = new Films();

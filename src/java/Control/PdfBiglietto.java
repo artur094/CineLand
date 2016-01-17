@@ -37,17 +37,33 @@ public class PdfBiglietto {
     String keywords = "biglietto,cineland,cinema";
     String titolo = "Biglietto CineLand";
 
+    /**
+     * Costruttore
+     * @param nomeFile Nome del file PDF
+     * @param prenotazione Oggetto prenotazione per la creazione del ticket
+     */
     public PdfBiglietto(String nomeFile, Prenotazione prenotazione) {
         this.nomeFile = nomeFile;
         this.prenotazione = prenotazione;
         datiBiglietto = new ByteArrayOutputStream();
     }
 
+    /**
+     * Costruttore
+     * @param prenotazione Oggetto prenotazione per la creazione del ticket
+     */
     public PdfBiglietto(Prenotazione prenotazione) {
         this.prenotazione = prenotazione;
     }
     
-    
+    /**
+     * Funzione che costruisce il file PDF
+     * @param nomeFile Nome del filme
+     * @param stream Stream
+     * @throws DocumentException
+     * @throws BadElementException
+     * @throws IOException 
+     */
     public void costruisciPdf(String nomeFile, OutputStream stream) throws DocumentException, BadElementException, IOException{
       SimpleDateFormat dataNormale = new SimpleDateFormat("dd/MM/YYYY");
       
@@ -94,6 +110,10 @@ public class PdfBiglietto {
       biglietto.close();
     }
 
+    /**
+     * Funzione per il ritorno del PDF
+     * @return PDF
+     */
     public ByteArrayOutputStream getPDF() {
         return datiBiglietto;
     }

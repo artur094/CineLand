@@ -79,7 +79,7 @@ public class Film {
         this.url_locandina = url_locandina;
     } 
 
-    private void setId(int id){
+    public void setId(int id){
         this.id = id;
     }
 
