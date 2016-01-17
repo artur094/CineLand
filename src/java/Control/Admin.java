@@ -30,6 +30,17 @@ public class Admin {
     }
     
     /**
+     * Funzione per avere i posti (presi dalle prenotazioni) venduti per uno spettacolo
+     * @param id_spettacolo ID spettacolo
+     * @return Lista prenotazioni per spettacolo
+     * @throws SQLException 
+     */
+    public List<Prenotazione> getPrenotazioniVendute(int id_spettacolo) throws SQLException
+    {
+        return dbm.prenotazioniPerSpettacolo(id_spettacolo);
+    }
+    
+    /**
      * Funzione per recuperare i top clienti (quelli che pagano di più)
      * @return List<Utente> dove ci sono i migliori clienti (in ordine di soldi spesi)
      * @throws SQLException

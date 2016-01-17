@@ -144,14 +144,49 @@ public class DBManager implements Serializable {
         return true;
     }
     
-    //DA FINIREEEEE
-    public List<Posto> postiVendutiperSpettacolo() throws SQLException
+    /**
+     * Ritorna le prenotazioni per lo spettacolo, quindi i posti prenotati
+     * @param id_spettacolo ID spettacolo
+     * @return Lista di prenotazioni per lo spettacolo
+     * @throws SQLException 
+     */
+    public List<Prenotazione> prenotazioniPerSpettacolo(int id_spettacolo) throws SQLException
+    {
+        List<Prenotazione> lista = new ArrayList<>();
+        
+        PreparedStatement ps = con.prepareStatement(
+                "SELECT id_prenotazione FROM prenotazione WHERE id_spettacolo = ?"
+        );
+        ps.setInt(1, id_spettacolo);
+        
+        ResultSet rs = ps.executeQuery();
+        while(rs.next())
+        {            
+            lista.add(getPrenotazione(rs.getInt("id_prenotazione")));
+        }
+        
+        return lista;
+    }
+    
+    /**
+     * Funzione per ottenere la lista in ordine decrescente dei posti più prenotati
+     * @param id_sala ID sala
+     * @return Lista posti in ordine decrescente per numero di prenotazioni
+     * @throws SQLException 
+     */
+    public List<Posto> postiPiuPrenotati(int id_sala) throws SQLException
     {
         List<Posto> lista = new ArrayList<>();
         
         PreparedStatement ps = con.prepareStatement(
-                "SELECT "
+                "SELECT id_posto, count(*) as tot FROM prenotazione GROUP BY id_posto ORDER BY tot desc"
         );
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            lista.add(getPosto(rs.getInt("id_posto")));
+        }
         
         return lista;
     }
