@@ -113,12 +113,13 @@ public class Controller extends HttpServlet {
                 break;
             case "test_posti":
                 //eliminare questo blocco case se funziona tutto correttamente
-                try(PrintWriter out = response.getWriter()){
-                Sala s = new Sala(1);
-                out.println("TEST posti. Al momento, sembra funzionare tutto bene...");
+                try{
+                DBManager d = DBManager.getDBManager();
+                Sala s = d.getSala(1);
+                response.getWriter().print(s.getVettorePostiSala()[5]);
                 }catch(Exception e)
                 {
-                    
+                    System.out.println(e.toString());
                 }
                 break;
             case "test":
@@ -323,11 +324,11 @@ public class Controller extends HttpServlet {
                 Object jsonVettore = serializer.serialize(s.getVettorePostiOccupati());
                 response.getWriter().write(jsonVettore.toString());
                 }catch(Exception e){
-                    
+                    System.out.println(e.toString());
                 }
                 break;
             
-            case "matrice_posti_sala":
+            case "vettore_posti_sala":
                 try{
                 int id_sala = Integer.parseInt(request.getParameter("id_sala"));
                 DBManager dbm = DBManager.getDBManager();
@@ -336,10 +337,10 @@ public class Controller extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8"); 
                 Serializer serializer = new JsonSerializer();
-                Object jsonMatrice = serializer.serialize(s.getMatricePostiSala());
+                Object jsonMatrice = serializer.serialize(s.getVettorePostiSala());
                 response.getWriter().write(jsonMatrice.toString());
                 }catch(Exception e){
-                    
+                    System.out.println(e.toString());
                 }
                 break;
         }

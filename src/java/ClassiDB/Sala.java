@@ -133,40 +133,51 @@ public class Sala {
      * @return stringa dei posti occupati
      */
     public String[] getVettorePostiOccupati(){
-        String tmp[] = {""};
-        int pos = 0;
+        ArrayList<String> tmp= new ArrayList<String>();
+        
         for(int i=0; i<mappa.length; i++)
         {
             for(int j=0; j<mappa[i].length; j++)
             {
                 if(mappa[i][j].isOccupato())
-                  tmp[pos] = (i + "_" + j);
-                  pos++;
+                  tmp.add(i + "_" + j);
+                  
             }
         }
-      return tmp;   
+      String[] array = new String[tmp.size()];
+      int insertion = 0;
+      for(String s : tmp){
+          array[insertion] = s;
+          insertion++;
+      }
+      return array;   
     }
     
     /**
-     * Ritorna una matrice contenente una mappa dei posti della sala
+     * Ritorna un vettore contenente una mappa dei posti della sala
      * NON include i posti occupati.
      * @return String che contiene la mappa dei posti.
      */  
-        public String[][] getMatricePostiSala(){
-        String[][] str_matrice_sala = new String[mappa.length][mappa[0].length];
+        public String[] getVettorePostiSala(){
+        String[] str_vettore_sala = new String[mappa.length];
+        String tmp = "";
+        int pos = 0;
         for(int i=0; i<mappa.length; i++)
         {
             for(int j=0; j<mappa[i].length; j++)
             {
                 if(!mappa[i][j].isEsiste())
-                    str_matrice_sala[i][j] = "_";
+                    tmp += "_";
                 else
                 {
-                    str_matrice_sala[i][j] = "A";
+                    tmp += "A";
                 }
             }
+            str_vettore_sala[pos] = tmp;
+            tmp = "";
+            pos++;
         }
-        return str_matrice_sala;
+        return str_vettore_sala;
     }
     
     /**
