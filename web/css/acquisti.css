@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18-gen-2016, 14.42.42
+    Author     : Buffin
+*/
+
+.container_acquisti{
+    position:relative;
+    margin-top: 100px;
+    
+    text-align: center;
+}
+.container_acquisti h4{
+    color: orange;
+}
+.container_acquisti h3{
+    color: #26a69a;
+}
+
+.collapsible-body{
+    background-color: whitesmoke;
+}
+
+.container_acquisti ul{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.container_acquisti span{
+    margin-left: 30px;
+    transform: translateY(6px);
+    -webkit-transform: translateY(6px);
+    -moz-transform: translateY(6px);
+    -o-transform: translateY(6px);
+    -ms-transform: translateY(6px);
+}

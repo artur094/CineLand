@@ -24,7 +24,7 @@
         <!--Import local style-->
         <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
 
-        <link type="text/css" rel="stylesheet" href="css/profilo.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/acquisti.css"  media="screen,projection"/>
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -57,9 +57,9 @@ ArrayList<Prenotazione> pr_utente;
             films = (Films.getFutureFilms()).getListaFilm();*/
         }
         pr_utente = new ArrayList<>();
-        Prenotazioni pp = pr.getPrenotazioniUtente(user.getId());
+        //Prenotazioni pp = pr.getPrenotazioniUtente(1);
         
-        //pr_utente = pr.getPrenotazioniUtente(user.getId()).getListaPrenotazioni();
+        pr_utente = pr.getPrenotazioniUtente(user.getId()).getListaPrenotazioni();
         //pr_utente.addAll(pr.getPrenotazioniUtente(user.getId()).getListaPrenotazioni());
     %>
 
@@ -123,14 +123,14 @@ ArrayList<Prenotazione> pr_utente;
                 </ul>
             </div>
         </nav>
-                    <div class="container_profilo">
+                    <div class="container_acquisti">
                         <h3>I tuoi acquisti</h3>
                         <br>
                         
                         <% 
                             Collections.sort(pr_utente, new Comparator<Prenotazione>(){
-                                public int compare(Prenotazione p1, Prenotazione p2){
-                                    return (p1.getSpettacolo().getData_ora().toString()+p1.getSpettacolo().getFilm().toString()+p1.getId()).compareTo(p2.getSpettacolo().getData_ora().toString()+p2.getSpettacolo().getFilm().toString()+p2.getId());
+                                public int compare(Prenotazione p2, Prenotazione p1){
+                                    return (p1.getSpettacolo().getData_ora().getTime().toString()+p1.getSpettacolo().getFilm().getTitolo().toString()+p1.getId()).compareTo(p2.getSpettacolo().getData_ora().getTime().toString()+p2.getSpettacolo().getFilm().getTitolo().toString()+p2.getId());
                                 }
                             });
                             int last_id=-1;
@@ -141,20 +141,20 @@ ArrayList<Prenotazione> pr_utente;
                             int count_a=0;
                             for(int i=0; i < pr_utente.size(); i++)
                             {
-                                if(pr_utente.get(i).getSpettacolo().getData_ora().before(Calendar.getInstance().getTime()))
+                                if(pr_utente.get(i).getSpettacolo().getData_ora().getTime().after(Calendar.getInstance().getTime()))
                                 {
                                     if(after_now==false)
                                     {
                                         //stampa in progress
                                         after_now=true;
-                                        out.println("<h4>Da vedere</h4><ul class=\"collapsible\" data-collapsible=\"accordion\">");
+                                        out.println("<h4>Da vedere</h4><ul class=\"collapsible\" data-collapsible=\"expandable\">");
                                         
                                     }
                                     if(pr_utente.get(i).getSpettacolo().getId()==last_id)
                                     {
                                         //non creo nuovo spoiler
                                         // aggiungo 
-                                        out.println("<p>Sala: "+pr_utente.get(i).getSpettacolo().getSala().getNome()+"Posto:"+pr_utente.get(i).getPosto()+"</p>");
+                                        out.println("<p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPosto().getPrezzoPagato()+"&euro;</p>");
                                     }
                                     else
                                     {
@@ -162,8 +162,8 @@ ArrayList<Prenotazione> pr_utente;
                                         if(count_a==1)
                                            out.println("</div></li>");
                                         // creo nuovo spoiler e aggiungo lui stesso
-                                        out.println("<li><div class=\"collapsible-header\"><i class=\"material-icons\">whatshot</i>"+pr_utente.get(i).getSpettacolo().getFilm().getTitolo()+" ora:"+pr_utente.get(i).getSpettacolo().getData_ora().toString()+"</div>");
-                                        out.println("<div class=\"collapsible-body\"><p>Sala: "+pr_utente.get(i).getSpettacolo().getSala().getNome()+"Posto:"+pr_utente.get(i).getPosto()+"</p>");
+                                        out.println("<li><div class=\"collapsible-header\"><i class=\"material-icons\">receipt</i><b>"+pr_utente.get(i).getSpettacolo().getFilm().getTitolo()+"</b> <span class=\"material-icons\">schedule</span> "+(new SimpleDateFormat("hh:mm - dd MM yyyy").format(pr_utente.get(i).getSpettacolo().getData_ora().getTime())).toString()+"</div>");
+                                        out.println("<div class=\"collapsible-body\"><p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPosto().getPrezzoPagato()+"&euro;</p>");
                                         count_a=1;
                                     }
                                 }
@@ -175,11 +175,11 @@ ArrayList<Prenotazione> pr_utente;
                                         before_now=true;
                                         if(after_now)
                                             out.println("</li></ul>");
-                                        out.println("<br><hr><br><h4>Visti</h4><ul class=\"collapsible\" data-collapsible=\"accordion\">");
+                                        out.println("<br><hr><br><h4>Visti</h4><ul class=\"collapsible\" data-collapsible=\"expandable\">");
                                     }
                                     if(pr_utente.get(i).getSpettacolo().getId()==last_id)
                                     {
-                                        out.println("<p>Sala: "+pr_utente.get(i).getSpettacolo().getSala().getNome()+"Posto:"+pr_utente.get(i).getPosto()+"</p>");
+                                        out.println("<p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPosto().getPrezzoPagato()+"&euro;</p>");
                                     }
                                     else
                                     {
@@ -187,8 +187,8 @@ ArrayList<Prenotazione> pr_utente;
                                         if(count_b==1)
                                            out.println("</div></li>");
                                         // creo nuovo spoiler e aggiungo lui stesso
-                                        out.println("<li><div class=\"collapsible-header\"><i class=\"material-icons\">whatshot</i>"+pr_utente.get(i).getSpettacolo().getFilm().getTitolo()+" ora:"+pr_utente.get(i).getSpettacolo().getData_ora().toString()+"</div>");
-                                        out.println("<div class=\"collapsible-body\"><p>Sala: "+pr_utente.get(i).getSpettacolo().getSala().getNome()+"Posto:"+pr_utente.get(i).getPosto()+"</p>");
+                                        out.println("<li><div class=\"collapsible-header\"><i class=\"material-icons\">receipt</i><b>"+pr_utente.get(i).getSpettacolo().getFilm().getTitolo()+"</b> <span class=\"material-icons\">schedule</span> "+(new SimpleDateFormat("hh:mm - dd MM yyyy").format(pr_utente.get(i).getSpettacolo().getData_ora().getTime())).toString()+"</div>");
+                                        out.println("<div class=\"collapsible-body\"><p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPosto().getPrezzoPagato()+"&euro;</p>");
                                         count_b=1;
                                     }
                                 }
@@ -199,8 +199,8 @@ ArrayList<Prenotazione> pr_utente;
                             }
                             else
                             {*/ 
-                                //chiude ul sopra
-                                out.println("</li></ul>");
+                                //chiude ul sopra forse manca </div>
+                                out.println("</div></li></ul>");
                             //}
                             
                         %>
@@ -214,9 +214,9 @@ ArrayList<Prenotazione> pr_utente;
     <script type="text/javascript" src="js/master.js"></script>
     <script>
         $(document).ready(function(){
-            $('.collapsible').collapsible({
-                accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });
+            /*$('.collapsible').collapsible({
+                //accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            });*/
         });
     </script>
   </html>
