@@ -28,6 +28,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.sojo.interchange.Serializer;
+import net.sf.sojo.interchange.json.JsonSerializer;
 
 /**
  *
@@ -113,20 +115,18 @@ public class Controller extends HttpServlet {
                 //eliminare questo blocco case se funziona tutto correttamente
                 try(PrintWriter out = response.getWriter()){
                 Sala s = new Sala(1);
-                out.println("TEST posti");
-                out.println(s.getVettorePostiOccupati());
-                out.println(s.getStringMatricePostiSala());
+                out.println("TEST posti. Al momento, sembra funzionare tutto bene...");
                 }catch(Exception e)
                 {
                     
                 }
                 break;
             case "test":
-                try(PrintWriter out = response.getWriter()){
+                try{
                     DBManager dbm = DBManager.getDBManager();
                     PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
                     response.setContentType("application/pdf");
-                    pdf.costruisciPdf("test", response.getOutputStream());
+                    pdf.costruisciPdf("file di test", response.getOutputStream());
                   
                     /*  Sala s = new Sala(1);
                     out.println("TOSTRING");
@@ -313,9 +313,11 @@ public class Controller extends HttpServlet {
                 int id_sala = Integer.parseInt(request.getParameter("id_sala"));
                 DBManager dbm = DBManager.getDBManager();
                 Sala s = dbm.getSala(id_sala);
-                response.setContentType("text/plain");
+                response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8"); 
-                response.getWriter().write(s.getVettorePostiOccupati());     
+                Serializer serializer = new JsonSerializer();
+                Object jsonVettore = serializer.serialize(s.getVettorePostiOccupati());
+                response.getWriter().write(jsonVettore.toString());
                 }catch(Exception e){
                     
                 }
@@ -326,9 +328,12 @@ public class Controller extends HttpServlet {
                 int id_sala = Integer.parseInt(request.getParameter("id_sala"));
                 DBManager dbm = DBManager.getDBManager();
                 Sala s = dbm.getSala(id_sala);
-                response.setContentType("text/plain");
+
+                response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8"); 
-                response.getWriter().write(s.getStringMatricePostiSala());
+                Serializer serializer = new JsonSerializer();
+                Object jsonMatrice = serializer.serialize(s.getMatricePostiSala());
+                response.getWriter().write(jsonMatrice.toString());
                 }catch(Exception e){
                     
                 }
