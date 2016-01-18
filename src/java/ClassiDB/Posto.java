@@ -21,6 +21,13 @@ public class Posto {
     protected boolean occupato;
     protected double prezzoPagato = 0; //utile solo per amministrazione
     
+    /**
+     * Funzione che ritorna il posto dal database, utilizzando ID prenotazione
+     * @param id_prenotazione ID di prenotazione per il recupero del posto
+     * @return Posto prenotato
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static Posto getPostoFromPrenotazione(int id_prenotazione) throws SQLException, ClassNotFoundException
     {
         DBManager dbm = DBManager.getDBManager();
@@ -28,10 +35,19 @@ public class Posto {
         return p;        
     }
 
+    /**
+     * Costruttore vuoto in caso si voglia settare l'oggetto con i set
+     */
     public Posto() {
         
     }
 
+    /**
+     * Costruttore che costruisce l'oggetto in base all'ID del posto
+     * @param id ID del posto
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public Posto(int id) throws SQLException, ClassNotFoundException{
         DBManager dbm = DBManager.getDBManager();
         Posto p = dbm.getPosto(id);
@@ -43,6 +59,14 @@ public class Posto {
         this.occupato = false;
     }
     
+    /**
+     * Costruttore che costruisce l'oggetto secondo i dati di input
+     * @param id ID posto
+     * @param id_sala ID sala
+     * @param riga Riga del posto
+     * @param colonna Colonna del posto
+     * @param esiste Esistenza del posto (ovvero se è rotto o no)
+     */
     public Posto(int id, int id_sala, int riga, int colonna, boolean esiste) {
         this.id = id;
         this.id_sala = id_sala;

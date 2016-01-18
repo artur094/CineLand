@@ -24,26 +24,46 @@ public class QRCode {
     protected String testo;
     protected ByteArrayOutputStream qrcode;
     
+    /**
+     * Costruttore
+     * @param testo Testo da inserire nel QRCode
+     */
     public QRCode(String testo)
     {
         this.testo = testo;
         qrcode = Conversione();
     }
     
+    /**
+     * Funzione convertire il testo in QRCode
+     * @return QRCode
+     */
     protected ByteArrayOutputStream Conversione()
     {
         return (net.glxn.qrgen.QRCode.from(testo).to(ImageType.JPG).stream());
     }
 
+    /**
+     * Ritorna il testo
+     * @return Testo stringa
+     */
     public String getTesto() {
         return testo;
     }
 
+    /**
+     * Cambiare il testo per il QRCode
+     * @param testo Nuovo testo per QRCode
+     */
     public void setTesto(String testo) {
         this.testo = testo;
         qrcode = Conversione();
     }
 
+    /**
+     * Ritorna il QRCode del testo
+     * @return QRCode
+     */
     public ByteArrayOutputStream getQrcode() {
         return qrcode;
     }

@@ -16,13 +16,20 @@ import java.util.ArrayList;
  */
 public class Spettacoli {
     ArrayList<Spettacolo> listaSpettacoli;
-    
+    /**
+     * Costruttore
+     */
     protected Spettacoli()
     {
         listaSpettacoli = new ArrayList<>();
     }
     
-    // Ritorna una lista di spettacoli che devono ancora esser mostrati dall'ora di esecuzione
+    /**
+     * Funzione per il recupero di tutti gli spettacoli avvenuti e futuri
+     * @return Spettacoli con la lista di tutte le prenotazioni
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static Spettacoli getAllSpettacoli() throws SQLException, ClassNotFoundException
     {
         Spettacoli s = new Spettacoli();
@@ -33,7 +40,12 @@ public class Spettacoli {
         return s;
     }
     
-    // Ritorna tutti i spettacoli programmati 
+    /**
+     * Funzione per il recupero degli spettacoli futuri
+     * @return Spettacoli con la lista di spettacoli che non sono ancora stati presentati
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static Spettacoli getSpettacoliFuturi() throws SQLException, ClassNotFoundException
     {
         Spettacoli s = new Spettacoli();
@@ -44,7 +56,13 @@ public class Spettacoli {
         return s;
     }
     
-    // Ritorna tutti i spettacoli programmati (ancora da vedere) che hanno il film
+    /**
+     * Funzione per il recupero di spettacoli che hanno avuto un film preciso
+     * @param id_film ID film
+     * @return Spettacoli con la lista dei spettacoli futuri che hanno il film dato in input
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static Spettacoli getSpettacoliFuturiFromFilm(int id_film) throws SQLException, ClassNotFoundException
     {
         Spettacoli s = new Spettacoli();

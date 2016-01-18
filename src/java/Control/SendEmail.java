@@ -25,6 +25,10 @@ public class SendEmail extends javax.mail.Authenticator{
     
     protected static SendEmail sendEmail;
     
+    /**
+     * Singleton, per avere una sola classe per l'invio di email
+     * @return Oggetto per l'invio di email
+     */
     public static SendEmail getInstance()
     {
         if(sendEmail == null)
@@ -34,6 +38,9 @@ public class SendEmail extends javax.mail.Authenticator{
         return sendEmail;
     }
     
+    /**
+     * Costruttore
+     */
     public SendEmail()
     {        
         props = System.getProperties();
@@ -46,6 +53,13 @@ public class SendEmail extends javax.mail.Authenticator{
         props.put( "mail.debug", "true" );   
     }
     
+    /**
+     * Funzione per l'invio di email
+     * @param email_dest Email di destinazione
+     * @param titolo Titolo della mail
+     * @param messaggio Messaggio della mail
+     * @throws MessagingException 
+     */
     public void send(String email_dest, String titolo, String messaggio) throws MessagingException
     {
         Session session = Session.getDefaultInstance(props, this);
@@ -58,6 +72,10 @@ public class SendEmail extends javax.mail.Authenticator{
         Transport.send(msg);
     }
     
+    /**
+     * Funzione per l'autenticazione
+     * @return 
+     */
     protected PasswordAuthentication getPasswordAuthentication()
     {
         return new PasswordAuthentication(indirizzo, password);

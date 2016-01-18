@@ -19,9 +19,18 @@ public class Spettacolo {
     protected Sala sala;
     protected Calendar data_ora;
 
+    /**
+     * Costruttore vuoto per settare i dati con i get&set
+     */
     public Spettacolo() {
     }
  
+    /**
+     * Costruttore che crea l'oggetto spettacolo secondo l'id dato
+     * @param id ID dello spettacolo
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public Spettacolo(int id) throws SQLException, ClassNotFoundException{
         this.id = id;
         

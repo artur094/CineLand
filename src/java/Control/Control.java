@@ -25,11 +25,19 @@ import java.util.Random;
  */
 public class Control {
 
+    /**
+     * Costruttore
+     */
     protected Control() {
         
     }
     
-    // Funzione che gestisce il login
+    /**
+     * Funzione statica che esegue il login 
+     * @param email Email dell'utente
+     * @param password Password dell'utente
+     * @return Oggetto Utente o null in caso di errore
+     */
     public static Utente logIn(String email, String password)
     {
         try{
@@ -43,8 +51,14 @@ public class Control {
         }
     }
     
-    // Funzione che gestisce la registrazione
-    // Effettuare controllo se l'email è legale (xxx@yyy.zzz)
+    /**
+     * Funzione statica che esegue la registrazione ed invia la mail di avvenuta registrazione
+     * @param email Email dell'utente
+     * @param nome Nome utente
+     * @param password Password utente
+     * @param url_cineland URL del sito
+     * @return True in caso sia andato tutto bene, altrimenti false
+     */
     public static boolean signUp(String email, String nome, String password, String url_cineland)
     {
         try {
@@ -67,6 +81,12 @@ public class Control {
         }
     }
     
+    /**
+     * Funzione statica che abilita l'account appena registrato
+     * @param email Email dell'utente
+     * @param codice Codice che è stato inviato tramite mail all'utente
+     * @return Booleano, True se è OK, false altrimenti
+     */
     public static boolean enableAccount(String email, String codice)
     {
         try {
@@ -77,7 +97,12 @@ public class Control {
         }
     }
     
-    // Funzione che gestisce il reset della password
+    /**
+     * Funzione statica per la gestione della password dimenticata, in cui viene inviata la mail di password persa
+     * @param email Email dell'utente
+     * @param url_cineland URL sito
+     * @return True se OK, False altrimenti
+     */
     public static boolean passwordDimenticata(String email, String url_cineland)
     {
         try {
@@ -100,6 +125,13 @@ public class Control {
         }
     }
     
+    /**
+     * Funzione statica per il cambio password
+     * @param email Email dell'utente
+     * @param password Nuova password
+     * @param codice Codice utente
+     * @return True se OK, False altrimenti
+     */
     public static boolean resetPassword(String email, String password, String codice)
     {
         try{
@@ -154,6 +186,12 @@ public class Control {
         }
     }
     
+    /**
+     * Funzione statica per la prenotazione di posti per uno spettacolo
+     * @param id_spettacolo ID spettacolo 
+     * @param id_utente ID utente
+     * @param posti Stringa contenente un insieme di posti 'RIGA,COLONNA,PREZZO' divisi per spazio
+     */
     public static void prenotaFilm(int id_spettacolo, int id_utente, String posti)
     {
         try{
@@ -213,6 +251,12 @@ public class Control {
         }
     }
     
+    /**
+     * Funzione statica per la creazione di spettacoli per l'esame
+     * @param X Distanza di tempo tra una prenotazione e l'altra
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static void script(int X) throws SQLException, ClassNotFoundException
     {
         /*

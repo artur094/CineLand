@@ -45,6 +45,12 @@ public class DBManager implements Serializable {
     // Implemento Singleton
     protected static DBManager dbm = null;
     
+    /**
+     * Singleton
+     * @return Oggetto unico per la connessione al DB
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static DBManager getDBManager() throws SQLException, ClassNotFoundException
     {
         if(dbm == null)
@@ -54,6 +60,11 @@ public class DBManager implements Serializable {
         return dbm;
     }
     
+    /**
+     * Costruttore
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     protected DBManager() throws SQLException, ClassNotFoundException
     {
         Class.forName("org.apache.derby.jdbc.ClientDriver", true, getClass().getClassLoader());
@@ -61,6 +72,11 @@ public class DBManager implements Serializable {
         this.con = con;
     }
     
+    /**
+     * Funzione per la generazione di una chiave random
+     * @param length Lunghezza chiave
+     * @return Chiave
+     */
     public String generateRandomKey(int length){
         Random random = new Random(new Date().getTime());
         String alphabet = 
@@ -76,6 +92,14 @@ public class DBManager implements Serializable {
     }
     
     // VARIE FUNZIONI DI AMMINISTRAZIONE 
+    /**
+     * Funzione per creare posti vuoti
+     * @param id_sala ID sala
+     * @param riga Riga del posto
+     * @param colonna Colonna del posto
+     * @return True se OK, False altrimenti
+     * @throws SQLException 
+     */
     public boolean creaPostoVuoto(int id_sala, int riga, int colonna) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_posto FROM posto WHERE id_sala = ? AND riga = ? AND colonna = ?");
@@ -97,6 +121,14 @@ public class DBManager implements Serializable {
         return false;
     }
     
+    /**
+     * Funzione per inserire spettacoli
+     * @param id_sala ID sala
+     * @param id_film ID film
+     * @param data Data e ora
+     * @return True se OK, false altrimenti
+     * @throws SQLException 
+     */
     public boolean insertSpettacolo(int id_sala, int id_film, Timestamp data) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement(
@@ -112,18 +144,59 @@ public class DBManager implements Serializable {
         return true;
     }
     
-    //DA FINIREEEEE
-    public List<Posto> postiVendutiperSpettacolo() throws SQLException
+    /**
+     * Ritorna le prenotazioni per lo spettacolo, quindi i posti prenotati
+     * @param id_spettacolo ID spettacolo
+     * @return Lista di prenotazioni per lo spettacolo
+     * @throws SQLException 
+     */
+    public List<Prenotazione> prenotazioniPerSpettacolo(int id_spettacolo) throws SQLException
     {
-        List<Posto> lista = new ArrayList<>();
+        List<Prenotazione> lista = new ArrayList<>();
         
         PreparedStatement ps = con.prepareStatement(
-                "SELECT "
+                "SELECT id_prenotazione FROM prenotazione WHERE id_spettacolo = ?"
         );
+        ps.setInt(1, id_spettacolo);
+        
+        ResultSet rs = ps.executeQuery();
+        while(rs.next())
+        {            
+            lista.add(getPrenotazione(rs.getInt("id_prenotazione")));
+        }
         
         return lista;
     }
     
+    /**
+     * Funzione per ottenere la lista in ordine decrescente dei posti più prenotati
+     * @param id_sala ID sala
+     * @return Lista posti in ordine decrescente per numero di prenotazioni
+     * @throws SQLException 
+     */
+    public List<Posto> postiPiuPrenotati(int id_sala) throws SQLException
+    {
+        List<Posto> lista = new ArrayList<>();
+        
+        PreparedStatement ps = con.prepareStatement(
+                "SELECT id_posto, count(*) as tot FROM prenotazione GROUP BY id_posto ORDER BY tot desc"
+        );
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            lista.add(getPosto(rs.getInt("id_posto")));
+        }
+        
+        return lista;
+    }
+    
+    /**
+     * Funzione per recuperare la lista dei clienti migliori
+     * @return Lista dei clienti migliori
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public List<Utente> topClienti() throws SQLException, ClassNotFoundException
     {
         List<Utente> lista = new ArrayList<>();
@@ -146,6 +219,11 @@ public class DBManager implements Serializable {
         return lista;
     }
     
+    /**
+     * Funzione che recupera la lista di film con gli incassi
+     * @return Lista di film con gli incassi
+     * @throws SQLException 
+     */
     public List<Film> incassiFilm() throws SQLException
     {
         List<Film> lista = new ArrayList<>();
@@ -170,6 +248,12 @@ public class DBManager implements Serializable {
         return lista;
     }
     
+    /**
+     * Funzione per il rimborso della prenotazione
+     * @param id_prenotazione ID prenotazione (Da cui si recupera utente)
+     * @return True se OK, False altrimenti
+     * @throws SQLException 
+     */
     public boolean rimborsaPrenotazione(int id_prenotazione) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement(
@@ -213,7 +297,7 @@ public class DBManager implements Serializable {
      * 
      * @param email Email dell'utente inserita nella form
      * @param password Password dell'utente inserita nella form
-     * @return 
+     * @return Oggetto utente
      */
     public Utente logIn(String email, String password) throws SQLException
     {
@@ -240,7 +324,7 @@ public class DBManager implements Serializable {
      * @param email Email inserita dall'utente nel momento della registrazione
      * @param password Password HASHATA inserita dall'utente
      * @param nome Nome dell'utente
-     * @return 
+     * @return stringa del codice di registrazione
      */
     public String registrazione(String email, String password, String nome) throws SQLException
     {
@@ -283,7 +367,7 @@ public class DBManager implements Serializable {
      * se corretto, torna TRUE, altriment FALSE (da vedere)
      * @param email Email usata per l'account
      * @param code Codice ricevuto via email
-     * @return 
+     * @return True se OK, False altrimenti
      */
     public boolean enableAccount(String email, String code) throws SQLException
     {
@@ -309,6 +393,12 @@ public class DBManager implements Serializable {
         return false;
     }
     
+    /**
+     * Funzione per la richiesta della password dimenticata
+     * @param email Email dell'utente
+     * @return Codice per il cambio password
+     * @throws SQLException 
+     */
     public String passwordDimenticata(String email) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("DELETE FROM password_dimenticata WHERE email = ?");
@@ -325,6 +415,14 @@ public class DBManager implements Serializable {
         return codice;
     }
     
+    /**
+     * Funzione per il reset della password
+     * @param email Email utente
+     * @param password Password nuova
+     * @param codice Codice dato tramite mail
+     * @return True se OK, False altrimenti
+     * @throws SQLException 
+     */
     public boolean passwordResettata(String email, String password, String codice) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT * FROM password_dimenticata WHERE email = ? and codice = ?");
@@ -350,6 +448,12 @@ public class DBManager implements Serializable {
         return true;
     }
     
+    /**
+     * Funzione che ritorna i soldi spesi dall'utente
+     * @param id_utente Utente
+     * @return Soldi totali pagati dall'utente
+     * @throws SQLException 
+     */
     public double totalePagato(int id_utente) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement(
@@ -371,7 +475,15 @@ public class DBManager implements Serializable {
     
     
     // FUNZIONI RIGUARDO PRENOTAZIONI - PAGAMENTI
-    
+    /**
+     * Funzione per inserire prenotazioni
+     * @param id_utente ID utente
+     * @param id_spettacolo ID spettacolo
+     * @param id_posto ID posto
+     * @param tipo_prezzo Tipologia del prezzo
+     * @return Prenotazione ottenuta, o null in caso di errore
+     * @throws SQLException 
+     */
     public Prenotazione insertPrenotazione(int id_utente, int id_spettacolo, int id_posto, String tipo_prezzo) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_prezzo FROM prezzo WHERE tipo_prezzo = ?");
@@ -417,6 +529,7 @@ public class DBManager implements Serializable {
         return false;
     }
     
+    //USELESS
     public boolean pagaPrenotazione(int id_prenotazione) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("UPDATE prenotazione SET pagato = true WHERE id_prenotazione = ?");
@@ -435,7 +548,7 @@ public class DBManager implements Serializable {
      * Funzione che ritorna la lista delle prenotazioni dell'utente (sia pagate che non)
      * 
      * @param id_utente ID utente 
-     * @return
+     * @return Lista di prenotazioni dell'utente
      * @throws SQLException 
      */
     public ArrayList<Prenotazione> getPrenotazioniUtente(int id_utente) throws SQLException
@@ -457,6 +570,12 @@ public class DBManager implements Serializable {
         return lista;
     }
     
+    /**
+     * Funzione per il recupero delle prenotazioni disponibili
+     * @param id_utente ID utente
+     * @return Lista delle prenotazioni risarcibili
+     * @throws SQLException 
+     */
     public ArrayList<Prenotazione> getPrenotazioniUtenteRisarcibili(int id_utente) throws SQLException
     {
         ArrayList<Prenotazione> lista = new ArrayList<>();
@@ -476,6 +595,12 @@ public class DBManager implements Serializable {
         return lista;
     }
     
+    /**
+     * Funzione per il recupero delle prenotazioni da pagare
+     * @param id_utente ID utente
+     * @return Lista Prenotazioni da pagare
+     * @throws SQLException 
+     */
     public ArrayList<Prenotazione> getPrenotazioniUtenteDaPagare(int id_utente) throws SQLException
     {
         ArrayList<Prenotazione> lista = new ArrayList<>();
@@ -500,7 +625,7 @@ public class DBManager implements Serializable {
     /**
      * Funzione che ritorna la lista di spettacoli futuri che hanno come film quello passato in input
      * @param id_film ID del film di cui vogliamo trovare i spettacoli
-     * @return
+     * @return lista spettacoli futuri che visualizzeranno il film in input
      * @throws SQLException 
      */
     public ArrayList<Spettacolo> getSpettacoliFuturiFromFilm(int id_film) throws SQLException
@@ -527,7 +652,7 @@ public class DBManager implements Serializable {
     
     /**
      * Funzione che ritorna una lista di tutti gli spettacoli, passati e futuri
-     * @return
+     * @return Lista di tutti gli spettacoli
      * @throws SQLException 
      */
     public ArrayList<Spettacolo> getAllSpettacoli() throws SQLException
@@ -554,7 +679,7 @@ public class DBManager implements Serializable {
     
     /**
      * Funzione che ritorna la lista di tutti i spettacoli futuri
-     * @return
+     * @return Lista di tutti i spettacoli futuri
      * @throws SQLException 
      */
     public ArrayList<Spettacolo> getSpettacoliFuturi() throws SQLException
@@ -583,7 +708,7 @@ public class DBManager implements Serializable {
     
     /**
      * Ritorna l'insieme di film che hanno uno spettacolo programmato ancora da vedere
-     * @return
+     * @return lista di tutti i film futuri
      * @throws SQLException 
      */
     public ArrayList<Film> getFilmFuturi() throws SQLException
@@ -608,7 +733,7 @@ public class DBManager implements Serializable {
     
     /**
      * Funzione che ritorna tutti i film futuri e passati di Cineland
-     * @return
+     * @return Lista di tutti i film
      * @throws SQLException 
      */
     public ArrayList<Film> getAllFilms() throws SQLException
@@ -637,6 +762,12 @@ public class DBManager implements Serializable {
     
     // Prendere dal DB il film che ha tale l'id dato in input
     // Associare direttamente al film anche il genere (in stringa)
+    /**
+     * Funzione per il recupero del film
+     * @param id ID film
+     * @return Oggetto Film
+     * @throws SQLException 
+     */
     public Film getFilm(int id) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT f.titolo, g.descrizione, f.URL_TRAILER, f.durata,f.trama, f.url_locandina, f.attori, f.regista, f.frase FROM film as f, genere as g WHERE f.id_film = ? and f.id_genere = g.id_genere");
@@ -664,6 +795,12 @@ public class DBManager implements Serializable {
     }
     
     // Prendere dal DB il posto
+    /**
+     * Funzione per il recupero del posto
+     * @param id ID posto
+     * @return Oggetto posto
+     * @throws SQLException 
+     */
     public Posto getPosto(int id) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT * FROM posto WHERE id_posto = ?");
@@ -684,6 +821,12 @@ public class DBManager implements Serializable {
         return null;
     }
     
+    /**
+     * Funzione per il recupero del posto da una prenotazione
+     * @param id_prenotazione ID prenotazione
+     * @return Oggetto posto
+     * @throws SQLException 
+     */
     public Posto getPostoFromPrenotazione(int id_prenotazione) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT * FROM prenotazione WHERE id_prenotazione = ?");
@@ -702,6 +845,12 @@ public class DBManager implements Serializable {
     
     // Prendere dal DB il nome sala
     // Costruire la mappa della sala con tale ID
+    /**
+     * Funzione per il recupero della sala per un determinato spettacolo
+     * @param id_spettacolo ID spettacolo
+     * @return Oggetto sala
+     * @throws SQLException 
+     */
     public Sala getSala(int id_spettacolo) throws SQLException
     {
         // PRIMA QUERY: recupero informazioni base della sala
@@ -761,6 +910,12 @@ public class DBManager implements Serializable {
         return s;
     }
     
+    /**
+     * Funzione per il recupero dell'id sala dal nome
+     * @param nome Nome sala
+     * @return ID sala
+     * @throws SQLException 
+     */
     public int getIdSala(String nome) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_sala FROM sala WHERE LOWER(descrizione) = ?");
@@ -775,6 +930,11 @@ public class DBManager implements Serializable {
         return -1;
     }
     
+    /**
+     * Funzione per il recupero degli id delle sale
+     * @return Lista di id delle sale
+     * @throws SQLException 
+     */
     public List<Integer> getListaIDSale() throws SQLException
     {
         List<Integer> listaSale = new ArrayList<>();
@@ -791,6 +951,12 @@ public class DBManager implements Serializable {
     // Prendere il film a cui si riferisce lo spettacolo
     // Prendere la sala a cui si riferisce lo spettacolo
     // Assegnare film e sala a spettacolo
+    /**
+     * Funzione per il recupero dello spettacolo
+     * @param id ID spettacolo
+     * @return Oggetto Spettacolo
+     * @throws SQLException 
+     */
     public Spettacolo getSpettacolo(int id) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT * FROM spettacolo WHERE id_spettacolo = ?");
@@ -821,6 +987,12 @@ public class DBManager implements Serializable {
     // Prendere l'utente con tale ID
     // Prendere il ruolo in stringa e assegnarlo all'utente
     // ID, Nome, Email, Ruolo, Credito
+    /**
+     * Funzione per il recupero dell'utente
+     * @param id ID utente
+     * @return Oggetto utente
+     * @throws SQLException 
+     */
     public Utente getUtente(int id) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT U.email, U.nome, U.credito, R.ruolo FROM Utente AS U, Ruolo AS R WHERE R.id_ruolo = U.id_ruolo AND U.id_utente = ?");
@@ -843,6 +1015,12 @@ public class DBManager implements Serializable {
     
     // Prendere l'utente con tale email
     // Usata per vedere se esiste un utente con tale email
+    /**
+     * Funzione per il recupero dell'utente in base alla mail
+     * @param email Email utente
+     * @return Oggetto utente
+     * @throws SQLException 
+     */
     public Utente getUtente(String email) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT U.id_utente FROM Utente AS U WHERE U.email = ?");
@@ -863,6 +1041,12 @@ public class DBManager implements Serializable {
     // Anche il posto e la sala corrispondente
     // Anche lo spettacolo
     // Il prezzo e l'ora
+    /**
+     * Funzione per il recupero della prenotazione
+     * @param id ID prenotazione
+     * @return Oggetto prenotazione
+     * @throws SQLException 
+     */
     public Prenotazione getPrenotazione(int id) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT * FROM prenotazione AS p, prezzo AS pr WHERE p.id_prenotazione = ? AND p.id_prezzo = pr.id_prezzo");
@@ -901,6 +1085,12 @@ public class DBManager implements Serializable {
         return null;
     }
     
+    /**
+     * Funzione per il recupero dell'id ruolo
+     * @param ruolo Nome del ruolo
+     * @return ID ruolo
+     * @throws SQLException 
+     */
     public int getIDRuolo(String ruolo) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_ruolo FROM ruolo WHERE ruolo = ?");
@@ -911,6 +1101,14 @@ public class DBManager implements Serializable {
         return -1;
     }
     
+    /**
+     * Funzione per recupero dell'id del posto in base alla posizione e sala
+     * @param id_sala ID sala
+     * @param riga Riga
+     * @param colonna Colonna 
+     * @return ID posto
+     * @throws SQLException 
+     */
     public int getIDPosto(int id_sala, int riga, int colonna) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_posto FROM posto WHERE id_sala = ? AND riga=? AND colonna=?");
