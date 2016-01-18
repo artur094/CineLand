@@ -192,7 +192,7 @@ public class Control {
      * @param id_utente ID utente
      * @param posti Stringa contenente un insieme di posti 'RIGA,COLONNA,PREZZO' divisi per spazio
      */
-    cpublic static void prenotaFilm(int id_spettacolo, int id_utente, String posti)
+    public static void prenotaFilm(int id_spettacolo, int id_utente, String posti)
     {
         try{
             List<Prenotazione> nuovePrenotazioni;
