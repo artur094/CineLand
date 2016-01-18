@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
@@ -28,7 +29,7 @@ import javax.imageio.stream.ImageOutputStream;
  */
 public class PdfBiglietto {
     String nomeFile;
-    Prenotazione prenotazione;
+    ArrayList<Prenotazione> prenotazioni = new ArrayList<>();
     ByteArrayOutputStream datiBiglietto;
     
     //metadati
@@ -44,7 +45,7 @@ public class PdfBiglietto {
      */
     public PdfBiglietto(String nomeFile, Prenotazione prenotazione) {
         this.nomeFile = nomeFile;
-        this.prenotazione = prenotazione;
+        this.prenotazioni.add(prenotazione);
         datiBiglietto = new ByteArrayOutputStream();
     }
 
@@ -53,7 +54,11 @@ public class PdfBiglietto {
      * @param prenotazione Oggetto prenotazione per la creazione del ticket
      */
     public PdfBiglietto(Prenotazione prenotazione) {
-        this.prenotazione = prenotazione;
+        this.prenotazioni.add(prenotazione);
+    }
+    
+    public void aggiungiPrenotazione(Prenotazione p){
+        this.prenotazioni.add(p);
     }
     
     /**
@@ -71,42 +76,59 @@ public class PdfBiglietto {
       //PdfWriter.getInstance(biglietto, new FileOutputStream(nomeFile));
       PdfWriter.getInstance(biglietto, stream);
       
-      String stringaInfoSpettacolo = "prova";    //la stringa contiene tutte le informazioni dello spettacolo. Costruire con strinbuulder
-      QRCode prova = new QRCode(stringaInfoSpettacolo);
-      
-      
-      /*inserimento metadati*/
-      biglietto.open();
-      biglietto.addAuthor(autore);
-      biglietto.addCreationDate();
-      biglietto.addCreator(autore);
-      biglietto.addTitle(titolo);
-      
-      Paragraph titolo = new Paragraph(prenotazione.getSpettacolo().getFilm().getTitolo());
-      titolo.add("   Id Spettacolo: " + Integer.toString(prenotazione.getSpettacolo().getId()));
-      
-      Paragraph info = new Paragraph();
-      info.add("Lo spettacolo si terrà il giorno: ");
-      info.add  (dataNormale.format(prenotazione.getSpettacolo().getData_ora().getTime()));
-      info.add ("ID Prenotazione: " + Integer.toString(prenotazione.getId()));
-      Paragraph sala = new Paragraph();
-      sala.add("Sala: " + prenotazione.getSala().getNome());
-      sala.add(" Il tuo posto è nella riga: "+prenotazione.getPosto().getRiga() + " e colonna: " +prenotazione.getPosto().getColonna());
-      
-      Paragraph prezzo = new Paragraph("Pagamento:" + Double.toString(prenotazione.getPrezzo()));
-      prezzo.add(" Euro");
-      
-      Paragraph fondo = new Paragraph("Biglietto emesso in data: " + dataNormale.format(new Date()));       
-      
-      Paragraph immagineQr = new Paragraph("Mostra questo qrCode all'addetto del cinema: ");
-      immagineQr.add(Image.getInstance(prova.getQrcode().toByteArray()));
-      
-      biglietto.add(titolo);
-      biglietto.add(info);
-      biglietto.add(sala);
-      biglietto.add(prezzo);
-      biglietto.add(fondo);
-      biglietto.add(immagineQr);
+      for(Prenotazione p : prenotazioni){
+        StringBuilder sb = new StringBuilder();
+        sb.append(p.getUtente().getNome());
+        sb.append("//");
+        sb.append(p.getPrezzo());
+        sb.append("//");
+        sb.append(p.getPosto().getRiga());
+        sb.append("//");
+        sb.append(p.getPosto().getColonna());
+        sb.append("//");
+        sb.append(p.getSpettacolo().getFilm().getTitolo());
+        sb.append("//");
+        sb.append(p.getSpettacolo().getData_ora());
+
+        String stringaInfoSpettacolo = "prova";    
+        QRCode qrBiglietto = new QRCode(stringaInfoSpettacolo);
+
+
+        /*inserimento metadati*/
+        biglietto.open();
+        biglietto.addAuthor(autore);
+        biglietto.addCreationDate();
+        biglietto.addCreator(autore);
+        biglietto.addTitle(titolo);
+
+        Paragraph titolo = new Paragraph(p.getSpettacolo().getFilm().getTitolo());
+        titolo.add("\nPrenotazione a nome dell'utente:  " + p.getUtente().getNome());
+        titolo.add("   Id Spettacolo: " + Integer.toString(p.getSpettacolo().getId()));
+
+        Paragraph info = new Paragraph();
+        info.add("Lo spettacolo si terrà il giorno: ");
+        info.add  (dataNormale.format(p.getSpettacolo().getData_ora().getTime()));
+        info.add ("\nID Prenotazione: " + Integer.toString(p.getId()));
+        Paragraph sala = new Paragraph();
+        sala.add("Sala: " + p.getSala().getNome());
+        sala.add(" Il tuo posto è nella riga: "+p.getPosto().getRiga() + " e colonna: " +p.getPosto().getColonna());
+
+        Paragraph prezzo = new Paragraph("Pagamento:" + Double.toString(p.getPrezzo()));
+        prezzo.add(" Euro");
+
+        Paragraph fondo = new Paragraph("Biglietto emesso in data: " + dataNormale.format(new Date()));       
+
+        Paragraph paragrafoQr = new Paragraph("Mostra questo qrCode all'addetto del cinema: ");
+        Image qrCode = Image.getInstance(qrBiglietto.getQrcode().toByteArray());
+        paragrafoQr.add(qrCode);
+
+        biglietto.add(titolo);
+        biglietto.add(info);
+        biglietto.add(sala);
+        biglietto.add(prezzo);
+        biglietto.add(fondo);
+        biglietto.add(paragrafoQr);
+      }
       biglietto.close();
     }
 

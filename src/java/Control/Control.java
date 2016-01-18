@@ -196,7 +196,7 @@ public class Control {
     {
         try{
             List<Prenotazione> nuovePrenotazioni;
-            Prenotazione p;
+            Prenotazione p = null;      //cambiato, altrimenti dava problemi con l'if
             DBManager dbm;
             Spettacolo s;
             String prezzo;
@@ -240,6 +240,12 @@ public class Control {
             // CREAZIONE QRCODE
             // CREAZIONE PDF CON UN BIGLIETTO PER PAGINA (CON QRCODE)
             // INVIO EMAIL DEL PDF
+            
+            if(p != null){
+                PdfBiglietto biglietto = new PdfBiglietto(p);
+                
+                
+            }
         }
         catch(SQLException ex)
         {

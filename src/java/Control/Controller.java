@@ -126,7 +126,7 @@ public class Controller extends HttpServlet {
                     DBManager dbm = DBManager.getDBManager();
                     PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
                     response.setContentType("application/pdf");
-                    pdf.costruisciPdf("file di test", response.getOutputStream());
+                    pdf.costruisciPdf("Biglietto", response.getOutputStream());
                   
                     /*  Sala s = new Sala(1);
                     out.println("TOSTRING");
@@ -146,7 +146,7 @@ public class Controller extends HttpServlet {
                     
                 }catch(Exception e)
                 {
-                    
+                    System.out.println("DAMMIT");
                 }
                 break;
             case "test_pren":
