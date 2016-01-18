@@ -55,8 +55,8 @@ public class PdfBiglietto {
       //PdfWriter.getInstance(biglietto, new FileOutputStream(nomeFile));
       PdfWriter.getInstance(biglietto, stream);
       
-      String stringaBiglietto = "prova";    //la stringa contiene tutte le informazioni dello spettacolo. Costruire con strinbuulder
-      QRCode prova = new QRCode(stringaBiglietto);
+      String stringaInfoSpettacolo = "prova";    //la stringa contiene tutte le informazioni dello spettacolo. Costruire con strinbuulder
+      QRCode prova = new QRCode(stringaInfoSpettacolo);
       
       
       /*inserimento metadati*/

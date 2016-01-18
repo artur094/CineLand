@@ -112,6 +112,7 @@ public class Controller extends HttpServlet {
                 //eliminare questo blocco case se funziona tutto correttamente
                 try(PrintWriter out = response.getWriter()){
                 Sala s = new Sala(1);
+                out.println("TEST posti");
                 out.println(s.getVettorePostiOccupati());
                 out.println(s.getStringMatricePostiSala());
                 }catch(Exception e)
@@ -121,11 +122,12 @@ public class Controller extends HttpServlet {
                 break;
             case "test":
                 try(PrintWriter out = response.getWriter()){
-                    //DBManager dbm = DBManager.getDBManager();
-                    //PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
-                    //response.setContentType("application/pdf");
-                    //pdf.costruisciPdf("test", response.getOutputStream());
-                    Sala s = new Sala(1);
+                    DBManager dbm = DBManager.getDBManager();
+                    PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(1));
+                    response.setContentType("application/pdf");
+                    pdf.costruisciPdf("test", response.getOutputStream());
+                  
+                    /*  Sala s = new Sala(1);
                     out.println("TOSTRING");
                     out.println(s.toString());
                     out.println("STRING[][]");
@@ -138,7 +140,7 @@ public class Controller extends HttpServlet {
                             out.print(mappa[i][j]);
                         }
                         out.println();
-                    }
+                    }*/
                     
                     
                 }catch(Exception e)
@@ -294,6 +296,32 @@ public class Controller extends HttpServlet {
                 break;
                     
             default:
+                break;
+            
+            case "vettore_posti_occupati":
+                try{
+                int id_sala = Integer.parseInt(request.getParameter("id_sala"));
+                DBManager dbm = DBManager.getDBManager();
+                Sala s = dbm.getSala(id_sala);
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8"); 
+                response.getWriter().write(s.getVettorePostiOccupati());     
+                }catch(Exception e){
+                    
+                }
+                break;
+            
+            case "matrice_posti_sala":
+                try{
+                int id_sala = Integer.parseInt(request.getParameter("id_sala"));
+                DBManager dbm = DBManager.getDBManager();
+                Sala s = dbm.getSala(id_sala);
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8"); 
+                response.getWriter().write(s.getStringMatricePostiSala());
+                }catch(Exception e){
+                    
+                }
                 break;
         }
     }
