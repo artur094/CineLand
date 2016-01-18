@@ -115,7 +115,7 @@
                         <% 
                             out.println("<tr><td>Nome:</td><td>"+user.getNome()+"</td></tr>");
                             out.println("<tr><td>Email:</td><td>"+user.getEmail()+"</td></tr>");
-                            out.println("<tr><td>Saldo rimborso:</td><td>"+user.getCredito()+"</td></tr>");
+                            out.println("<tr><td>Saldo rimborso:</td><td>"+user.getCredito()+"&euro;</td></tr>");
                         %>
                         </table>
                         <hr>
