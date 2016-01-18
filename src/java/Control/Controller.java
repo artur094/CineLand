@@ -194,6 +194,8 @@ public class Controller extends HttpServlet {
                                 dispatcher.forward(request, response);
                             }
                         }
+                        if(user.getRuolo().equals("verificare"))
+                            codice = 900;
                         request.getSession().setAttribute("user", user);
                         nome = user.getNome();
                         credito = user.getCredito();   
@@ -277,6 +279,8 @@ public class Controller extends HttpServlet {
                 if(Control.enableAccount(email, code))
                 {
                     //account attivato
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                    dispatcher.forward(request, response);
                 }
                 else
                 {
