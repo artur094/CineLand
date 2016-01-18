@@ -12,6 +12,7 @@ import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
 import GestioneClassi.Films;
+import GestioneClassi.Prenotazioni;
 import GestioneClassi.Spettacoli;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
@@ -148,6 +149,15 @@ public class Controller extends HttpServlet {
                     
                 }
                 break;
+            case "test_pren":
+                try{
+                    Prenotazioni pr = new Prenotazioni();
+                    pr = pr.getPrenotazioniUtente(0);
+                }
+                catch(Exception ex)
+                {
+                    
+                }
             case "login":
                 // Controllo per sicurezza, se è loggato
                 // Se non lo è, controllo se email e pass sono giusti

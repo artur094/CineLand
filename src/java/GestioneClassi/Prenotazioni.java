@@ -32,7 +32,7 @@ public class Prenotazioni {
      * @throws SQLException
      * @throws ClassNotFoundException 
      */
-    public Prenotazioni getPrenotazioniUtente(int id_utente) throws SQLException, ClassNotFoundException
+    public static Prenotazioni getPrenotazioniUtente(int id_utente) throws SQLException, ClassNotFoundException
     {
         DBManager dbm = DBManager.getDBManager();
         Prenotazioni pr = new Prenotazioni();
@@ -47,7 +47,7 @@ public class Prenotazioni {
      * @throws SQLException
      * @throws ClassNotFoundException 
      */
-    public Prenotazioni getPrenotazioniRisarcibili(int id_utente) throws SQLException, ClassNotFoundException
+    public static Prenotazioni getPrenotazioniRisarcibili(int id_utente) throws SQLException, ClassNotFoundException
     {
         DBManager dbm = DBManager.getDBManager();
         Prenotazioni pr = new Prenotazioni();
@@ -62,7 +62,7 @@ public class Prenotazioni {
      * @throws SQLException
      * @throws ClassNotFoundException 
      */
-    public Prenotazioni getPrenotazioniDaPagare(int id_utente) throws SQLException, ClassNotFoundException
+    public static Prenotazioni getPrenotazioniDaPagare(int id_utente) throws SQLException, ClassNotFoundException
     {
         DBManager dbm = DBManager.getDBManager();
         Prenotazioni pr = new Prenotazioni();
