@@ -35,10 +35,13 @@ public class Sala {
      * @throws SQLException In caso di errore SQL
      * @throws ClassNotFoundException In caso di mancata libreria per accedere al DB
      */
-    public Sala(int id_spettacolo) throws SQLException, ClassNotFoundException{
+    public Sala(int id_spettacolo) throws SQLException, ClassNotFoundException, Exception{
         
         DBManager dbm = DBManager.getDBManager();
         Sala s = dbm.getSala(id_spettacolo);
+        
+        if(s==null)
+            throw new Exception("Spettacolo inesistente");
         
         this.id = s.id;
         this.nome = s.nome;

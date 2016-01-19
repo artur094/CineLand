@@ -12,7 +12,7 @@ $(document).ready(function() {
             url : 'Controller',           
             data: {
                 op : "vettore_posti_sala",
-                id_sala: $('.item_spett').eq(index).data('sala')
+                id_spett: $('.item_spett').eq(index).data('id_spett')
             },
             success:function (data) {
                 sc[index] = $('#seat-map'+index).seatCharts({
