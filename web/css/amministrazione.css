@@ -44,3 +44,9 @@ table.highlight>tbody>tr:hover{
 .seatCharts-container{
     display: none;
 }
+
+#message1{
+    font-size: 2.5rem;
+    color: orange;
+    text-align: center;
+}

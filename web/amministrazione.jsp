@@ -138,7 +138,7 @@
                     </ul>
                 </div>
                 <div class="col s12 m10 ">
-                    <div></div>
+                    <div id="message1">Seleziona uno spettacolo per una panoramica delle prenotazioni</div>
                     <div class="demo container">
                         <div class="booking-details">
                             <div id="legend"></div>

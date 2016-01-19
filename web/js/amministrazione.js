@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 $(document).ready(function() {
-
-
     var sc= [];
     $('.item_spett').each(function(index){
         $('.demo').append('<div id="seat-map'+index+'"></div>');
@@ -36,33 +34,36 @@ $(document).ready(function() {
             }
           
         });
+        
+    });
+//    $('.seatCharts-space').each(function(){
+//            $(this).append("<div class=\"stair\"><div class=\"stair_up\"></div>&nbsp;</div>");
+//    });
+    
+  
+    
+    $('.item_spett').click(function(){
+        var index = $(this).index();
         $.ajax({
             type : 'POST',
             url : 'Controller',           
             data: {
                 op : "vettore_posti_occupati",
-                id_sala: $('.item_spett').eq(index).data('sala')
+                id_spett: $(this).eq(index).data('id_spett')
             },
             success:function (data) {
                 console.log(data);
                 sc[index].get(data).status('unavailable');
             }
         });
-    });
-//    $('.seatCharts-space').each(function(){
-//            $(this).append("<div class=\"stair\"><div class=\"stair_up\"></div>&nbsp;</div>");
-//    });
-    
-    $('.item_spett').click(seleziona_spettacolo(1));
-    
-    
-    function seleziona_spettacolo(pos){
-        console.log(pos);
+        $('#message1').hide();
         $('.item_spett').removeClass('activeitem');
-        $('.item_spett').eq(pos).addClass('activeitem');
+        $('.item_spett').eq($(this).index()).addClass('activeitem');
         $('.seatCharts-container').hide();
-        $("#seat-map"+pos).show();
-}
+        $("#seat-map"+index).show();
+        
+    });
+    
 });
 
 
