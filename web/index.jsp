@@ -166,7 +166,7 @@
                             </ul>
                         </div>
                         <div id="in" class="">
-                            <form class="" action="login.js">
+                            <form class="formlogin">
                                 <div class="row">
                                   <div class="input-field col s12 center">
                                         <input id="email_lgn" type="email" class="validate">
@@ -193,7 +193,7 @@
                         </div>
                         <div id="up" class="col s12">
                             <div class="row">
-                                <form>
+                                <form class="formregistra">
                                     <div class="row">
                                         <div class="input-field col s12 center">
                                             <input id="first_name" type="text" class="validate">
@@ -206,17 +206,17 @@
                                             <label for="email">Email</label>
                                         </div>
                                     </div>
-                                      <div class="row">
-                                      <div class="input-field col s12 center">
-                                        <input id="password_sgnup" type="password" class="validate">
-                                        <label for="password">Password</label>
-                                      </div>
-                                    </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 center">
+                                              <input id="password_sgnup" type="password" class="validate">
+                                              <label for="password">Password</label>
+                                            </div>
+                                        </div>
                                     <div class="row">
-                                    <div class="col s12 center">
-                                        <div class="btn" id="btn_signup">Sign up</div>
+                                        <div class="col s12 center">
+                                            <div class="btn" id="btn_signup">Sign up</div>
+                                        </div>
                                     </div>
-                                </div>
                                 </form>
                             </div>
                         </div>

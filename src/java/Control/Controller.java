@@ -315,7 +315,7 @@ public class Controller extends HttpServlet {
             
             case "vettore_posti_occupati":
                 try{
-                int id_sala = Integer.parseInt(request.getParameter("id_spettacolo"));
+                int id_sala = Integer.parseInt(request.getParameter("id_spett"));
                 DBManager dbm = DBManager.getDBManager();
                 Sala s = dbm.getSala(id_sala);
                 response.setContentType("application/json");
@@ -330,7 +330,7 @@ public class Controller extends HttpServlet {
             
             case "vettore_posti_sala":
                 try{
-                int id_sala = Integer.parseInt(request.getParameter("id_spettacolo"));
+                int id_sala = Integer.parseInt(request.getParameter("id_sala"));
                 DBManager dbm = DBManager.getDBManager();
                 Sala s = dbm.getSala(id_sala);
 

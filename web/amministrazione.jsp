@@ -163,7 +163,7 @@
                             out.println("<tr>");
                                 out.println("<td>"+incassi_film.get(i).getId()+"</td>");
                                 out.println("<td>"+incassi_film.get(i).getTitolo()+"</td>");
-                                out.println("<td>"+incassi_film.get(i).getTotaleIncassi()+"</td>");
+                                out.println("<td>"+incassi_film.get(i).getTotaleIncassi()+"&euro;</td>");
                             out.println("</tr>");
                         }
                     
@@ -176,8 +176,10 @@
             <table class="highlight responsive-table">
                 <thead>
                     <tr>
-                      <th data-field="id">Nome</th>
-                      <th data-field="name">Email</th>
+                        <th data-field="id">Nome</th>
+                        <th data-field="name">Email</th>
+                        <th data-field="id">Nome</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -186,6 +188,7 @@
                             out.println("<tr>");
                                 out.println("<td>"+topten.get(i).getNome()+"</td>");
                                 out.println("<td>"+topten.get(i).getEmail()+"</td>");
+                                out.println("<td>"+topten.get(i).getTotalePagato()+"&euro;</td>");
                             out.println("</tr>");
                         }
                     

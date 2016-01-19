@@ -1,5 +1,15 @@
 $( document ).ready(function(){
     
+   $('.formlogin input').keypress(function(e){
+      if(e.keyCode===13)
+        $('#btn_login').click();
+    });
+    
+    $('.formregistra').keypress(function(e){
+      if(e.keyCode===13)
+        $('#btn_signup').click();
+    });
+    
     // Initialize collapse button
     $(".button-collapse").sideNav();
     
