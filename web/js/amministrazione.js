@@ -5,14 +5,30 @@
  */
 $(document).ready(function() {
     var sc= [];
-    $('.item_spett').each(function(index){
+  
+    $('.item_spett').click(function(){
+        var index = $(this).index();
+        var id_spett = $('.item_spett').eq(index).data('id_spett');
+        if(sc[index]=== undefined){
+            creaMappa(index,id_spett);
+            aggiorna(index,id_spett);
+        }else
+            aggiorna(index,id_spett);
+        $('#message1').hide();
+        $('.item_spett').removeClass('activeitem');
+        $('.item_spett').eq($(this).index()).addClass('activeitem');
+        $('.seatCharts-container').hide();
+        $("#seat-map"+index).show();
+    });
+    
+    function creaMappa(index, id_spett){
         $('.demo').append('<div id="seat-map'+index+'"></div>');
         $.ajax({
             type : 'POST',
             url : 'Controller',           
             data: {
                 op : "vettore_posti_sala",
-                id_spett: $('.item_spett').eq(index).data('id_spett')
+                id_spett: id_spett
             },
             success:function (data) {
                 sc[index] = $('#seat-map'+index).seatCharts({
@@ -31,39 +47,26 @@ $(document).ready(function() {
                                     return this.style();
                     }
                 });
+                $('.seatCharts-container').hide();
+                $("#seat-map"+index).show();
             }
-          
         });
-        
-    });
-//    $('.seatCharts-space').each(function(){
-//            $(this).append("<div class=\"stair\"><div class=\"stair_up\"></div>&nbsp;</div>");
-//    });
-    
-  
-    
-    $('.item_spett').click(function(){
-        var index = $(this).index();
+    }
+
+    function aggiorna(index, id_spett){
         $.ajax({
             type : 'POST',
             url : 'Controller',           
             data: {
                 op : "vettore_posti_occupati",
-                id_spett: $(this).eq(index).data('id_spett')
+                id_spett: id_spett
             },
             success:function (data) {
                 console.log(data);
+                sc[index].find('unavaible').status('avaible');
                 sc[index].get(data).status('unavailable');
             }
         });
-        $('#message1').hide();
-        $('.item_spett').removeClass('activeitem');
-        $('.item_spett').eq($(this).index()).addClass('activeitem');
-        $('.seatCharts-container').hide();
-        $("#seat-map"+index).show();
-        
-    });
+    }
     
 });
-
-
