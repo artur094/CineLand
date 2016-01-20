@@ -13,14 +13,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- *
+ * Classe che gestisce le funzionalità della parte amministrativa.
  * @author ivanmorandi
+ * @author Paolo
  */
 public class Admin {
     protected DBManager dbm;
     
     /**
-     * Costruttore
+     * Costruttore.
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
