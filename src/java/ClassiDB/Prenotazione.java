@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import java.util.Calendar;
 
 /**
- *
- * @author Ivan
+ * Classe che rappresenta una prenotazione effettuata da un utente.
+ * @author Ivan, Paolo
  */
 public class Prenotazione {
     protected int id;
@@ -30,8 +30,8 @@ public class Prenotazione {
     }
 
     /**
-     * Costruttore che ritorna la prenotazione con quell'id (dal DB)
-     * @param id ID della prenotazione
+     * Costruttore che ritorna la prenotazione con quell'id; ricava i valori dal database.
+     * @param id ID della prenotazione all'interno del database
      * @throws SQLException
      * @throws ClassNotFoundException 
      */

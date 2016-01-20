@@ -9,8 +9,8 @@ import Database.DBManager;
 import java.sql.SQLException;
 
 /**
- *
- * @author Ivan
+ * Classe che rappresenta un utente del sito. 
+ * @author Ivan, Paolo
  */
 public class Utente {
     protected int id;
