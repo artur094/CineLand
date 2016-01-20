@@ -17,8 +17,9 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 /**
- *
+ * Gestisce l'invio di una email.
  * @author ivanmorandi
+ * @author Paolo
  */
 public class SendEmail extends javax.mail.Authenticator{
     String indirizzo = "progettoweb94@gmail.com";
@@ -56,7 +57,7 @@ public class SendEmail extends javax.mail.Authenticator{
     }
     
     /**
-     * Funzione per l'invio di email
+     *Invia una email all'indirizzo specificato.
      * @param email_dest Email di destinazione
      * @param titolo Titolo della mail
      * @param messaggio Messaggio della mail
@@ -75,8 +76,8 @@ public class SendEmail extends javax.mail.Authenticator{
     }
     
     /**
-     * Funzione per l'autenticazione
-     * @return 
+     * Autenticazione con Gmail.
+     * @return  autenticatore necessario alla connessione.
      */
     protected PasswordAuthentication getPasswordAuthentication()
     {

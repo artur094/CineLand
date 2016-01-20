@@ -8,8 +8,9 @@ package Control;
 import java.io.ByteArrayOutputStream;
 import net.glxn.qrgen.image.ImageType;
 /**
- *
+ * Singolo QRCode contenente una stringa di testo. Wrapper per la libreria net.glxn.qrgen
  * @author ivanmorandi
+ * @author Paolo
  */
 
 /*
@@ -35,7 +36,7 @@ public class QRCode {
     }
     
     /**
-     * Funzione convertire il testo in QRCode
+     * Funzione che converte il testo in QRCode
      * @return QRCode
      */
     protected ByteArrayOutputStream Conversione()
@@ -52,7 +53,7 @@ public class QRCode {
     }
 
     /**
-     * Cambiare il testo per il QRCode
+     * Cambia il testo del QRCode
      * @param testo Nuovo testo per QRCode
      */
     public void setTesto(String testo) {
@@ -61,8 +62,8 @@ public class QRCode {
     }
 
     /**
-     * Ritorna il QRCode del testo
-     * @return QRCode
+     * Ritorna il QRCode della stringa
+     * @return ByteArrayOutputStream contenente il qrcode
      */
     public ByteArrayOutputStream getQrcode() {
         return qrcode;

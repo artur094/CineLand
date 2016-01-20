@@ -32,8 +32,9 @@ import net.sf.sojo.interchange.Serializer;
 import net.sf.sojo.interchange.json.JsonSerializer;
 
 /**
- *
+ * Servlet principale del backend. Tutte le funzioni sono richiamate tramite richiesta GET o POST. I parametri accettati sono indicati nel sorgente.
  * @author ivanmorandi
+ * @author Paolo
  */
 public class Controller extends HttpServlet {
 
@@ -62,7 +63,7 @@ public class Controller extends HttpServlet {
         
                 
         
-        // Operation deve assumere uno dei seguenti valori:
+        // Operation (op) deve assumere uno dei seguenti valori:
         // login
         // signup
         // logout
@@ -75,6 +76,8 @@ public class Controller extends HttpServlet {
         // creabuco --> solo admin, posti dati in input: riga,colonna riga,colonna...
         // test
         // script
+        // vettore_posti_sala
+        // vettore_posti_occupati
         
         switch(operation)
         {

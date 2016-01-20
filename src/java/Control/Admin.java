@@ -83,8 +83,8 @@ public class Admin {
     }
     
     /**
-     * Funzione per prendere le prenotazioni rimborsabili di un utente (tutte alla fine)
-     * @param email Email per identificare l'utente, e per vedere le prenotazioni pagate
+     * Prende le prenotazioni rimborsabili di un utente (tutte alla fine)
+     * @param email Email dell'utente di cui vuole sapere le prenotazioni rimborsabili
      * @return List<Prenotazione> che contiene tutte le prenotazioni rimborsabili dall'utente
      * @throws SQLException 
      */
@@ -95,8 +95,8 @@ public class Admin {
     }
     
     /**
-     * Funzione per rimborsare una prenotazione
-     * @param id_prenotazione Per identificare la prenotazione, quindi l'utente, il prezzo ecc
+     * Rimborsa una prenotazione
+     * @param id_prenotazione id della prenotazione (nel database) da rimborsare
      * @return Boolean, per sapere se il rimborso è andato a buon fine o no
      * @throws SQLException 
      */

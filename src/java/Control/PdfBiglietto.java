@@ -25,7 +25,13 @@ import javax.imageio.stream.ImageOutputStream;
 
 /**
  *
- * @author Utente
+ * @author Paolo
+ * @author Ivan
+ */
+
+/**
+ * Classe che rappresenta un file pdf contentente uno o più biglietti.
+ * @author Paolo
  */
 public class PdfBiglietto {
     String nomeFile;
@@ -57,14 +63,18 @@ public class PdfBiglietto {
         this.prenotazioni.add(prenotazione);
     }
     
+    /**
+     * Aggiunge una prenotazione al biglietto. In presenza di più di una prenotazione, vengono stampati tutti in un unico file.
+     * @param p prenotazione da aggiungere al biglietto 
+     */
     public void aggiungiPrenotazione(Prenotazione p){
         this.prenotazioni.add(p);
     }
     
     /**
      * Funzione che costruisce il file PDF
-     * @param nomeFile Nome del filme
-     * @param stream Stream
+     * @param nomeFile Nome del file PDF
+     * @param stream Stream sul quale verrà scritto il pdf
      * @throws DocumentException
      * @throws BadElementException
      * @throws IOException 
@@ -76,6 +86,7 @@ public class PdfBiglietto {
       //PdfWriter.getInstance(biglietto, new FileOutputStream(nomeFile));
       PdfWriter.getInstance(biglietto, stream);
       
+      //dati da inserire nel QRCode
       for(Prenotazione p : prenotazioni){
         StringBuilder sb = new StringBuilder();
         sb.append(p.getUtente().getNome());
@@ -89,9 +100,8 @@ public class PdfBiglietto {
         sb.append(p.getSpettacolo().getFilm().getTitolo());
         sb.append("//");
         sb.append(p.getSpettacolo().getData_ora());
-
-        String stringaInfoSpettacolo = "prova";    
-        QRCode qrBiglietto = new QRCode(stringaInfoSpettacolo);
+        
+        QRCode qrBiglietto = new QRCode(sb.toString());
 
 
         /*inserimento metadati*/
@@ -133,8 +143,8 @@ public class PdfBiglietto {
     }
 
     /**
-     * Funzione per il ritorno del PDF
-     * @return PDF
+     * Ritorna il PDF
+     * @return output stream contenente il PDF
      */
     public ByteArrayOutputStream getPDF() {
         return datiBiglietto;

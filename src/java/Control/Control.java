@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
+ * Classe contenete metodi di controllo; migliora la leggibilità di Controller.java.
  * @author ivanmorandi
  */
 public class Control {
