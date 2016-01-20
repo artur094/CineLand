@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe con metodi statici per la gestione di più film assieme.
  * @author ivanmorandi
  */
 public class Films {

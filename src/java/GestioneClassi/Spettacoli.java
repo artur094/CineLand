@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe con funzioni statiche per gestire più spettacoli
  * @author ivanmorandi
  */
 public class Spettacoli {

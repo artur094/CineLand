@@ -30,9 +30,10 @@ import java.util.Random;
 
 
 /**
- *
+ * Classe per il controllo del database.
  * @author Ivan
  * 
+ * Impostazioni consigliate per il database (se cambiate, sarà necessario modificare i parametri del DBManager
  * Database: CineLand
  * Username: cineland
  * Password: cineland
