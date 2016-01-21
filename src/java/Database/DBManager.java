@@ -180,8 +180,9 @@ public class DBManager implements Serializable {
         List<Posto> lista = new ArrayList<>();
         
         PreparedStatement ps = con.prepareStatement(
-                "SELECT id_posto, count(*) as tot FROM prenotazione GROUP BY id_posto ORDER BY tot desc"
+                "SELECT p.id_posto, count(*) as tot FROM prenotazione AS p, posto AS po WHERE po.id_sala=? AND po.id_posto = p.id_posto GROUP BY p.id_posto ORDER BY tot desc"
         );
+        ps.setInt(1,id_sala);
         ResultSet rs = ps.executeQuery();
         
         while(rs.next())
@@ -871,8 +872,8 @@ public class DBManager implements Serializable {
                 }
             }
             
-            for(Posto p : postiPiuPrenotati)
-                mappa[p.getRiga()][p.getColonna()].setOccupato(true);
+            for(int i=0;i<postiPiuPrenotati.size() && i<10;i++)
+                mappa[postiPiuPrenotati.get(i).getRiga()][postiPiuPrenotati.get(i).getColonna()].setOccupato(true);
             s.setMappa(mappa);
             return s;
             

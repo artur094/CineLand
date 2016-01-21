@@ -340,7 +340,7 @@ public class Controller extends HttpServlet {
                 }
                 break;
                 
-            case "admin_sala":
+            case "admin_postiprenotati":
                 try{
                     int id_sala = Integer.parseInt(request.getParameter("id_sala"));
                     Admin amministratore = (Admin)request.getSession().getAttribute("admin");
@@ -358,7 +358,7 @@ public class Controller extends HttpServlet {
                 }
                 break;
             
-            case "admin_posti_prenotati":
+            case "admin_sala":
                 try{
                     int id_sala = Integer.parseInt(request.getParameter("id_sala"));
                     Admin amministratore = (Admin)request.getSession().getAttribute("admin");
