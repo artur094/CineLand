@@ -6,7 +6,9 @@
 package Control;
 
 import ClassiDB.Film;
+import ClassiDB.Posto;
 import ClassiDB.Prenotazione;
+import ClassiDB.Sala;
 import ClassiDB.Utente;
 import Database.DBManager;
 import java.sql.SQLException;
@@ -103,5 +105,10 @@ public class Admin {
     public boolean rimborsaPrenotazione(int id_prenotazione) throws SQLException
     {
         return dbm.rimborsaPrenotazione(id_prenotazione);
+    }
+    
+    public Sala getSala(int id_sala) throws SQLException
+    {
+        return dbm.getSalaConPostiPiuPrenotati(id_sala);
     }
 }

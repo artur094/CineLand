@@ -18,8 +18,9 @@ public class Sala {
     protected int id;
     protected String nome;
     protected Posto[][] mappa;
-    protected List<Posto> posti_piu_venduti;
 
+    
+    
     /**
      * Costruttore vuoto per settare i dati con i set
      */
@@ -46,7 +47,6 @@ public class Sala {
         this.id = s.id;
         this.nome = s.nome;
         this.mappa = s.mappa;
-        this.posti_piu_venduti = dbm.postiPiuPrenotati(id);
     }
 
     /**
@@ -181,15 +181,6 @@ public class Sala {
             pos++;
         }
         return str_vettore_sala;
-    }
-    
-    /**
-     * Funzione che ritorna la lista dei posti più venduti in ordine decrescente
-     * @return Lista dei posti più venduti in ordine decrescente
-     */
-    public List<Posto> postiPiuVenduti()
-    {
-        return posti_piu_venduti;
     }
     
     // Trasformare la mappa in una stringa

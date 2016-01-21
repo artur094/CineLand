@@ -844,6 +844,42 @@ public class DBManager implements Serializable {
         return null;
     }
     
+    /**
+     * getSala richiede uno spettacolo, e dato che la sala resta sempre uguale (dimensioni)
+     * e al front serve la sala senza spettacoli, mi semplifico la vita prendendo un id_spett a caso
+     * e costruisco la sala usando quello
+     * Poi pulisco la sala e ci metto come posti occupati i 10 posti più occupati
+     * @param id_sala ID della sala, perchè voglio recuperare 
+     * @return Sala (vuota)
+     */
+    public Sala getSalaConPostiPiuPrenotati(int id_sala) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT id_spettacolo FROM spettacolo WHERE id_sala = ?");
+        ps.setInt(1,id_sala);
+        
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+        {
+            int id_spett = rs.getInt("id_spettacolo");
+            Sala s = getSala(id_spett);
+            Posto[][] mappa = s.getMappa();
+            List<Posto> postiPiuPrenotati = postiPiuPrenotati(id_sala);
+            
+            for (int i = 0; i < mappa.length; i++) {
+                for (int j = 0; j < mappa[i].length; j++) {
+                    mappa[i][j].setOccupato(false);
+                }
+            }
+            
+            for(Posto p : postiPiuPrenotati)
+                mappa[p.getRiga()][p.getColonna()].setOccupato(true);
+            s.setMappa(mappa);
+            return s;
+            
+        }
+        return null;
+    }
+    
     // Prendere dal DB il nome sala
     // Costruire la mappa della sala con tale ID
     /**

@@ -78,6 +78,8 @@ public class Controller extends HttpServlet {
         // script
         // vettore_posti_sala
         // vettore_posti_occupati
+        // admin_sala
+        // admin_posti_prenotati
         
         switch(operation)
         {
@@ -313,9 +315,6 @@ public class Controller extends HttpServlet {
                     int ris = Control.creaBuchiSala(nome_sala, posti);
                 }
                 break;
-                    
-            default:
-                break;
             
             case "vettore_posti_occupati":
                 try{
@@ -347,6 +346,44 @@ public class Controller extends HttpServlet {
                     System.out.println(e.toString());
                 }
                 break;
+                
+            case "admin_sala":
+                try{
+                    int id_sala = Integer.parseInt(request.getParameter("id_sala"));
+                    Admin amministratore = (Admin)request.getSession().getAttribute("admin");
+                    if(amministratore!=null)
+                    {
+                        Sala s = amministratore.getSala(id_sala);
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8"); 
+                        Serializer serializer = new JsonSerializer();
+                        Object jsonVettore = serializer.serialize(s.getVettorePostiOccupati());
+                        response.getWriter().write(jsonVettore.toString());
+                    }
+                }catch(Exception e){
+                    System.out.println(e.toString());
+                }
+                break;
+            
+            case "admin_posti_prenotati":
+                try{
+                    int id_sala = Integer.parseInt(request.getParameter("id_sala"));
+                    Admin amministratore = (Admin)request.getSession().getAttribute("admin");
+                    if(amministratore!=null)
+                    {
+                        Sala s = amministratore.getSala(id_sala);
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8"); 
+                        Serializer serializer = new JsonSerializer();
+                        Object jsonMatrice = serializer.serialize(s.getVettorePostiSala());
+                        response.getWriter().write(jsonMatrice.toString());
+                    }
+                }catch(Exception e){
+                    System.out.println(e.toString());
+                }
+                    break;
+                default:
+                    break;
         }
     }
     
