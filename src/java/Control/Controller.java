@@ -6,23 +6,15 @@
 package Control;
 
 import ClassiDB.Film;
-import ClassiDB.Posto;
 import ClassiDB.Sala;
-import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
 import GestioneClassi.Films;
 import GestioneClassi.Prenotazioni;
-import GestioneClassi.Spettacoli;
-import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -160,6 +152,7 @@ public class Controller extends HttpServlet {
                 try{
                     Prenotazioni pr = new Prenotazioni();
                     pr = pr.getPrenotazioniUtente(0);
+                    List<Film> lista = Films.getAllFilms().getListaFilm();
                 }
                 catch(Exception ex)
                 {
