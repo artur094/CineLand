@@ -82,6 +82,10 @@ public class Prenotazione {
         this.posto = posto;
     }
 
+    /**
+     * Ritorna l'oggetto sala in cui si terrà lo spettacolo della prenotazione.
+     * @return Sala in cui si terrà lo spettacolo.
+     */
     public Sala getSala() {
         return sala;
     }
