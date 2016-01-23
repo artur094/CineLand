@@ -9,7 +9,9 @@
 <%@page import="ClassiDB.Utente"%>
 <%@page import="GestioneClassi.Spettacoli"%>
 <%@page import="GestioneClassi.Films"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%--<jsp:useBean id="user" scope="session" class="ClassiDB.Utente"/>--%>
 
 <!DOCTYPE html>
   <html>
@@ -25,23 +27,13 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <%!
+        <%
+            Utente user = (Utente)request.getSession().getAttribute("user");
             boolean privacy = false;
             Cookie[] cookies ;        
             List<Film> films;
             List<Spettacolo> spett_per_film;
-            Utente user;
-            Boolean sess = false;
-        %>
-
-        <%
-            films = (Films.getFutureFilms()).getListaFilm();
-            user = (Utente)request.getSession().getAttribute("user");
-            if(user == null){ //non è loggato
-                sess = false;
-            }else{
-                sess = true;
-            }
+            films = (Films.getFutureFilms()).getListaFilm(); 
         %>  
     </head>
 
@@ -51,10 +43,9 @@
             <div class="nav-wrapper">
                 <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
                 <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                
                 <ul class="right hide-on-med-and-down">
                     <%
-                        if(sess){
+                        if(user != null){
                             if(user.getRuolo().equals("admin")){
                                 out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
                                     +"<ul id='user' class='dropdown-content'>"
@@ -81,7 +72,7 @@
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
                     <%
-                        if(sess){
+                        if(user != null){
                             if(user.getRuolo().equals("admin")){
                                 out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
                                     +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"

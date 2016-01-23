@@ -4,7 +4,7 @@
     Author     : Utente
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="Java" contentType="text/html" pageEncoding="UTF-8" isErrorPage="true"%>
 <!DOCTYPE html>
 <html>
     <head>
