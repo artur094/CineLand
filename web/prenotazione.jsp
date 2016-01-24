@@ -1,3 +1,4 @@
+<%@page import="ClassiDB.Utente"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="ClassiDB.Spettacolo"%>
@@ -9,7 +10,7 @@
 <%@page import="ClassiDB.Posto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="sess_error.jsp"%>
 
-<jsp:useBean id="user" scope="session" class="ClassiDB.Utente"/>
+<%--<jsp:useBean id="user" scope="session" class="ClassiDB.Utente"/>--%>
 
 
 <%!
@@ -18,6 +19,7 @@
     Spettacolo spett;
 %>
 <%
+    Utente user = (Utente)request.getSession().getAttribute("user");
     int id_spettacolo = Integer.parseInt(request.getParameter("id"));    
     spett = new Spettacolo(id_spettacolo);
     if(request.getSession().getAttribute("user") == null) //non è loggato

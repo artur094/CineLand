@@ -24,6 +24,12 @@ public class Utente {
      * Costruttore vuoto per settare i dati con i set
      */
     public Utente() {
+        id=-1;
+        name="";
+        email="";
+        ruolo="";
+        credito=0.0;
+        totalePagato=0.0;
     }
     
     /**
