@@ -864,7 +864,7 @@ public class DBManager implements Serializable {
             int id_spett = rs.getInt("id_spettacolo");
             List<Posto> postiPiuPrenotati = postiPiuPrenotati(id_sala);
             
-            Sala s = new Sala(id_spett);
+            Sala s = Sala.getSalaBySpett(id_spett);
             s.setPosti_occupati(postiPiuPrenotati);
             
             return s;
