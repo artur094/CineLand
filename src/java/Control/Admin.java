@@ -107,7 +107,7 @@ public class Admin {
         return dbm.rimborsaPrenotazione(id_prenotazione);
     }
     
-    public Sala getSala(int id_sala) throws SQLException
+    public Sala getSala(int id_sala) throws SQLException, Exception
     {
         return dbm.getSalaConPostiPiuPrenotati(id_sala);
     }

@@ -312,8 +312,7 @@ public class Controller extends HttpServlet {
             case "vettore_posti_occupati":
                 try{
                 int id_spett = Integer.parseInt(request.getParameter("id_spett"));
-                DBManager dbm = DBManager.getDBManager();
-                Sala s = dbm.getSala(id_spett);
+                Sala s = Sala.getSalaBySpett(id_spett);
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8"); 
                 Serializer serializer = new JsonSerializer();
@@ -327,8 +326,7 @@ public class Controller extends HttpServlet {
             case "vettore_posti_sala":
                 try{
                 int id_spett = Integer.parseInt(request.getParameter("id_spett"));
-                DBManager dbm = DBManager.getDBManager();
-                Sala s = dbm.getSala(id_spett);
+                Sala s = Sala.getSalaBySpett(id_spett);
 
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8"); 

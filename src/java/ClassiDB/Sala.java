@@ -17,10 +17,21 @@ import java.util.List;
 public class Sala {
     protected int id;
     protected String nome;
-    protected Posto[][] mappa;
+    protected int n_righe;
+    protected int n_colonne;
+    protected List<Posto> posti_occupati;
+    protected List<Posto> posti_inesistenti;
+    //protected Posto[][] mappa;
 
     
-    
+    static public Sala getSalaBySpett(int id_spett) throws SQLException, ClassNotFoundException
+    {
+        DBManager dbm = DBManager.getDBManager();
+        int id_sala = dbm.getIDSalaBySpett(id_spett);
+        Sala s = dbm.getSala(id_sala);
+        s.setPosti_occupati(dbm.getPostiOccupati(id_spett));
+        return s;
+    }
     /**
      * Costruttore vuoto per settare i dati con i set
      */
@@ -29,24 +40,28 @@ public class Sala {
     }
 
     /**
-     * Inizializza la sala in base allo spettacolo, ovvero vengono prese le informazioni della sala,
-     * come nome, id, e la mappa della sala, con i posti prenotati (e non) dello spettacolo relativo
+     * Inizializza la sala in base all'ID sala
      * 
-     * @param id_spettacolo ID dello spettacolo
+     * @param id_sala ID della sala
      * @throws SQLException In caso di errore SQL
      * @throws ClassNotFoundException In caso di mancata libreria per accedere al DB
      */
-    public Sala(int id_spettacolo) throws SQLException, ClassNotFoundException, Exception{
+    public Sala(int id_sala) throws SQLException, ClassNotFoundException, Exception{
         
         DBManager dbm = DBManager.getDBManager();
-        Sala s = dbm.getSala(id_spettacolo);
+        Sala s = dbm.getSala(id_sala);
+        
         
         if(s==null)
             throw new Exception("Spettacolo inesistente");
         
         this.id = s.id;
         this.nome = s.nome;
-        this.mappa = s.mappa;
+        this.n_righe = s.getNumeroRighe();
+        this.n_colonne = s.getNumeroColonne();
+        this.posti_inesistenti = s.getPosti_inesistenti();
+        //this.posti_occupati = dbm.getPostiOccupati(id_spettacolo);
+        //this.mappa = s.mappa;
     }
 
     /**
@@ -80,24 +95,58 @@ public class Sala {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public int getNumeroRighe() {
+        return n_righe;
+    }
+
+    public void setNumeroRighe(int n_righe) {
+        this.n_righe = n_righe;
+    }
+
+    public int getNumeroColonne() {
+        return n_colonne;
+    }
+
+    public void setNumeroColonne(int n_colonne) {
+        this.n_colonne = n_colonne;
+    }
+
+    public List<Posto> getPosti_occupati() {
+        return posti_occupati;
+    }
+
+    public void setPosti_occupati(List<Posto> posti_occupati) {
+        this.posti_occupati = posti_occupati;
+    }
+
+    public List<Posto> getPosti_inesistenti() {
+        return posti_inesistenti;
+    }
+
+    public void setPosti_inesistenti(List<Posto> posti_inesistenti) {
+        this.posti_inesistenti = posti_inesistenti;
+    }
+    
+    
     
     // Cambiare, restituire una coppia (sicurezza)
     /**
      * Ritorna una matrice della mappa, composto da oggetti Posto, dove ognuno corrisponde al posto (i,j)
      * @return Posto[][] mappa, i posti della sala
      */
-    public Posto[][] getMappa()
+    /*public Posto[][] getMappa()
     {
         return mappa;
-    }
+    }*/
 
     /**
      * Cambia la mappa dell'oggetto
      * @param mappa La nuova mappa dell'oggetto
      */
-    public void setMappa(Posto[][] mappa) {
+    /*public void setMappa(Posto[][] mappa) {
         this.mappa = mappa;
-    }
+    }*/
      
     // Trasformare la mappa in matrice di stringhe
     /**
@@ -108,7 +157,8 @@ public class Sala {
      * L --> libero
      * @return String[][] relativa alla mappa
      */
-    public String[][] getStringMappa()
+    
+    /*public String[][] getStringMappa()
     {
         String nonEsiste = "N";
         String occupato = "O";
@@ -129,7 +179,7 @@ public class Sala {
             }
         }
         return str_map;
-    }
+    }*/
     
     /**
      * Ritorna una stringa contenente i posti occupati
@@ -138,14 +188,9 @@ public class Sala {
     public String[] getVettorePostiOccupati(){
         ArrayList<String> tmp= new ArrayList<String>();
         
-        for(int i=0; i<mappa.length; i++)
+        for(Posto p : posti_occupati)
         {
-            for(int j=0; j<mappa[i].length; j++)
-            {
-                if(mappa[i][j].isOccupato())
-                  tmp.add(i + "_" + j);
-                  
-            }
+            tmp.add(p.getRiga() + "_"+ p.getColonna());
         }
       String[] array = new String[tmp.size()];
       int insertion = 0;
@@ -162,15 +207,19 @@ public class Sala {
      * @return String che contiene la mappa dei posti.
      */  
         public String[] getVettorePostiSala(){
-        String[] str_vettore_sala = new String[mappa.length];
+        String[] str_vettore_sala = new String[n_righe];
         String tmp = "";
         int pos = 0;
-        for(int i=0; i<mappa.length; i++)
+        int indice = 0;
+        for(int i=0; i<n_righe; i++)
         {
-            for(int j=0; j<mappa[i].length; j++)
+            for(int j=0; j<n_colonne; j++)
             {
-                if(!mappa[i][j].isEsiste())
+                if(indice < posti_inesistenti.size() && posti_inesistenti.get(indice).getRiga() == i && posti_inesistenti.get(indice).getColonna() == j)
+                {
                     tmp += "_";
+                    indice++;
+                }
                 else
                 {
                     tmp += "A";
@@ -193,7 +242,7 @@ public class Sala {
      * L --> libero
      * @return String che contiene la mappa dei posti
      */
-    public String toString()
+    /*public String toString()
     {
         String nonEsiste = "N";
         String occupato = "O";
@@ -216,7 +265,7 @@ public class Sala {
         }
         str_map = str_map.substring(0, str_map.length()-1);
         return str_map;
-    }
+    }*/
     
     
     

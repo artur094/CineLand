@@ -853,7 +853,7 @@ public class DBManager implements Serializable {
      * @param id_sala ID della sala, perchè voglio recuperare 
      * @return Sala (vuota)
      */
-    public Sala getSalaConPostiPiuPrenotati(int id_sala) throws SQLException
+    public Sala getSalaConPostiPiuPrenotati(int id_sala) throws SQLException,Exception
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_spettacolo FROM spettacolo WHERE id_sala = ?");
         ps.setInt(1,id_sala);
@@ -862,34 +862,126 @@ public class DBManager implements Serializable {
         if(rs.next())
         {
             int id_spett = rs.getInt("id_spettacolo");
-            Sala s = getSala(id_spett);
-            Posto[][] mappa = s.getMappa();
             List<Posto> postiPiuPrenotati = postiPiuPrenotati(id_sala);
             
-            for (int i = 0; i < mappa.length; i++) {
-                for (int j = 0; j < mappa[i].length; j++) {
-                    mappa[i][j].setOccupato(false);
-                }
-            }
+            Sala s = new Sala(id_spett);
+            s.setPosti_occupati(postiPiuPrenotati);
             
-            for(int i=0;i<postiPiuPrenotati.size() && i<10;i++)
-                mappa[postiPiuPrenotati.get(i).getRiga()][postiPiuPrenotati.get(i).getColonna()].setOccupato(true);
-            s.setMappa(mappa);
             return s;
             
         }
         return null;
     }
     
+    
+    
     // Prendere dal DB il nome sala
     // Costruire la mappa della sala con tale ID
+    /**
+     * Crea l'oggetto sala in base all'ID
+     * @param id_sala ID della sala
+     * @return Oggetto Sala che corrisponde all'id dato in ingresso
+     * @throws SQLException 
+     */
+    public Sala getSala(int id_sala) throws SQLException
+    {
+        // PRIMA QUERY: recupero informazioni base della sala
+        PreparedStatement ps = con.prepareStatement("SELECT s.id_sala, s.descrizione FROM sala as s WHERE  s.id_sala = ?");
+        ps.setInt(1, id_sala);
+        
+        ResultSet rs = ps.executeQuery();
+        if(!rs.next())
+            return null;
+        
+        Sala s = new Sala();
+        s.setId(rs.getInt("id_sala"));
+        s.setNome(rs.getString("descrizione"));
+        
+        // SECONDA QUERY: recupero numero righe e numero colonne sala
+        ps = con.prepareStatement("SELECT MAX(p.riga) AS riga, MAX(p.colonna) AS colonna FROM posto AS p WHERE  p.id_sala = ?");
+        ps.setInt(1, id_sala);
+        
+        rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return null;
+        
+        s.setNumeroRighe(rs.getInt("riga"));
+        s.setNumeroColonne(rs.getInt("colonna"));
+        s.setPosti_inesistenti(getPostiInesistenti(s.getId()));
+        
+        return s;
+    }
+    
+    public List<Posto> getPostiOccupati(int id_spettacolo) throws SQLException
+    {
+        List<Posto> lista = new ArrayList<>();
+        PreparedStatement ps= con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_spettacolo = ?");
+        ps.setInt(1,id_spettacolo);
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()) {            
+            Posto p = getPostoFromPrenotazione(rs.getInt("id_prenotazione"));
+            lista.add(p);
+        }
+        return lista;
+    }
+    
+    public List<Posto> getPostiInesistenti(int id_sala) throws SQLException
+    {
+        List<Posto> lista = new ArrayList<>();
+        PreparedStatement ps= con.prepareStatement("SELECT id_posto FROM posto WHERE esiste = false AND id_sala = ? ORDER BY riga,colonna");
+        ps.setInt(1,id_sala);
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()) {            
+            Posto p = getPosto(rs.getInt("id_posto"));
+            lista.add(p);
+        }
+        return lista;
+    }
+    
+    public List<Sala> getSale() throws SQLException
+    {
+        List<Sala> sale = new ArrayList<>();
+        PreparedStatement ps = con.prepareStatement("SELECT id_sala FROM sala");
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next())
+        {
+            int id_sala = rs.getInt("id_sala");
+            
+            Sala s = getSala(id_sala);
+            s.setPosti_inesistenti(getPostiInesistenti(id_sala));
+            sale.add(s);
+        }
+        return sale;
+    }
+    
+    public int getIDSalaBySpett(int id_spettacolo) throws SQLException
+    {
+        int id_sala = -1;
+        PreparedStatement ps = con.prepareStatement("SELECT id_sala FROM spettacolo WHERE id_spettacolo = ?");
+        ps.setInt(1, id_spettacolo);
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+        {
+            id_sala = rs.getInt("id_sala");
+        }
+        return id_sala;
+    }
+    
+    
+    
+    
     /**
      * Funzione per il recupero della sala per un determinato spettacolo
      * @param id_spettacolo ID spettacolo
      * @return Oggetto sala
      * @throws SQLException 
      */
-    public Sala getSala(int id_spettacolo) throws SQLException
+    /*public Sala getSala(int id_spettacolo) throws SQLException
     {
         // PRIMA QUERY: recupero informazioni base della sala
         PreparedStatement ps = con.prepareStatement("SELECT s.id_sala, s.descrizione FROM sala as s, spettacolo AS sp WHERE sp.id_spettacolo = ? AND s.id_sala = sp.id_sala");
@@ -946,7 +1038,7 @@ public class DBManager implements Serializable {
         }
         s.setMappa(mappa); //fine??? thanks god!
         return s;
-    }
+    }*/
     
     /**
      * Funzione per il recupero dell'id sala dal nome
@@ -1014,7 +1106,8 @@ public class DBManager implements Serializable {
             Film f = getFilm(rs.getInt("id_film"));
             s.setFilm(f);
             
-            Sala sala = getSala(id);
+            int id_sala = getIDSalaBySpett(id);
+            Sala sala = getSala(id_sala);
             s.setSala(sala);
             
             return s;
