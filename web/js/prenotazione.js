@@ -1,17 +1,17 @@
 $(document).ready(function() {
-    var price = 8; //price
-    var ridotto1 = 5;
-    var ridotto2 = 6;
-    var countPosti = 0;
-    var maxCount = 15;
-    var studenti= 0;
-    var militari=0;
-    var anziani=0;
-    var disabili = 0;     
-    var $cart = $('#selected-seats'), //Sitting Area
+    var price = 8, //price
+        ridotto1 = 5,
+        ridotto2 = 6,
+        countPosti = 0,//contatore posti selezionati
+        maxCount = 15,//max numero posti selezionabili
+        studenti= 0,//contatore ridotti studente
+        militari=0,//contatore ridotti militari
+        anziani=0,//contatore ridotti anziani
+        disabili = 0,//contatore ridotti disabili     
+        $cart = $('#selected-seats'), //Sitting Area
         $counter = $('#counter'), //Votes
         $total = $('#total'); //Total money
-        
+        id_spett = $('#id_spett').data('id');    
     $('select').material_select();
     $('.check_ridotti').on('click',function(){
         if(document.getElementById("ridotti").checked){
@@ -21,22 +21,19 @@ $(document).ready(function() {
         }
     });
     $('#now').text(Date());
-    var id_spett = $('#id_spett').data('id');
+    
     $.ajax({
         type : 'POST',
         url : 'Controller',           
         data: {
-            op : "vettore_posti_occupati",
+            op : "vettore_posti_sala",
             id_spett: id_spett
         },
         success:function (data) {
             creaMappa(data);
         }
     });
-    
-    
-
-    
+        
     function creaMappa(data){
         var sc = $('#seat-map').seatCharts({
                 map: data,
@@ -102,12 +99,7 @@ $(document).ready(function() {
                 },
                 focus: function(){return this.style();} 
         });
-    }        //sum total money
-
-        $('.seatCharts-space').each(function(){
-            $(this).append("<div class=\"stair\"><div class=\"stair_up\"></div>&nbsp;</div>");
-
-        });
+    }        
 
     function recalculateTotal(sc) {
             var total = 0;
@@ -120,7 +112,7 @@ $(document).ready(function() {
             var riduzione_disabili = (price-ridotto1)*disabili;
             var totale = total-riduzione_militari-riduzione_studenti-riduzione_disabili-riduzione_anziani;
             return totale;
-    }
+    }//sum total money
 
     function creaEventi(){
         $('.selStudenti .select-dropdown li span').on("click",function(){
@@ -204,6 +196,10 @@ $(document).ready(function() {
         //$('select').material_select('destroy');
         creaEventi();
     }
+    
+    $('.seatCharts-space').each(function(){
+        $(this).append("<div class=\"stair\"><div class=\"stair_up\"></div>&nbsp;</div>");
+    });
     
 });
  

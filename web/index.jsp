@@ -120,7 +120,7 @@
                 out.println("<div class=\"rect-video img-big\"><video width=\"580px\" height=\"380px\" muted=\"\" poster=\"img/Slider/"+films.get(i).getTitolo().replaceAll("\\s+","") +".jpg\"><source src=\"video/"+films.get(i).getTitolo().replaceAll("\\s+","")+".mp4\" type=\"video/mp4\"></video></div>");
                 out.println("</div>");
                 out.println("<div class=\"card-content\">");
-                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<a class=\"btn right\"><i class=\"material-icons\">shopping_cart</i></a></span>");
+                out.println("<span class=\"card-title activator grey-text text-darken-4\">"+ films.get(i).getTitolo() +"<a class=\"btn right activator\"><i class=\"material-icons\">shopping_cart</i></a></span>");
                 out.println("<div>");
                 out.println("<span class=\"grey-text text-darken-4\"><a href=\"scheda_film.jsp?id="+films.get(i).getId()+"\">Scheda Film</a></span>");
                 out.println("</div>");
