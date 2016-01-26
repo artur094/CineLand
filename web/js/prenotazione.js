@@ -10,8 +10,10 @@ $(document).ready(function() {
         disabili = 0,//contatore ridotti disabili     
         $cart = $('#selected-seats'), //Sitting Area
         $counter = $('#counter'), //Votes
-        $total = $('#total'); //Total money
-        id_spett = $('#id_spett').data('id');    
+        $total = $('#total'), //Total money
+        sc,
+        id_spett = parseInt($('#id_spett').data('id'));
+        
     $('select').material_select();
     $('.check_ridotti').on('click',function(){
         if(document.getElementById("ridotti").checked){
@@ -31,75 +33,92 @@ $(document).ready(function() {
         },
         success:function (data) {
             creaMappa(data);
+            aggiorna(id_spett);
         }
     });
         
     function creaMappa(data){
-        var sc = $('#seat-map').seatCharts({
-                map: data,
-                naming : {
-                        top : false,
-                        left:false,
-                        getLabel : function (character, row, column) {
-                                return "";
+        sc = $('#seat-map').seatCharts({
+            map: data,
+            naming : {
+                    top : false,
+                    left:false,
+                    getLabel : function (character, row, column) {
+                            return "";
+                    }
+            },
+            legend : { //Definition legend
+                    node : $('#legend'),
+                    items : [
+                            [ 'a', 'selected-legend',   'Option' ],
+                            [ 'a', 'unavailable', 'Sold'],
+                    ]
+            },
+            click: function () { //Click event
+                    if (this.status() == 'available') { //optional seat
+                        if(countPosti<maxCount){
+                            $('<li>R'+(this.settings.id.toString().split('_')[0])+' P'+(this.settings.id.toString().split('_')[1])+'</li>')
+                                    .attr('id', 'cart-item-'+this.settings.id)
+                                    .data('seatId', this.settings.id)
+                                    .appendTo($cart);
+                            $counter.text(sc.find('selected').length+1);
+                            $total.text(recalculateTotal(sc)+price);
+                            countPosti++;
+                            $('select').material_select('destroy');
+                            $('.selStudenti').append("<option value=\""+(countPosti-militari-anziani-disabili)+"\">"+(countPosti-militari-anziani-disabili)+"</option>");
+                            $('.selMilitari').append("<option value=\""+(countPosti-studenti-anziani-disabili)+"\">"+(countPosti-studenti-anziani-disabili)+"</option>");
+                            $('.selAnziani').append("<option value=\""+(countPosti-studenti-militari-disabili)+"\">"+(countPosti-studenti-militari-disabili)+"</option>");
+                            $('.selDisabili').append("<option value=\""+(countPosti-studenti-militari-anziani)+"\">"+(countPosti-studenti-militari-anziani)+"</option>");
+                            $('select').material_select();
+                            creaEventi();
+                            return 'selected';
                         }
-                },
-                legend : { //Definition legend
-                        node : $('#legend'),
-                        items : [
-                                [ 'a', 'selected-legend',   'Option' ],
-                                [ 'a', 'unavailable', 'Sold'],
-                        ]
-                },
-                click: function () { //Click event
-                        if (this.status() == 'available') { //optional seat
-                            if(countPosti<maxCount){
-                                $('<li>R'+(this.settings.id.toString().split('_')[0])+' P'+(this.settings.id.toString().split('_')[1])+'</li>')
-                                        .attr('id', 'cart-item-'+this.settings.id)
-                                        .data('seatId', this.settings.id)
-                                        .appendTo($cart);
-                                $counter.text(sc.find('selected').length+1);
-                                $total.text(recalculateTotal(sc)+price);
-                                countPosti++;
-                                $('select').material_select('destroy');
-                                $('.selStudenti').append("<option value=\""+(countPosti-militari-anziani-disabili)+"\">"+(countPosti-militari-anziani-disabili)+"</option>");
-                                $('.selMilitari').append("<option value=\""+(countPosti-studenti-anziani-disabili)+"\">"+(countPosti-studenti-anziani-disabili)+"</option>");
-                                $('.selAnziani').append("<option value=\""+(countPosti-studenti-militari-disabili)+"\">"+(countPosti-studenti-militari-disabili)+"</option>");
-                                $('.selDisabili').append("<option value=\""+(countPosti-studenti-militari-anziani)+"\">"+(countPosti-studenti-militari-anziani)+"</option>");
-                                $('select').material_select();
-                                creaEventi();
-                                return 'selected';
-                            }
-                                return 'available';
+                            return 'available';
 
-                        } else if (this.status() == 'selected') { //Checked
-                                        //Update Number
-                                        $counter.text(sc.find('selected').length-1);
-                                        //update totalnum
-                                        $total.text(recalculateTotal(sc)-price);
-                                        //Delete reservation
-                                        $('#cart-item-'+this.settings.id).remove();
-                                        //optional
-                                        countPosti--;
-                                        if((countPosti-studenti-militari-anziani-disabili)<0){
-                                            studenti=0;
-                                            militari=0;
-                                            anziani=0;
-                                            disabili=0;
-                                        }
-                                        creaDrop();
-                                        $('select').material_select();
-                                        creaEventi();
-                                        return 'available';
-                        } else if (this.status() == 'unavailable') { //sold
-                                return 'unavailable';
-                        } else {
-                                return this.style();
-                        }
-                },
-                focus: function(){return this.style();} 
+                    } else if (this.status() == 'selected') { //Checked
+                                    //Update Number
+                                    $counter.text(sc.find('selected').length-1);
+                                    //update totalnum
+                                    $total.text(recalculateTotal(sc)-price);
+                                    //Delete reservation
+                                    $('#cart-item-'+this.settings.id).remove();
+                                    //optional
+                                    countPosti--;
+                                    if((countPosti-studenti-militari-anziani-disabili)<0){
+                                        studenti=0;
+                                        militari=0;
+                                        anziani=0;
+                                        disabili=0;
+                                    }
+                                    creaDrop();
+                                    $('select').material_select();
+                                    creaEventi();
+                                    return 'available';
+                    } else if (this.status() == 'unavailable') { //sold
+                            return 'unavailable';
+                    } else {
+                            return this.style();
+                    }
+            },
+            focus: function(){return this.style();} 
         });
-    }        
+    }
+    
+    function aggiorna(id_spett){
+        $.ajax({
+            type : 'POST',
+            url : 'Controller',           
+            data: {
+                op : "vettore_posti_occupati",
+                id_spett: id_spett
+            },
+            success:function (data) {
+                console.log(data);
+                sc.find('unavaible').status('avaible');
+                sc.get(data).status('unavailable');
+            }
+        });
+    }
 
     function recalculateTotal(sc) {
             var total = 0;

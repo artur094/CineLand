@@ -11,7 +11,6 @@ $(document).ready(function() {
         var id_spett = $('.item_spett').eq(index).data('id_spett');
         if(sc[index]=== undefined){
             creaMappa(index,id_spett);
-            aggiorna(index,id_spett);
         }else
             aggiorna(index,id_spett);
         $('#message1').hide();
@@ -47,6 +46,7 @@ $(document).ready(function() {
                                     return this.style();
                     }
                 });
+                aggiorna(index,id_spett);
                 $('.seatCharts-container').hide();
                 $("#seat-map"+index).show();
             }

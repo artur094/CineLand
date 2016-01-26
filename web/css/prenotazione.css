@@ -28,6 +28,11 @@
     padding: 25px;
 }
 
+.wrap-riduzioni{
+    position: absolute;
+    bottom: 0px;
+}
+
 .input-field{
     margin-top: 0px;
 }
@@ -42,7 +47,7 @@
 }
 
 .select-wrapper span.caret{
-    color: #fff;
+    color: burlywood;
 }
 
 #btn_paga{
@@ -119,6 +124,7 @@ blockquote{
 }
 
 .riduzioni{
+    color: burlywood;
     display: none;
 }
 .check_ridotti{
@@ -149,7 +155,9 @@ ul.riduzioni.show>li{
 div.card-image>img{
     
     width: 100%;
-    max-height: 350px;
+    max-height: 450px;
     max-width: 300px;
 }
-
+.select-wrapper input.select-dropdown{
+    border-bottom-color: burlywood;
+}

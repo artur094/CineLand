@@ -110,9 +110,9 @@
                             <ul id="selected-seats"></ul>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row wrap-riduzioni">
                         <ul class="riduzioni">
-                            <li class="col s2">
+                            <li>
                                 <div class="campo col offset-m1">Studenti: </div>
                                 <div class="input-field col">
                                     <select class="selStudenti">
@@ -120,7 +120,7 @@
                                     </select>
                                 </div>
                             </li>
-                            <li class="row col s2">
+                            <li>
                                 <div class="campo col offset-m1">Militari: </div>
                                 <div class="input-field col">
                                     <select class="selMilitari">
@@ -128,7 +128,7 @@
                                     </select>
                                 </div>
                             </li>
-                            <li class="row col s2">
+                            <li>
                                 <div class="campo col offset-m1">Anziani: </div>
                                 <div class="input-field col">
                                     <select class="selAnziani">
@@ -136,7 +136,7 @@
                                     </select>
                                 </div>
                             </li>
-                            <li class="row col s2">
+                            <li>
                                 <div class="campo col offset-m1">Disabili: </div>
                                 <div class="input-field col">
                                     <select class="selDisabili">
@@ -145,12 +145,13 @@
                                 </div>
                             </li>
                         </ul>
+                        <div class="col check_ridotti">
+                            <input type="checkbox" id="ridotti" />
+                            <label for="ridotti">Seleziona ridotti</label>
+                        </div>  
                     </div>
                 </div>
-                <div class="col check_ridotti">
-                    <input type="checkbox" id="ridotti" />
-                    <label for="ridotti">Seleziona ridotti</label>
-                </div>    
+                  
             </div>
             <div id="btn_paga">
                 <a class='dropdown-button btn'>Paga:<b>$<span id="total">0</span></b></a>
