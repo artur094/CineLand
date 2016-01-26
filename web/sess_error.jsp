@@ -1,9 +1,3 @@
-<%-- 
-    Document   : sess_error
-    Created on : 17-dic-2015, 23.31.07
-    Author     : Utente
---%>
-
 <%@page language="Java" contentType="text/html" pageEncoding="UTF-8" isErrorPage="true"%>
 <!DOCTYPE html>
 <html>

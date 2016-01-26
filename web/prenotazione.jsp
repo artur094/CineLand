@@ -181,5 +181,4 @@
     <script type="text/javascript" src="js/master.js"></script>
     <script type="text/javascript" src="js/prenotazione.js"></script>
     <script type="text/javascript" src="js/jquery.seat-charts.min.js"></script> 
-
 </html>

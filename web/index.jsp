@@ -27,12 +27,15 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <%
-            Utente user = (Utente)request.getSession().getAttribute("user");
+        <%!
+            Utente user = null;
             boolean privacy = false;
             Cookie[] cookies ;        
             List<Film> films;
             List<Spettacolo> spett_per_film;
+        %>
+        <%
+            user = (Utente)request.getSession().getAttribute("user");           
             films = (Films.getFutureFilms()).getListaFilm(); 
         %>  
     </head>
@@ -45,7 +48,9 @@
                 <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <%
-                        if(user != null){
+                        if(user == null){
+                               out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                        }else{
                             if(user.getRuolo().equals("admin")){
                                 out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
                                     +"<ul id='user' class='dropdown-content'>"
@@ -60,11 +65,8 @@
                                     +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
                                     +"<li class=\"divider\"></li>"
                                     +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                    +"</ul></div></li>");
+                                    +"</ul></div></li>");                     
                             }
-                           
-                        }else{
-                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
                         }
                     %>
                     <li><a href="index.jsp">Film</a></li>
@@ -150,67 +152,67 @@
         <!-- Modal Structure -->
         <div id="form" class="modal">
             <div class="modal-content">
-                        <div class="">
-                            <ul class="tabs">
-                                <li class="tab col s6"><a href="#in">Sign IN</a></li>
-                                <li class="tab col s6"><a href="#up">Sign UP</a></li>
-                            </ul>
+                <div class="">
+                    <ul class="tabs">
+                        <li class="tab col s6"><a href="#in">Sign IN</a></li>
+                        <li class="tab col s6"><a href="#up">Sign UP</a></li>
+                    </ul>
+                </div>
+                <div id="in" class="">
+                    <form class="formlogin">
+                        <div class="row">
+                          <div class="input-field col s12 center">
+                                <input id="email_lgn" type="email" class="validate">
+                                <label for="email">Email</label>
+                          </div>
                         </div>
-                        <div id="in" class="">
-                            <form class="formlogin">
-                                <div class="row">
-                                  <div class="input-field col s12 center">
-                                        <input id="email_lgn" type="email" class="validate">
-                                        <label for="email">Email</label>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12 center">
-                                        <input id="password_lgn" type="password" class="validate">
-                                        <label for="password">Password</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s12 center ">
-                                        <div class="btn" id="btn_login">Log in</div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s12 center ">
-                                        <a>Hai dimenticato la password?</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div id="up" class="col s12">
-                            <div class="row">
-                                <form class="formregistra">
-                                    <div class="row">
-                                        <div class="input-field col s12 center">
-                                            <input id="first_name" type="text" class="validate">
-                                            <label for="first_name">First Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s12 center">
-                                            <input id="email_sgnup" type="email" class="validate">
-                                            <label for="email">Email</label>
-                                        </div>
-                                    </div>
-                                        <div class="row">
-                                            <div class="input-field col s12 center">
-                                              <input id="password_sgnup" type="password" class="validate">
-                                              <label for="password">Password</label>
-                                            </div>
-                                        </div>
-                                    <div class="row">
-                                        <div class="col s12 center">
-                                            <div class="btn" id="btn_signup">Sign up</div>
-                                        </div>
-                                    </div>
-                                </form>
+                        <div class="row">
+                            <div class="input-field col s12 center">
+                                <input id="password_lgn" type="password" class="validate">
+                                <label for="password">Password</label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col s12 center ">
+                                <div class="btn" id="btn_login">Log in</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center ">
+                                <a>Hai dimenticato la password?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="up" class="col s12">
+                    <div class="row">
+                        <form class="formregistra">
+                            <div class="row">
+                                <div class="input-field col s12 center">
+                                    <input id="first_name" type="text" class="validate">
+                                    <label for="first_name">First Name</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 center">
+                                    <input id="email_sgnup" type="email" class="validate">
+                                    <label for="email">Email</label>
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="input-field col s12 center">
+                                      <input id="password_sgnup" type="password" class="validate">
+                                      <label for="password">Password</label>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <div class="col s12 center">
+                                    <div class="btn" id="btn_signup">Sign up</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         
