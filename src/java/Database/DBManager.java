@@ -590,7 +590,9 @@ public class DBManager implements Serializable {
         while(rs.next())
         {
             int id = rs.getInt("id_prenotazione");
-            lista.add(getPrenotazione(id));
+            Prenotazione p = getPrenotazione(id);
+            if(p.getData_ora_operazione().compareTo(Calendar.getInstance())>0)
+                lista.add(getPrenotazione(id));
             
         }
         

@@ -6,6 +6,7 @@
 package Control;
 
 import ClassiDB.Film;
+import ClassiDB.Prenotazione;
 import ClassiDB.Sala;
 import ClassiDB.Utente;
 import Database.DBManager;
@@ -373,6 +374,23 @@ public class Controller extends HttpServlet {
                     System.out.println(e.toString());
                 }
                     break;
+            case "admin_prenotazioni":
+                try{
+                    int id_utente = Integer.parseInt(request.getParameter("id_utente"));
+                    Admin amm = (Admin)request.getSession().getAttribute("admin");
+                    if(amm!=null)
+                    {
+                        List<Prenotazione> listPren = amm.getPrenotazioniRimborsabili(email);
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        
+                    }
+                    
+                }catch(Exception e)
+                {
+                    
+                }
+                break;
                 default:
                     break;
         }
