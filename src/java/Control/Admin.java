@@ -50,7 +50,7 @@ public class Admin {
      * @throws ClassNotFoundException 
      */
     public List<Utente> getTopClienti() throws SQLException, ClassNotFoundException
-    {
+    { 
         return dbm.topClienti();
     }
     

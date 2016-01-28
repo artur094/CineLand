@@ -383,6 +383,9 @@ public class Controller extends HttpServlet {
                         response.setContentType("application/json");
                         response.setCharacterEncoding("UTF-8");
                         
+                        Serializer ser = new JsonSerializer();
+                        Object result = ser.serialize(listPren.toArray());
+                        response.getWriter().write(result.toString());
                     }
                     
                 }catch(Exception e)

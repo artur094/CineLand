@@ -6,7 +6,9 @@
 package Control;
 
 import ClassiDB.Film;
+import ClassiDB.Posto;
 import ClassiDB.Prenotazione;
+import ClassiDB.Sala;
 import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
@@ -18,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import net.sf.sojo.interchange.json.JsonSerializer;
 
 /**
  * Classe contenete metodi di controllo; migliora la leggibilità di Controller.java.
@@ -297,5 +300,5 @@ public class Control {
             }
         }
     }
-    
+
 }
