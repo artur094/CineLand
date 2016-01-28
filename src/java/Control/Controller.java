@@ -376,7 +376,6 @@ public class Controller extends HttpServlet {
                     break;
             case "admin_prenotazioni":
                 try{
-                    int id_utente = Integer.parseInt(request.getParameter("id_utente"));
                     Admin amm = (Admin)request.getSession().getAttribute("admin");
                     if(amm!=null)
                     {
