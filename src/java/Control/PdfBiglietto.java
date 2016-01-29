@@ -64,6 +64,13 @@ public class PdfBiglietto {
     }
     
     /**
+     * Costruttore
+     */
+    public PdfBiglietto() {
+        
+    }
+    
+    /**
      * Aggiunge una prenotazione al biglietto. In presenza di più di una prenotazione, vengono stampati tutti in un unico file.
      * @param p prenotazione da aggiungere al biglietto 
      */
@@ -154,6 +161,10 @@ public class PdfBiglietto {
      */
     public ByteArrayOutputStream getPDF() {
         return datiBiglietto;
+    }
+
+    public void setPrenotazioni(ArrayList<Prenotazione> prenotazioni) {
+        this.prenotazioni = prenotazioni;
     }
     
     

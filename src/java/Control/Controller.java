@@ -318,7 +318,7 @@ public class Controller extends HttpServlet {
                 {
                     Integer id_spettacolo = Integer.parseInt(request.getParameter("spettacolo"));
                     try{
-                        Control.prenotaFilm(id_spettacolo, user.getId(), posti);
+                        Control.prenotaFilm(id_spettacolo, user, posti);
                     }catch(Exception ex)
                     {
                         throw new ServletException(ex);

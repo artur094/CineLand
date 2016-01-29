@@ -13,6 +13,10 @@ import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
 import GestioneClassi.Films;
+import com.itextpdf.text.DocumentException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -166,9 +170,10 @@ public class Control {
      * @param id_utente ID utente
      * @param posti Stringa contenente un insieme di posti 'RIGA,COLONNA,PREZZO' divisi per spazio
      */
-    public static void prenotaFilm(int id_spettacolo, int id_utente, String posti) throws SQLException, ClassNotFoundException, MessagingException
+    public static void prenotaFilm(int id_spettacolo, Utente utente, String posti) 
+            throws SQLException, ClassNotFoundException, MessagingException, DocumentException, IOException
     {
-        List<Prenotazione> nuovePrenotazioni;
+        ArrayList<Prenotazione> nuovePrenotazioni;
         Prenotazione p = null;      //cambiato, altrimenti dava problemi con l'if
         DBManager dbm;
         Spettacolo s;
@@ -206,7 +211,7 @@ public class Control {
 
             id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
 
-            p = dbm.insertPrenotazione(id_utente, id_spettacolo, id_posto, prezzo);
+            p = dbm.insertPrenotazione(utente.getId(), id_spettacolo, id_posto, prezzo);
             nuovePrenotazioni.add(p);
         }
 
@@ -214,9 +219,17 @@ public class Control {
         // CREAZIONE PDF CON UN BIGLIETTO PER PAGINA (CON QRCODE)
         // INVIO EMAIL DEL PDF
 
-        if(p != null){
-            PdfBiglietto biglietto = new PdfBiglietto(p);
-        }
+        PdfBiglietto tickets = new PdfBiglietto();
+        tickets.setPrenotazioni(nuovePrenotazioni);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        tickets.costruisciPdf("tickets.pdf", os);
+        SendEmail send = SendEmail.getInstance();
+        send.send(
+                utente.getEmail(),
+                "Prenotazione Cineland",
+                "In allegato ci sono i biglietti del cinema",
+                os);
+        
     }
     
     /**

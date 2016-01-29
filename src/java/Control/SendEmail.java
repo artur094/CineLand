@@ -5,7 +5,10 @@
  */
 package Control;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Properties;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -15,6 +18,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 /**
  * Gestisce l'invio di una email.
@@ -72,6 +76,37 @@ public class SendEmail extends javax.mail.Authenticator{
         msg.addRecipient(Message.RecipientType.TO, new InternetAddress(email_dest));
         msg.setSubject(titolo);
         msg.setText(messaggio);
+        Transport.send(msg);
+    }
+    
+    public void send(String email_dest, String titolo, String messaggio, ByteArrayOutputStream tickets) throws MessagingException
+    {
+        Session session = Session.getDefaultInstance(props, this);
+        
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress(indirizzo));
+        msg.addRecipient(Message.RecipientType.TO, new InternetAddress(email_dest));
+        msg.setSubject(titolo);
+        //msg.setText(messaggio);
+        
+        byte[] tickets_bytes = tickets.toByteArray();
+        
+        MimeBodyPart textBodyPart = new MimeBodyPart();
+        textBodyPart.setText(messaggio);
+        
+        //construct the pdf body part
+        DataSource dataSource = new ByteArrayDataSource(tickets_bytes, "application/pdf");
+        MimeBodyPart pdfBodyPart = new MimeBodyPart();
+        pdfBodyPart.setDataHandler(new DataHandler(dataSource));
+        pdfBodyPart.setFileName("test.pdf");
+
+        //construct the mime multi part
+        MimeMultipart mimeMultipart = new MimeMultipart();
+        mimeMultipart.addBodyPart(textBodyPart);
+        mimeMultipart.addBodyPart(pdfBodyPart);
+        
+        msg.setContent(mimeMultipart);
+        
         Transport.send(msg);
     }
     

@@ -488,7 +488,7 @@ public class DBManager implements Serializable {
      */
     public Prenotazione insertPrenotazione(int id_utente, int id_spettacolo, int id_posto, String tipo_prezzo) throws SQLException
     {
-        PreparedStatement ps = con.prepareStatement("SELECT id_prezzo FROM prezzo WHERE tipo_prezzo = ?");
+        PreparedStatement ps = con.prepareStatement("SELECT id_prezzo FROM prezzo WHERE tipo = ?");
         ps.setString(1, tipo_prezzo);
         
         ResultSet rs = ps.executeQuery();
