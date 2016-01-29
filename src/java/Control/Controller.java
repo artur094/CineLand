@@ -14,6 +14,8 @@ import GestioneClassi.Films;
 import GestioneClassi.Prenotazioni;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.rmi.ServerError;
+import java.rmi.ServerException;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -81,16 +83,9 @@ public class Controller extends HttpServlet {
                     int x = Integer.parseInt(request.getParameter("x"));
                     Control.script(x);
                 }
-                catch(SQLException ex){
-                    try(PrintWriter out = response.getWriter()){
-                        out.println("SQL Exception");
-                    }
-                }
-                catch(ClassNotFoundException cl)
+                catch(Exception ex)
                 {
-                    try(PrintWriter out = response.getWriter()){
-                        out.println("ClassNotFound Exception");
-                    }
+                    throw new ServletException(ex);
                 }
                 break;
             case "test_qrcode":
@@ -178,8 +173,13 @@ public class Controller extends HttpServlet {
                 
                 if(user == null)
                 {
-                    user = Control.logIn(email, password);
-                    
+                    try{
+                        user = Control.logIn(email, password);
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new ServletException(ex);
+                    }
                     if(user != null)
                     {
                         codice = 910;
@@ -191,8 +191,7 @@ public class Controller extends HttpServlet {
                             }
                             catch(Exception ex)
                             {
-                                RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
-                                dispatcher.forward(request, response);
+                                throw new ServletException(ex);
                             }
                         }
                         if(user.getRuolo().equals("verificare"))
@@ -219,13 +218,19 @@ public class Controller extends HttpServlet {
                 user = (Utente)request.getSession().getAttribute("user");
                 if(user == null)
                 {
-                    if(Control.signUp(email,name, password, request.getRequestURL().toString()))
-                    {
-                        //REDIRECT
+                    try{
+                        if(Control.signUp(email,name, password, request.getRequestURL().toString()))
+                        {
+                            //REDIRECT
+                        }
+                        else 
+                        {
+                            error("signup");
+                        }
                     }
-                    else 
+                    catch(Exception ex)
                     {
-                        error("signup");
+                        throw new ServletException(ex);
                     }
                 }
                 break;
@@ -243,13 +248,20 @@ public class Controller extends HttpServlet {
                 break;
             // Gestione del reset della password
             case "pswdimenticata":
-                if(Control.passwordDimenticata(email, request.getRequestURL().toString()))
-                {
-                    // andata a buon fine, quindi redirezionare ad una pagina
-                    // o nemmeno, comunque avvertendo che la email è stata inviata
+                try{
+                    if(Control.passwordDimenticata(email, request.getRequestURL().toString()))
+                    {
+                        // andata a buon fine, quindi redirezionare ad una pagina
+                        // o nemmeno, comunque avvertendo che la email è stata inviata
+                    }
+                    else
+                        error("pswdimenticata");
                 }
-                else
-                    error("pswdimenticata");
+                catch(Exception ex)
+                {
+                    throw new ServletException(ex);
+                }
+                
                 break;
             case "paginaresetpsw":
             {
@@ -266,26 +278,38 @@ public class Controller extends HttpServlet {
                 }
                 else 
                 {
-                    if(Control.resetPassword(email, password, code))
-                    {
-                        //pass cambiata
+                    try{
+                        if(Control.resetPassword(email, password, code))
+                        {
+                            //pass cambiata
+                        }
+                        else
+                        {
+                            //ERRORE
+                        }
                     }
-                    else
+                    catch(Exception ex)
                     {
-                        //ERRORE
+                        throw new ServletException(ex);
                     }
                 }
                 break;
             case "enable":
-                if(Control.enableAccount(email, code))
-                {
-                    //account attivato
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                    dispatcher.forward(request, response);
+                try{
+                    if(Control.enableAccount(email, code))
+                    {
+                        //account attivato
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                        dispatcher.forward(request, response);
+                    }
+                    else
+                    {
+                        //errore
+                    }
                 }
-                else
+                catch(Exception ex)
                 {
-                    //errore
+                    throw new ServletException(ex);
                 }
                 break;
             case "prenota":
@@ -293,7 +317,12 @@ public class Controller extends HttpServlet {
                 if(user != null)
                 {
                     Integer id_spettacolo = Integer.parseInt(request.getParameter("spettacolo"));
-                    Control.prenotaFilm(id_spettacolo, user.getId(), posti);
+                    try{
+                        Control.prenotaFilm(id_spettacolo, user.getId(), posti);
+                    }catch(Exception ex)
+                    {
+                        throw new ServletException(ex);
+                    }
                 }
                 else
                 {
@@ -306,19 +335,24 @@ public class Controller extends HttpServlet {
                 Admin admin = (Admin) request.getSession().getAttribute("admin");
                 if(admin != null)
                 {
-                    int ris = Control.creaBuchiSala(nome_sala, posti);
+                    try{
+                        int ris = Control.creaBuchiSala(nome_sala, posti);
+                    }catch(Exception ex)
+                    {
+                        throw new ServletException(ex);
+                    }
                 }
                 break;
             
             case "vettore_posti_occupati":
                 try{
-                int id_spett = Integer.parseInt(request.getParameter("id_spett"));
-                Sala s = Sala.getSalaBySpett(id_spett);
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8"); 
-                Serializer serializer = new JsonSerializer();
-                Object jsonVettore = serializer.serialize(s.getVettorePostiOccupati());
-                response.getWriter().write(jsonVettore.toString());
+                    int id_spett = Integer.parseInt(request.getParameter("id_spett"));
+                    Sala s = Sala.getSalaBySpett(id_spett);
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8"); 
+                    Serializer serializer = new JsonSerializer();
+                    Object jsonVettore = serializer.serialize(s.getVettorePostiOccupati());
+                    response.getWriter().write(jsonVettore.toString());
                 }catch(Exception e){
                     System.out.println(e.toString());
                 }
@@ -326,14 +360,14 @@ public class Controller extends HttpServlet {
             
             case "vettore_posti_sala":
                 try{
-                int id_spett = Integer.parseInt(request.getParameter("id_spett"));
-                Sala s = Sala.getSalaBySpett(id_spett);
+                    int id_spett = Integer.parseInt(request.getParameter("id_spett"));
+                    Sala s = Sala.getSalaBySpett(id_spett);
 
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8"); 
-                Serializer serializer = new JsonSerializer();
-                Object jsonMatrice = serializer.serialize(s.getVettorePostiSala());
-                response.getWriter().write(jsonMatrice.toString());
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8"); 
+                    Serializer serializer = new JsonSerializer();
+                    Object jsonMatrice = serializer.serialize(s.getVettorePostiSala());
+                    response.getWriter().write(jsonMatrice.toString());
                 }catch(Exception e){
                     System.out.println(e.toString());
                 }
@@ -390,7 +424,7 @@ public class Controller extends HttpServlet {
                     
                 }catch(Exception e)
                 {
-                    
+                    throw new ServletException(e);
                 }
                 break;
                 default:
