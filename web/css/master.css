@@ -1,12 +1,8 @@
 html{
-    height: 100%;
     background-color: #2B2D42;
-    
     min-width: 380px;
 }
-body{
-    height: 100%;
-}
+
 form{
     width: 50%;
     margin-left: auto;
