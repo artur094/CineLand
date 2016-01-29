@@ -10,7 +10,6 @@
 <%@page import="ClassiDB.Posto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="sess_error.jsp"%>
 
-<%--<jsp:useBean id="user" scope="session" class="ClassiDB.Utente"/>--%>
 
 
 <%!
@@ -93,7 +92,6 @@
                 </div>
             </div>
             <div class="row">
-                
                 <div class="col s12 m4">
                     <div class="card-image">
                         <%out.println("<img src='img/locandine/" + spett.getFilm().getTitolo().replaceAll("\\s+","") + ".jpg' alt='"+ spett.getFilm().getTitolo() +"'/>");%>
@@ -101,8 +99,10 @@
                 </div>
                 <div class="col s12 m8">
                     <div class="row">
-                        <div class="col s12 m2"><p>Tickets: <span id="counter">0</span></div>
-                        <div class="col s12 m7"><p>Time: <span id="now"></span></p></div>
+                        <div class="col s12"><p>Time: <span id="now"></span></p></div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12"><p>Tickets: <span id="counter">0</span></div>
                     </div>
                     <div class=" row">
                         <div class="col s12">
