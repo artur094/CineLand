@@ -103,10 +103,11 @@
         <div class="tabhead">
             <div class="col s12">
                    <ul class="tabs">
-                       <li class="tab col s3"><a href="#tab_programmazione">Spettacoli</a></li>
-                       <li class="tab col s3"><a href="#tab_incassi">Incassi film</a></li>
-                       <li class="tab col s3 "><a href="#tab_clienti">Top clienti</a></li>
-                       <li class="tab col s3"><a href="#tab_prenotazioni">Annulla prenotazione</a></li>
+                       <li class="tab col s2"><a href="#tab_programmazione">Spettacoli</a></li>
+                       <li class="tab col s2"><a href="#tab_incassi">Incassi film</a></li>
+                       <li class="tab col s2 "><a href="#tab_clienti">Top clienti</a></li>
+                       <li class="tab col s2"><a href="#tab_piùprenotati">Più prenotati</a></li>
+                       <li class="tab col s2"><a href="#tab_prenotazioni">Annulla prenotazione</a></li>
                    </ul>
             </div>
         </div>
@@ -187,7 +188,32 @@
                 </tbody>
             </table>
         </div>
-        <div id="tab_prenotazioni" class="container mtab">Annulla prenotazione</div>   
+        
+        <div id="tab_piùprenotati" class="container mtab">
+            <div class="row">
+                <div class="col s12 m2 lista_spett">
+                    <ul>
+                        <li class="item_sala" data-sala="1"><a>Sala 1</a></li>
+                        <li class="item_sala" data-sala="2"><a>Sala 2</a></li>
+                        <li class="item_sala" data-sala="3"><a>Sala 3</a></li>
+                        <li class="item_sala" data-sala="4"><a>Sala 4</a></li>
+                    </ul>
+                </div>
+                <div class="col s12 m10 ">
+                    <div id="message2">Seleziona una sala</div>
+                    <div class="mappa_piùprenotati container">
+                        <div class="booking-details">
+                            <div id="legend_piùprenotati"></div>
+                        </div>
+                        <div class="front">SCREEN</div>					
+                    </div>	
+                </div>
+            </div>
+
+        </div>
+        <div id="tab_prenotazioni" class="container mtab">Annulla prenotazione</div> 
+        
+
     </body>
 	 
     <!--Import jQuery before materialize.js-->
