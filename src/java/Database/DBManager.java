@@ -185,14 +185,13 @@ public class DBManager implements Serializable {
         ps.setInt(1,id_sala);
         ResultSet rs = ps.executeQuery();
         
-        while(rs.next())
-        {
+        for (int i = 0; i < 10 && rs.next(); i++) {
             lista.add(getPosto(rs.getInt("id_posto")));
         }
         
         return lista;
     }
-    
+
     /**
      * Funzione per recuperare la lista dei clienti migliori
      * @return Lista dei clienti migliori
