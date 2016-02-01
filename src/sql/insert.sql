@@ -1278,3 +1278,6 @@ INSERT INTO POSTO (ID_SALA, RIGA, COLONNA, ESISTE, OCCUPATO) VALUES
     (4, 19, 13, true, false),
     (4, 19, 14, true, false),
     (4, 19, 15, true, false);
+
+update posto set riga = riga+1;
+update posto set colonna=colonna+1;
