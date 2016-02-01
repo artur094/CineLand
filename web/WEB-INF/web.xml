@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>Filtri.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/amministrazione</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>Control.Controller</servlet-class>
@@ -13,7 +22,6 @@
             30
         </session-timeout>
     </session-config>
-    
     <error-page>
         <exception-type>java.sql.SQLException</exception-type>
         <location>/nullPointer.jsp</location>
@@ -34,5 +42,4 @@
         <exception-type>java.lang.NullPointerException</exception-type>
         <location>/nullPointer.jsp</location>
     </error-page>
-    
 </web-app>
