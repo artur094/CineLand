@@ -442,14 +442,15 @@ public class Controller extends HttpServlet {
                 Admin amm = (Admin)request.getSession().getAttribute("admin");
                 if(amm!=null)
                 {
-                    int id_spett = Integer.parseInt("id_spettacolo");
-                    int riga = Integer.parseInt("riga");
-                    int colonna = Integer.parseInt("colonna");
-                    int id_utente = ((Utente)request.getSession().getAttribute("user")).getId();
+                    int id_spett = Integer.parseInt(request.getParameter("id_spett"));
+                    int riga = Integer.parseInt(request.getParameter("riga"));
+                    int colonna = Integer.parseInt(request.getParameter("colonna"));
+                    
                     
                     try
                     {
                         DBManager dbm = DBManager.getDBManager();
+                        int id_utente = (dbm.getUtente(email)).getId();
                         Spettacolo s = dbm.getSpettacolo(id_spett);
                         int id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
                         Prenotazione p = dbm.getPrenotazione(id_spett, id_utente, id_posto);
