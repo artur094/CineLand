@@ -1,5 +1,6 @@
 .tabs .tab a{
 	color: #fff;
+	border-radius: 50%;
 }
 .tabs{
 	background-color: #1B1D32;
@@ -70,4 +71,31 @@ table.highlight>tbody>tr:hover{
     font-size: 2.5rem;
     color: orange;
     text-align: center;
+}
+
+#btn_find{
+    margin-top:22px;
+}
+
+/*.tabs a{
+    border-radius: 50% !important;
+    width: 100px;
+    height: 100px !important;
+    background-color: red;
+}
+
+.tab{
+    height: 300px !important;
+}*/
+
+.container_acquisti{
+    color:black !important;
+}
+
+.removeSpett{
+    cursor: pointer;
+}
+
+.removePosto{
+    cursor: pointer;
 }

@@ -22,6 +22,7 @@
         <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="css/seats.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="css/amministrazione.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/acquisti.css"  media="screen,projection"/>
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -211,7 +212,25 @@
             </div>
 
         </div>
-        <div id="tab_prenotazioni" class="container mtab">Annulla prenotazione</div> 
+        <div id="tab_prenotazioni" class="container mtab">
+            <h4>Annulla prenotazione</h4>
+            <br>
+            <form>
+                <div class="row">
+                    <div class="input-field col s10 center">
+                        <input id="cerca_user" type="email" class="validate" autocomplete="off">
+                        <label for="cerca_user">Email utente</label>
+                    </div>
+                    <div class="col s2 center">
+                        <div class="btn" id="btn_find"><i class="material-icons">search</i></div>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <div class="container_acquisti">
+                
+            </div>
+        </div> 
         
 
     </body>
