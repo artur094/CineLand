@@ -8,6 +8,7 @@ package Control;
 import ClassiDB.Film;
 import ClassiDB.Prenotazione;
 import ClassiDB.Sala;
+import ClassiDB.Spettacolo;
 import ClassiDB.Utente;
 import Database.DBManager;
 import GestioneClassi.Films;
@@ -435,6 +436,29 @@ public class Controller extends HttpServlet {
                 }catch(Exception e)
                 {
                     throw new ServletException(e);
+                }
+                break;
+            case "annulla_prenotazione":
+                Admin amm = (Admin)request.getSession().getAttribute("admin");
+                if(amm!=null)
+                {
+                    int id_spett = Integer.parseInt("id_spettacolo");
+                    int riga = Integer.parseInt("riga");
+                    int colonna = Integer.parseInt("colonna");
+                    int id_utente = ((Utente)request.getSession().getAttribute("user")).getId();
+                    
+                    try
+                    {
+                        DBManager dbm = DBManager.getDBManager();
+                        Spettacolo s = dbm.getSpettacolo(id_spett);
+                        int id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
+                        Prenotazione p = dbm.getPrenotazione(id_spett, id_utente, id_posto);
+                        amm.rimborsaPrenotazione(p.getId());
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new ServerException("Errore Server Interno");
+                    }
                 }
                 break;
                 default:
