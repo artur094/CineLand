@@ -17,6 +17,10 @@ import java.io.PrintWriter;
 import java.rmi.ServerError;
 import java.rmi.ServerException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -417,8 +421,14 @@ public class Controller extends HttpServlet {
                         response.setContentType("application/json");
                         response.setCharacterEncoding("UTF-8");
                         
+                        List<datiJSONPrenotazioni> tmp = new ArrayList<>();
+                        for(Prenotazione p : listPren){
+                            tmp.add(new datiJSONPrenotazioni(p.getSpettacolo().getId(), p.getSpettacolo().getFilm().getTitolo(), p.getSpettacolo().getData_ora(),p.getSala().getNome(),p.getPosto().getRiga(), p.getPosto().getColonna(),p.getPrezzo()));
+                        }
+                        
                         Serializer ser = new JsonSerializer();
-                        Object result = ser.serialize(listPren.toArray());
+                        Object result = ser.serialize(tmp.toArray());
+                      
                         response.getWriter().write(result.toString());
                     }
                     
@@ -494,4 +504,88 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    class datiJSONPrenotazioni {
+       int id_spettacolo;
+       String titolo_film;
+       long data_ora_spettacolo;
+       String nome_sala;
+       int riga_posto;
+       int colonna_posto;
+       double prezzo;
+       
+        public datiJSONPrenotazioni() {}
+        
+       
+        public datiJSONPrenotazioni(int id_spettacolo, String titolo_film, Calendar spettacolo, String nome_sala, int riga_posto, int colonna_posto, double prezzo) {
+                        
+            this.id_spettacolo = id_spettacolo;
+            this.titolo_film = titolo_film;
+            this.data_ora_spettacolo = spettacolo.getTimeInMillis();
+            this.nome_sala = nome_sala;
+            this.riga_posto = riga_posto;
+            this.colonna_posto = colonna_posto;
+            this.prezzo = prezzo;
+        }
+
+        public int getId_spettacolo() {
+            return id_spettacolo;
+        }
+
+        public String getTitolo_film() {
+            return titolo_film;
+        }
+
+        public long getData_ora_spettacolo() {
+            return data_ora_spettacolo;
+        }
+
+        public String getNome_sala() {
+            return nome_sala;
+        }
+
+        public int getRiga_posto() {
+            return riga_posto;
+        }
+
+        public int getColonna_posto() {
+            return colonna_posto;
+        }
+
+        public double getPrezzo() {
+            return prezzo;
+        }
+
+        public void setId_spettacolo(int id_spettacolo) {
+            this.id_spettacolo = id_spettacolo;
+        }
+
+        public void setTitolo_film(String titolo_film) {
+            this.titolo_film = titolo_film;
+        }
+
+        public void setData_ora_spettacolo(long data_ora_spettacolo) {
+            this.data_ora_spettacolo = data_ora_spettacolo;
+        }
+
+        public void setNome_sala(String nome_sala) {
+            this.nome_sala = nome_sala;
+        }
+
+        public void setRiga_posto(int riga_posto) {
+            this.riga_posto = riga_posto;
+        }
+
+        public void setColonna_posto(int colonna_posto) {
+            this.colonna_posto = colonna_posto;
+        }
+
+        public void setPrezzo(double prezzo) {
+            this.prezzo = prezzo;
+        }
+        
+        
+       
+       
+    }
+    
 }

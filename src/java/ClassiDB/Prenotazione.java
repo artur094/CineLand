@@ -94,6 +94,10 @@ public class Prenotazione {
         this.sala = sala;
     }
 
+    /**
+     * Ritorna il prezzo in euro pagato per quella prenotazione.
+     * @return prezzo in euro pagato per quella prenotazione
+     */
     public double getPrezzo() {
         return prezzo;
     }
