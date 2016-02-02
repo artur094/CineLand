@@ -1168,6 +1168,28 @@ public class DBManager implements Serializable {
         return getUtente(id);
     }
     
+    /**
+     * Funzione per prendere la prenotazione dato spettacolo, utente e posto
+     * @param id_spett ID spettacolo
+     * @param id_utente ID utente
+     * @param id_posto ID posto
+     * @return Prenotazione
+     * @throws SQLException 
+     */
+    public Prenotazione getPrenotazione(int id_spett, int id_utente, int id_posto) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_spettacolo = ? AND id_utente = ? AND id_posto = ?");
+        ps.setInt(1, id_spett);
+        ps.setInt(2, id_utente);
+        ps.setInt(3, id_posto);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+            return getPrenotazione(rs.getInt("id_prenotazione"));
+        return null;
+    }
+    
     // Prendere la prenotazione
     // Prendere l'utente della prenotazione
     // Anche il posto e la sala corrispondente
