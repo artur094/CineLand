@@ -148,7 +148,7 @@ $(document).ready(function() {
                 if(result){
                     $('.container_acquisti').empty();
                     var dati = "";
-                    dati+="<ul class=\"collapsible\" data-collapsible=\"expandable\">";
+                    dati+="<ul class=\"collapsible\" data-collapsible=\"expandable\" data-email=\""+email+"\">";
                     var lastSpett=-1;
                     var first=true;
                     for(var i=0;i<result.length;i++)
@@ -180,7 +180,8 @@ $(document).ready(function() {
                                 op : "annulla_prenotazione",
                                 id_spett: $(posti[index]).data('idspett'),
                                 riga:$(posti[index]).data('riga'),
-                                colonna:$(posti[index]).data('colonna')
+                                colonna:$(posti[index]).data('colonna'),
+                                email:$('.container_acquisti ul').data('email')
                                 }
                             });
                         });
@@ -199,7 +200,8 @@ $(document).ready(function() {
                             op : "annulla_prenotazione",
                             id_spett: $(this).data('idspett'),
                             riga:$(this).data('riga'),
-                            colonna:$(this).data('colonna')
+                            colonna:$(this).data('colonna'),
+                            email:$('.container_acquisti ul').data('email')
                             }
                         });
                         if($(this).parent().parent().siblings().length>=1)
