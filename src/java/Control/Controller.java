@@ -124,6 +124,8 @@ public class Controller extends HttpServlet {
                 try{
                     DBManager dbm = DBManager.getDBManager();
                     PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(2));
+                    pdf.aggiungiPrenotazione(dbm.getPrenotazione(5));
+
                     response.setContentType("application/pdf");
                     pdf.costruisciPdf("Biglietto", response.getOutputStream());
                   

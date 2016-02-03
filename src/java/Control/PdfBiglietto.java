@@ -75,7 +75,8 @@ public class PdfBiglietto {
      * @param p prenotazione da aggiungere al biglietto 
      */
     public void aggiungiPrenotazione(Prenotazione p){
-        this.prenotazioni.add(p);
+        if(p!=null)
+            this.prenotazioni.add(p);
     }
     
     /**
@@ -98,7 +99,7 @@ public class PdfBiglietto {
         biglietto.addCreationDate();
         biglietto.addCreator(autore);
         biglietto.addTitle(titolo);
-      //dati da inserire nel QRCode
+      //dati inseriti nel QRCode
       for(Prenotazione p : prenotazioni){
         StringBuilder sb = new StringBuilder();
         sb.append(p.getId());
@@ -117,12 +118,9 @@ public class PdfBiglietto {
         sb.append("|");
         sb.append(dataNormale.format(p.getSpettacolo().getData_ora().getTime()));
         
-        //in caso di problemi al QRcode (dimensioni eccessive), controllare la stringa in ingresso.
+        //in caso di problemi al QRcode (dimensioni eccessive, aspetti strani, etc), controllare la stringa in ingresso.
         QRCode qrBiglietto = new QRCode(sb.toString());
-
-
-        /*inserimento metadati*/
-        
+     
 
         Paragraph titolo = new Paragraph(p.getSpettacolo().getFilm().getTitolo());
         titolo.add("\nPrenotazione a nome dell'utente:  " + p.getUtente().getNome());
@@ -140,12 +138,13 @@ public class PdfBiglietto {
         prezzo.add(" Euro");
 
         Paragraph fondo = new Paragraph("Biglietto emesso in data: " + dataNormale.format(new Date()));       
-
-        Paragraph paragrafoQr = new Paragraph("Mostra questo qrCode all'addetto del cinema: ");
+        fondo.add("\n Mostra questo qrCode all'addetto del cinema: ");
+       
+        Paragraph paragrafoQr = new Paragraph();
+        
         Image qrCode = Image.getInstance(qrBiglietto.getQrcode().toByteArray());
-        paragrafoQr.add(qrCode);
-        paragrafoQr.setPaddingTop(50.0f);
-
+        paragrafoQr.add(qrCode); 
+        
         biglietto.add(titolo);
         biglietto.add(info);
         biglietto.add(sala);
