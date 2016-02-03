@@ -161,3 +161,9 @@ div.card-image>img{
 .select-wrapper input.select-dropdown{
     border-bottom-color: burlywood;
 }
+li.list-item {
+    float: left;
+    margin-bottom: 0.625em;
+    margin-right: 0.625em;
+    margin-left: 0.725em;
+}

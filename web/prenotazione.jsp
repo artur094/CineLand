@@ -153,8 +153,8 @@
                 </div>
                   
             </div>
-            <div id="btn_paga">
-                <a class='dropdown-button btn'>Paga:<b>$<span id="total">0</span></b></a>
+            <div id="btn_paga" class='modal-trigger' href="#buy">
+                <a class='btn' >Compra:<b>$<span id="total">0</span></b></a>
             </div>
 
         </div>
@@ -174,6 +174,43 @@
                     *Mlitare All'entrata sarà richiesta la tessera dell'arma di appartenenza<br>
                     *Anziano Vengono considerati in questa categoria tutti coloro >65anni <br>
                 </blockquote>
+        </div>
+                    
+        <!-- Modal Structure -->
+        <div id="buy" class="modal">
+            <fieldset class="form-field options" id="payment-method">
+                <div class="row">
+                    <h5>Paga con</h5>
+                </div>
+                <label>
+                    <ul>
+                        <li class="list-item"><img alt="Visa" height="34" src="img/assets/icon-visa.svg" width="50"></li>
+                        <li><img alt="Mastercard" height="34" src="img/assets/icon-mastercard.svg" width="50"></li>                        
+                    </ul>
+                </label>
+                <div class="row">
+                    <h5>Informazioni carta di credito</h5>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="first_name" type="text" class="validate">
+                        <label for="first_name">Nome titolare carta</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="number_card" type="text" class="validate">
+                        <label for="number_card">Numero carta</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="cvv" type="text" class="validate">
+                        <label for="cvv">CVV</label>
+                    </div>
+                </div>
+                <div id="btn_conferma">
+                    <a class='btn' >CONFERMA</a>
+                </div>
+            </fieldset>
         </div>
         
     </body>

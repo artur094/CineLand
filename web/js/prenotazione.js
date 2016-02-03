@@ -24,6 +24,7 @@ $(document).ready(function() {
     });
     $('#now').text(Date());
     
+    
     $.ajax({
         type : 'POST',
         url : 'Controller',           
@@ -51,16 +52,19 @@ $(document).ready(function() {
                     node : $('#legend'),
                     items : [
                             [ 'a', 'selected-legend',   'Option' ],
-                            [ 'a', 'unavailable', 'Sold'],
+                            [ 'a', 'unavailable', 'Sold']
                     ]
             },
             click: function () { //Click event
                     if (this.status() == 'available') { //optional seat
                         if(countPosti<maxCount){
-                            $('<li>R'+(this.settings.id.toString().split('_')[0])+' P'+(this.settings.id.toString().split('_')[1])+'</li>')
-                                    .attr('id', 'cart-item-'+this.settings.id)
-                                    .data('seatId', this.settings.id)
-                                    .appendTo($cart);
+                            var r = (this.settings.id.toString().split('_')[0]);
+                            var c = (this.settings.id.toString().split('_')[1]);
+                            $('<li class="selected">R'+r+' P'+c+'</li>')
+                                .attr('id', 'cart-item-'+this.settings.id)
+                                .data('r', r)
+                                .data('c', c)
+                                .appendTo($cart);
                             $counter.text(sc.find('selected').length+1);
                             $total.text(recalculateTotal(sc)+price);
                             countPosti++;
@@ -113,7 +117,6 @@ $(document).ready(function() {
                 id_spett: id_spett
             },
             success:function (data) {
-                console.log(data);
                 sc.find('unavaible').status('avaible');
                 sc.get(data).status('unavailable');
             }
@@ -218,6 +221,46 @@ $(document).ready(function() {
     
     $('.seatCharts-space').each(function(){
         $(this).append("<div class=\"stair\"><div class=\"stair_up\"></div>&nbsp;</div>");
+    });
+    
+    $('#btn_conferma').click(function(){
+        var st = studenti;
+        var mi =militari;
+        var an = anziani;
+        var di = disabili;
+        var s="";
+        $('li.selected').each(function(i){
+            s=s+$(this).data('r')+","+$(this).data('c')+",";
+            if(st!=0){
+                s = s+"s ";
+                st--;
+            }else if(mi>0){
+                s = s+"m "
+                mi--;
+            }else if(an>0){
+                s = s+"a ";
+                an--;
+            }else if(di>0){
+                s=s+"d "
+                di--;
+            }else
+                s=s+"n ";
+            console.log(s);
+            $.ajax({
+                type : 'POST',
+                url : 'Controller',           
+                data: {
+                    op : "prenota",
+                    spettacolo: id_spett,
+                    posti: s
+                },
+                success:function (data) {
+                    alert('andato');
+                    aggiorna(id_spett);
+                }
+            });
+        });
+        
     });
     
 });
