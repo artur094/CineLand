@@ -118,6 +118,8 @@ public class PdfBiglietto {
         sb.append("|");
         sb.append(dataNormale.format(p.getSpettacolo().getData_ora().getTime()));
         
+        Paragraph completo = new Paragraph();
+        completo.setSpacingAfter(80.0f);
         //in caso di problemi al QRcode (dimensioni eccessive, aspetti strani, etc), controllare la stringa in ingresso.
         QRCode qrBiglietto = new QRCode(sb.toString());
      
@@ -139,18 +141,18 @@ public class PdfBiglietto {
 
         Paragraph fondo = new Paragraph("Biglietto emesso in data: " + dataNormale.format(new Date()));       
         fondo.add("\n Mostra questo qrCode all'addetto del cinema: ");
-       
-        Paragraph paragrafoQr = new Paragraph();
         
         Image qrCode = Image.getInstance(qrBiglietto.getQrcode().toByteArray());
-        paragrafoQr.add(qrCode); 
+        qrCode.setAlignment(Image.TOP);
         
-        biglietto.add(titolo);
-        biglietto.add(info);
-        biglietto.add(sala);
-        biglietto.add(prezzo);
-        biglietto.add(fondo);
-        biglietto.add(paragrafoQr);
+        completo.add(titolo);
+        completo.add(info);
+        completo.add(sala);
+        completo.add(prezzo);
+        completo.add(fondo);
+        completo.add(qrCode);
+        
+        biglietto.add(completo);
       }
       biglietto.close();
     }
