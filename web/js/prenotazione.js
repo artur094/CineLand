@@ -246,6 +246,8 @@ $(document).ready(function() {
             }else
                 s=s+"n ";
             console.log(s);
+
+            });
             $.ajax({
                 type : 'POST',
                 url : 'Controller',           
@@ -258,7 +260,6 @@ $(document).ready(function() {
                     alert('andato');
                     aggiorna(id_spett);
                 }
-            });
         });
         
     });

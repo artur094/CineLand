@@ -165,12 +165,13 @@ public class Control {
     }
     
     /**
-     * Funzione statica per la prenotazione di posti per uno spettacolo
+     * Funzione statica per la prenotazione di posti per uno spettacolo.
      * @param id_spettacolo ID spettacolo 
      * @param id_utente ID utente
      * @param posti Stringa contenente un insieme di posti 'RIGA,COLONNA,PREZZO' divisi per spazio
+     * @return esito della operazione; true se andata a buon fine, false altrimenti. 
      */
-    public static void prenotaFilm(int id_spettacolo, Utente utente, String posti) 
+    public static boolean prenotaFilm(int id_spettacolo, Utente utente, String posti) 
             throws SQLException, ClassNotFoundException, MessagingException, DocumentException, IOException
     {
         ArrayList<Prenotazione> nuovePrenotazioni;
@@ -199,20 +200,26 @@ public class Control {
 
             prezzo = info_posto[2];
 
-            switch(prezzo)
+            switch(prezzo.toUpperCase())
             {
                 case "N": prezzo = "normale"; break;
                 case "R": prezzo = "ridotto"; break;
                 case "S": prezzo = "studente";break;
                 case "M": prezzo = "militare";break;
                 case "D": prezzo = "disabile";break;
-                default: return;
+                default: return false;
             }
 
             id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
 
             p = dbm.insertPrenotazione(utente.getId(), id_spettacolo, id_posto, prezzo);
-            nuovePrenotazioni.add(p);
+            
+            if(p == null){
+              return false;  
+            }
+            else{
+               nuovePrenotazioni.add(p);
+            }
         }
 
         // CREAZIONE QRCODE
@@ -230,6 +237,7 @@ public class Control {
                 "In allegato ci sono i biglietti del cinema",
                 os);
         
+        return true;
     }
     
     /**
