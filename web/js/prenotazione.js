@@ -117,7 +117,7 @@ $(document).ready(function() {
                 id_spett: id_spett
             },
             success:function (data) {
-                sc.find('unavaible').status('avaible');
+                sc.find('unavaible').status('available');
                 sc.get(data).status('unavailable');
             }
         });
@@ -248,18 +248,18 @@ $(document).ready(function() {
             console.log(s);
 
             });
-            $.ajax({
-                type : 'POST',
-                url : 'Controller',           
-                data: {
-                    op : "prenota",
-                    spettacolo: id_spett,
-                    posti: s
-                },
-                success:function (data) {
-                    alert('andato');
-                    aggiorna(id_spett);
-                }
+        $.ajax({
+            type : 'POST',
+            url : 'Controller',           
+            data: {
+                op : "prenota",
+                spettacolo: id_spett,
+                posti: s
+            },
+            success:function (data) {
+                alert(data);
+                aggiorna(id_spett);
+            }
         });
         
     });
