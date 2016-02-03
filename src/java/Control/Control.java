@@ -203,6 +203,7 @@ public class Control {
             switch(prezzo.toUpperCase())
             {
                 case "N": prezzo = "normale"; break;
+                case "A": prezzo = "ridotto"; break;
                 case "R": prezzo = "ridotto"; break;
                 case "S": prezzo = "studente";break;
                 case "M": prezzo = "militare";break;
@@ -282,6 +283,16 @@ public class Control {
                 c.add(Calendar.MINUTE, X);
             }
         }
+    }
+    
+    public static boolean checkEmail(String email)
+    {
+        String[] vett = email.split("@");
+        if(vett.length!=2)
+            return false;
+        if(!vett[1].contains("."))
+            return false;
+        return true;
     }
 
 }

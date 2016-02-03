@@ -222,6 +222,8 @@ public class Controller extends HttpServlet {
             // Se tutto va bene, nessun problema, altrimenti vado alla pagina di errore
             // Se è loggato, non faccio niente
             case "signup":
+                if(!Control.checkEmail(email))
+                    throw new ServletException("Formato email sbagliato");
                 user = (Utente)request.getSession().getAttribute("user");
                 if(user == null)
                 {
@@ -312,6 +314,7 @@ public class Controller extends HttpServlet {
                     else
                     {
                         //errore
+                        throw new ServletException("Errore nell'abilitazione dell'account");
                     }
                 }
                 catch(Exception ex)
