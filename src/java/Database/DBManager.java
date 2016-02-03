@@ -258,9 +258,7 @@ public class DBManager implements Serializable {
     public boolean rimborsaPrenotazione(int id_prenotazione) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement(
-                "SELECT pr.prezzo, pr.id_utente "+
-                "FROM prenotazione AS p, prezzo AS pr "+
-                "WHERE p.id_prezzo = pr.id_prezzo AND p.id_prenotazione = ?"
+                "SELECT pr.prezzo, p.id_utente FROM prenotazione AS p, prezzo AS pr WHERE p.id_prezzo = pr.id_prezzo AND p.id_prenotazione = ?"
         );
         ps.setInt(1,id_prenotazione);
         
@@ -271,6 +269,14 @@ public class DBManager implements Serializable {
         
         int id_utente = rs.getInt("id_utente");
         double prezzo = rs.getDouble("prezzo") * 0.8;
+        
+        ps = con.prepareStatement("DELETE FROM prenotazione WHERE id_prenotazione = ?");
+        ps.setInt(1,id_prenotazione);
+        
+        int rows = ps.executeUpdate();
+        
+        if(rows<1)
+            return false;
         
         Utente u = getUtente(id_utente);
         u.setCredito(u.getCredito() + prezzo);
@@ -1215,7 +1221,7 @@ public class DBManager implements Serializable {
             Utente u = getUtente(rs.getInt("id_utente"));
             Spettacolo s = getSpettacolo(rs.getInt("id_spettacolo"));
             double prezzo = rs.getDouble("prezzo");
-            Posto posto = getPosto(rs.getInt("id_prezzo"));
+            Posto posto = getPosto(rs.getInt("id_posto"));
             boolean pagato = rs.getBoolean("pagato");
             
             Timestamp ts = rs.getTimestamp("data_ora_operazione");
