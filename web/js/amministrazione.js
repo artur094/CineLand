@@ -110,7 +110,7 @@ $(document).ready(function() {
             },
             success:function (data) {
                 console.log(data);
-                sc[index].find('unavaible').status('avaible');
+                sc[index].find('unavailable').status('available');
                 sc[index].get(data).status('unavailable');
             }
         });
@@ -125,7 +125,7 @@ $(document).ready(function() {
             },
             success:function (data) {
                 console.log(data);
-                sp[index].find('unavaible').status('avaible');
+                sp[index].find('unavailable').status('available');
                 sp[index].get(data).status('unavailable');
             }
         });
