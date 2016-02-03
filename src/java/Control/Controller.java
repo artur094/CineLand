@@ -126,7 +126,7 @@ public class Controller extends HttpServlet {
                     PdfBiglietto pdf = new PdfBiglietto(dbm.getPrenotazione(2));
                     pdf.aggiungiPrenotazione(dbm.getPrenotazione(5));
                     pdf.aggiungiPrenotazione(dbm.getPrenotazione(7));
-                    pdf.aggiungiPrenotazione(dbm.getPrenotazione(1));
+                    pdf.aggiungiPrenotazione(dbm.getPrenotazione(182));  //prenotazione nulla
                     pdf.aggiungiPrenotazione(dbm.getPrenotazione(1));
                     pdf.aggiungiPrenotazione(dbm.getPrenotazione(2));
                     pdf.aggiungiPrenotazione(dbm.getPrenotazione(3));

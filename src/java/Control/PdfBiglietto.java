@@ -100,7 +100,10 @@ public class PdfBiglietto {
         biglietto.addCreator(autore);
         biglietto.addTitle(titolo);
       //dati inseriti nel QRCode
+      int contatorePrenotazioni = 1;  //usato per avere due prenotazioni per ogni pagina
       for(Prenotazione p : prenotazioni){
+        contatorePrenotazioni++;
+        
         StringBuilder sb = new StringBuilder();
         sb.append(p.getId());
         sb.append("|");
@@ -145,13 +148,16 @@ public class PdfBiglietto {
         Image qrCode = Image.getInstance(qrBiglietto.getQrcode().toByteArray());
         qrCode.setAlignment(Image.TOP);
         
+        if(contatorePrenotazioni % 2  == 0)
+            biglietto.newPage();
+        
         completo.add(titolo);
         completo.add(info);
         completo.add(sala);
         completo.add(prezzo);
         completo.add(fondo);
         completo.add(qrCode);
-        
+       
         biglietto.add(completo);
       }
       biglietto.close();
