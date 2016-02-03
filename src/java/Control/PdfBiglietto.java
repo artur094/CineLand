@@ -93,6 +93,11 @@ public class PdfBiglietto {
       //PdfWriter.getInstance(biglietto, new FileOutputStream(nomeFile));
       PdfWriter.getInstance(biglietto, stream);
       
+      biglietto.open();
+        biglietto.addAuthor(autore);
+        biglietto.addCreationDate();
+        biglietto.addCreator(autore);
+        biglietto.addTitle(titolo);
       //dati da inserire nel QRCode
       for(Prenotazione p : prenotazioni){
         StringBuilder sb = new StringBuilder();
@@ -117,11 +122,7 @@ public class PdfBiglietto {
 
 
         /*inserimento metadati*/
-        biglietto.open();
-        biglietto.addAuthor(autore);
-        biglietto.addCreationDate();
-        biglietto.addCreator(autore);
-        biglietto.addTitle(titolo);
+        
 
         Paragraph titolo = new Paragraph(p.getSpettacolo().getFilm().getTitolo());
         titolo.add("\nPrenotazione a nome dell'utente:  " + p.getUtente().getNome());
