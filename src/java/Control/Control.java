@@ -170,7 +170,7 @@ public class Control {
      * @param id_utente ID utente
      * @param posti Stringa contenente un insieme di posti 'RIGA,COLONNA,PREZZO' divisi per spazio
      */
-    public static void prenotaFilm(int id_spettacolo, Utente utente, String posti) 
+    public static boolean prenotaFilm(int id_spettacolo, Utente utente, String posti) 
             throws SQLException, ClassNotFoundException, MessagingException, DocumentException, IOException
     {
         ArrayList<Prenotazione> nuovePrenotazioni;
@@ -206,12 +206,22 @@ public class Control {
                 case "S": prezzo = "studente";break;
                 case "M": prezzo = "militare";break;
                 case "D": prezzo = "disabile";break;
-                default: return;
+                default: 
+                    dbm.removePrenotazioni(nuovePrenotazioni);
+                    return false;
             }
 
             id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
 
             p = dbm.insertPrenotazione(utente.getId(), id_spettacolo, id_posto, prezzo);
+            
+            if(p == null)
+            {
+                //errore inserimento quindi rollback
+                dbm.removePrenotazioni(nuovePrenotazioni);
+                return false;
+            }
+            
             nuovePrenotazioni.add(p);
         }
 
@@ -229,7 +239,7 @@ public class Control {
                 "Prenotazione Cineland",
                 "In allegato ci sono i biglietti del cinema",
                 os);
-        
+        return true;
     }
     
     /**

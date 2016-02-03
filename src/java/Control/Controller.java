@@ -323,15 +323,24 @@ public class Controller extends HttpServlet {
                 {
                     Integer id_spettacolo = Integer.parseInt(request.getParameter("spettacolo"));
                     try{
-                        Control.prenotaFilm(id_spettacolo, user, posti);
+                        if(Control.prenotaFilm(id_spettacolo, user, posti))
+                        {
+                            // A POSTO
+                        }
+                        else
+                        {
+                            // ERRORE
+                        }
                     }catch(Exception ex)
                     {
-                        throw new ServletException(ex);
+                        // ERRORE
+                        //throw new ServletException(ex);
                     }
                 }
                 else
                 {
-                    //redirect to login
+                    // ERRORE
+                    //throw new ServletException("Non sei loggato");
                 }
             case "paga":
                 break;
