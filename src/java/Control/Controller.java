@@ -337,7 +337,8 @@ public class Controller extends HttpServlet {
                 }
                 else
                 {
-                    //redirect to login
+                    // ERRORE
+                    //throw new ServletException("Non sei loggato");
                 }
             case "paga":
                 break;

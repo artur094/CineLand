@@ -207,19 +207,23 @@ public class Control {
                 case "S": prezzo = "studente";break;
                 case "M": prezzo = "militare";break;
                 case "D": prezzo = "disabile";break;
-                default: return false;
+                default: 
+                    dbm.removePrenotazioni(nuovePrenotazioni);
+                    return false;
             }
 
             id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
 
             p = dbm.insertPrenotazione(utente.getId(), id_spettacolo, id_posto, prezzo);
             
-            if(p == null){
-              return false;  
+            if(p == null)
+            {
+                //errore inserimento quindi rollback
+                dbm.removePrenotazioni(nuovePrenotazioni);
+                return false;
             }
-            else{
-               nuovePrenotazioni.add(p);
-            }
+            
+            nuovePrenotazioni.add(p);
         }
 
         // CREAZIONE QRCODE
@@ -236,7 +240,6 @@ public class Control {
                 "Prenotazione Cineland",
                 "In allegato ci sono i biglietti del cinema",
                 os);
-        
         return true;
     }
     

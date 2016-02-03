@@ -493,6 +493,11 @@ public class DBManager implements Serializable {
      */
     public Prenotazione insertPrenotazione(int id_utente, int id_spettacolo, int id_posto, String tipo_prezzo) throws SQLException
     {
+        Prenotazione p = getPrenotazione(id_spettacolo, id_utente, id_posto);
+        
+        if(p != null)
+            return null;
+        
         PreparedStatement ps = con.prepareStatement("SELECT id_prezzo FROM prezzo WHERE tipo = ?");
         ps.setString(1, tipo_prezzo);
         
@@ -520,6 +525,31 @@ public class DBManager implements Serializable {
         if(rs.next())
             return getPrenotazione(rs.getInt("id_prenotazione"));
         return null;
+    }
+    
+    public boolean removePrenotazioni(List<Prenotazione> lista) throws SQLException
+    {
+        int rows = 0;
+        for(Prenotazione p : lista)
+        {
+            if(removePrenotazione(p.getId()))
+                rows++;
+        }
+        if(rows == lista.size())
+            return true;
+        return false;
+    }
+    
+    public boolean removePrenotazione(int id_pren) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("DELETE FROM prenotazione WHERE id_prenotazione=?");
+        ps.setInt(1,id_pren);
+        
+        int rows = ps.executeUpdate();
+        
+        if(rows>0)
+            return true;
+        return false;
     }
     
     //USELESS - Prenotazione inserita al momento del pagamento
