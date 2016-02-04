@@ -123,11 +123,30 @@ public class Control {
     public static boolean resetPassword(String email, String password, String codice) throws SQLException, ClassNotFoundException
     {
         DBManager dbm = DBManager.getDBManager();
-        if(dbm.passwordResettata(email, password, codice))
+        if(dbm.resettaPassword(email, password, codice))
         {
             return true;
         }
 
+        return false;
+    }
+    
+    public static boolean cambiaPassword(String email,String nome,String oldPassword, String newPassword) throws SQLException, ClassNotFoundException, MessagingException
+    {
+        DBManager dbm = DBManager.getDBManager();
+        if(dbm.cambiaPassword(email, oldPassword, newPassword))
+        {
+            SendEmail send = SendEmail.getInstance();
+            String msg = "Gentile "+nome+
+                            "La sua password è stata cambiata come da lei richiesto.\n"+
+                            "In caso non sia stato lei, ci avverti immediatamente e le consigliamo di fare la richiesta di password dimenticata, "+
+                            "in questo modo riceverà una email di reset password, potrà cambiare la password e riavere il suo account indietro.\n"+
+                            "Inoltre le consigliamo di utilizzare una password più resistente.\n"+
+                            "La ringraziamo per utilizzare il servizio CineLand, e le auguriamo una buona giornata!\n"+
+                            "Staff Cineland.";
+            send.send(email, "Cambio Password", msg);
+            return true;
+        }
         return false;
     }
     
