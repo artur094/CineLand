@@ -422,6 +422,14 @@ public class DBManager implements Serializable {
         return codice;
     }
     
+    /**
+     * Funzione per cambiare la password di un utente
+     * @param email Email dell'utente
+     * @param old_password Vecchia password
+     * @param new_password Nuova password
+     * @return True se OK, False altrimenti
+     * @throws SQLException 
+     */
     public boolean cambiaPassword(String email, String old_password, String new_password) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_utente FROM utente WHERE email=? AND password=?");

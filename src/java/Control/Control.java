@@ -131,6 +131,17 @@ public class Control {
         return false;
     }
     
+    /**
+     * Funzione che richiama il cambia password del dbmanager
+     * @param email Email dell'utente a cui cambiare la password
+     * @param nome Nome utente (per l'invio dell'email)
+     * @param oldPassword Vecchia password
+     * @param newPassword Nuova password
+     * @return TRUE se OK, FALSE altrimenti
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * @throws MessagingException 
+     */
     public static boolean cambiaPassword(String email,String nome,String oldPassword, String newPassword) throws SQLException, ClassNotFoundException, MessagingException
     {
         DBManager dbm = DBManager.getDBManager();
