@@ -211,6 +211,13 @@
                     <a>CONFERMA</a>
                 </div>
             </fieldset>
+            <div class="waiting">
+                <div>
+                    <span class="balls">&nbsp;</span><span class="balls">&nbsp;</span><span class="balls">&nbsp;</span><span class="balls">&nbsp;</span>
+                </div>
+            </div>
+            <div class="msgPagamento"></div>
+            <div class="msgErrore"></div>
         </div>
         
     </body>
