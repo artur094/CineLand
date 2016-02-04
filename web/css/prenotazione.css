@@ -167,3 +167,7 @@ li.list-item {
     margin-right: 0.625em;
     margin-left: 0.725em;
 }
+
+.btn>a{
+    color:#fff;
+}

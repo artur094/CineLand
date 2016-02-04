@@ -88,7 +88,7 @@
         <div id="list_con" class="container">
             <div class="row">
                 <div class="col s12" id="id_spett" data-id="<%out.println(id_spettacolo);%>">
-                    <%out.println(spett.getFilm().getTitolo());%>
+                    <h4><%out.println(spett.getFilm().getTitolo());%></h4>
                 </div>
             </div>
             <div class="row">
@@ -153,8 +153,8 @@
                 </div>
                   
             </div>
-            <div id="btn_paga" class='modal-trigger' href="#buy">
-                <a class='btn' >Compra:<b>$<span id="total">0</span></b></a>
+            <div id="btn_paga" class='btn  modal-trigger' href="#buy">
+                <a>Compra:<b>$<span id="total">0</span></b></a>
             </div>
 
         </div>
@@ -192,23 +192,23 @@
                     <h5>Informazioni carta di credito</h5>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <input id="first_name" type="text" class="validate">
                         <label for="first_name">Nome titolare carta</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <input id="number_card" type="text" class="validate">
                         <label for="number_card">Numero carta</label>
                     </div>
-                    <div class="input-field col s2">
+                    <div class="input-field col s12 m2">
                         <input id="cvv" type="text" class="validate">
                         <label for="cvv">CVV</label>
                     </div>
                 </div>
-                <div id="btn_conferma">
-                    <a class='btn' >CONFERMA</a>
+                <div id="btn_conferma" class="btn">
+                    <a>CONFERMA</a>
                 </div>
             </fieldset>
         </div>

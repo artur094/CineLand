@@ -10,8 +10,8 @@ $(document).ready(function() {
         disabili = 0,//contatore ridotti disabili     
         $cart = $('#selected-seats'), //Sitting Area
         $counter = $('#counter'), //Votes
-        $total = $('#total'), //Total money
-        sc,
+        $total = $('#total'),
+        s = "",//wrapper per costruire la stringa di posti
         id_spett = parseInt($('#id_spett').data('id'));
         
     $('select').material_select();
@@ -22,9 +22,7 @@ $(document).ready(function() {
             $('.riduzioni').removeClass("show");
         }
     });
-    $('#now').text(Date());
-    
-    
+    $('#now').text(Date());   
     $.ajax({
         type : 'POST',
         url : 'Controller',           
@@ -37,7 +35,9 @@ $(document).ready(function() {
             aggiorna(id_spett);
         }
     });
-        
+    $('.seatCharts-space').each(function(){
+        $(this).append("<div class=\"stair\"><div class=\"stair_up\"></div>&nbsp;</div>");
+    });    
     function creaMappa(data){
         sc = $('#seat-map').seatCharts({
             map: data,
@@ -218,17 +218,12 @@ $(document).ready(function() {
         //$('select').material_select('destroy');
         creaEventi();
     }
-    
-    $('.seatCharts-space').each(function(){
-        $(this).append("<div class=\"stair\"><div class=\"stair_up\"></div>&nbsp;</div>");
-    });
-    
-    $('#btn_conferma').click(function(){
+    $('#btn_paga').click(function(){
         var st = studenti;
         var mi =militari;
         var an = anziani;
         var di = disabili;
-        var s="";
+        s="";
         $('li.selected').each(function(i){
             s=s+$(this).data('r')+","+$(this).data('c')+",";
             if(st!=0){
@@ -245,9 +240,15 @@ $(document).ready(function() {
                 di--;
             }else
                 s=s+"n ";
-            console.log(s);
-
             });
+            if(s==""){
+                $('#btn_conferma').addClass('disabled');
+            }else{
+                $('#btn_conferma').removeClass('disabled')
+            }
+    });
+    $('#btn_conferma').click(function(){
+        
         $.ajax({
             type : 'POST',
             url : 'Controller',           
@@ -257,12 +258,18 @@ $(document).ready(function() {
                 posti: s
             },
             success:function (data) {
-                alert(data);
                 aggiorna(id_spett);
+                console.log(data);
+                if(data=="1"){
+                    $('#selected-seats').empty();
+                    alert("Prenotazione confermata");
+                }else{
+                    alert("Prenotazione non confermata");
+                }
             }
         });
-        
+        s="";
     });
-    
+
 });
  
