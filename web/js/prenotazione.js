@@ -246,10 +246,15 @@ $(document).ready(function() {
             }else{
                 $('#btn_conferma').removeClass('disabled')
             }
+            
+        $('.msgPagamento').hide();
+        $('.msgErrore').hide();
+        $('.waiting').hide();
+        $('#payment-method').show();
     });
     $('#btn_conferma').click(function(){
         
-        $.ajax({
+        /*$.ajax({
             type : 'POST',
             url : 'Controller',           
             data: {
@@ -265,6 +270,38 @@ $(document).ready(function() {
                     alert("Prenotazione confermata");
                 }else{
                     alert("Prenotazione non confermata");
+                }
+            }
+        });*/
+        
+        
+        $.ajax({
+            type : 'POST',
+            url : 'Controller',           
+            data: {
+                op : "prenota",
+                spettacolo: id_spett,
+                posti: s
+            },
+            beforeSend:function(){
+                $('#payment-method').fadeOut(function(){
+                    $('.waiting').fadeIn();
+                });
+            },
+            success:function (data) {
+                aggiorna(id_spett);
+                console.log(data);
+                if(data=="1"){
+                    $('#selected-seats').empty();
+                    $('.waiting').fadeOut(function(){
+                        $('.msgPagamento').text("Prenotazione confermata");
+                        $('.msgPagamento').fadeIn();
+                    });
+                }else{
+                    $('.waiting').fadeOut(function(){
+                        $('.msgErrore').text("Prenotazione rifiutata! Posti non disponibili oppure carta non valida");
+                        $('.msgErrore').fadeIn();
+                    });
                 }
             }
         });
