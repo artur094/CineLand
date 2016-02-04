@@ -387,7 +387,7 @@ public class DBManager implements Serializable {
             return false;
         //getDouble ritorna 0 se il valore è null (ovvero nel resut set non c'è nessun utente con quel codice di attivazione)
         if(rs.next()){
-            if(!rs.getString("codice_attivazione").equals("")){
+            if(!rs.getString("CODICE_ATTIVAZIONE").equals("")){
                 PreparedStatement confermaUtente = con.prepareStatement("UPDATE utente SET id_ruolo = ?, codice_attivazione = ? WHERE email = ? AND codice_attivazione = ?");
                 confermaUtente.setInt(1, id_ruolo);
                 confermaUtente.setString(2,"");
@@ -422,50 +422,17 @@ public class DBManager implements Serializable {
         return codice;
     }
     
-    public boolean cambiaPassword(String email, String old_password, String new_password) throws SQLException
-    {
-        PreparedStatement ps = con.prepareStatement("SELECT id_utente FROM utente WHERE email=? AND password=?");
-        ps.setString(1,email);
-        ps.setString(2,old_password);
-        
-        ResultSet rs = ps.executeQuery();
-        if(!rs.next())
-        {
-            return false;            
-        }
-        int id = rs.getInt("id_utente");
-        
-        ps = con.prepareStatement("UPDATE utente SET password = ? WHERE id_utente = ?");
-        ps.setString(1,new_password);
-        ps.setInt(2,id);
-        
-        int rows = ps.executeUpdate();
-        if(rows>0)
-            return true;
-        return false;
-    }
-    
     /**
      * Funzione per il reset della password
-     * Cancella tutte le richieste i password dimenticata in attesa da più di 5 minuti
      * @param email Email utente
      * @param password Password nuova
      * @param codice Codice dato tramite mail
      * @return True se OK, False altrimenti
      * @throws SQLException 
      */
-    public boolean resettaPassword(String email, String password, String codice) throws SQLException
+    public boolean passwordResettata(String email, String password, String codice) throws SQLException
     {
-        Calendar now = Calendar.getInstance();
-        now.add(Calendar.MINUTE, -5);
-        
-        PreparedStatement ps = con.prepareStatement("DELETE FROM password_dimenticata WHERE data < ?");
-        Timestamp t = new Timestamp(now.getTimeInMillis());
-        ps.setTimestamp(1,t);
-        ps.executeUpdate();
-        
-        
-        ps = con.prepareStatement("SELECT * FROM password_dimenticata WHERE email = ? and codice = ?");
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM password_dimenticata WHERE email = ? and codice = ?");
         ps.setString(1, email);
         ps.setString(2, codice);
         

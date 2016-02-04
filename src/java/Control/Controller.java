@@ -22,8 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,7 +54,6 @@ public class Controller extends HttpServlet {
         Utente user;
         String operation = (String)request.getParameter("op");
         String email = (String)request.getParameter("email");
-        String password_nuova = (String)request.getParameter("newpwd");
         String password = (String)request.getParameter("pwd");
         String name = (String)request.getParameter("name");
         String posti = (String)request.getParameter("posti");
@@ -211,11 +208,7 @@ public class Controller extends HttpServlet {
                         }
                         if(user.getRuolo().equals("verificare"))
                             codice = 900;
-                        else
-                        {
-                            request.getSession().setAttribute("user", user);
-                        }
-                        
+                        request.getSession().setAttribute("user", user);
                         nome = user.getNome();
                         credito = user.getCredito();   
                     }
@@ -258,23 +251,20 @@ public class Controller extends HttpServlet {
             // Gestisco il logout, prima controllo se è loggato
             // Se si, tolgo l'attributo, altrimenti niente
             case "logout":
-                Enumeration attrs = request.getSession().getAttributeNames();
-                String attrName;
-                while(attrs.hasMoreElements())
+                user = (Utente)request.getSession().getAttribute("user");
+                if(user != null)
                 {
-                    attrName = (String)attrs.nextElement();
-                    request.getSession().removeAttribute(attrName);
+                    request.getSession().removeAttribute("user");
+                    Admin admin = (Admin)request.getSession().getAttribute("admin");
+                    if(admin != null)
+                        request.getSession().removeAttribute("admin");
                 }
-                
                 break;
             // Gestione del reset della password
             case "pswdimenticata":
                 try{
                     if(Control.passwordDimenticata(email, request.getRequestURL().toString()))
                     {
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                        dispatcher.forward(request, response);
-                        return;
                         // andata a buon fine, quindi redirezionare ad una pagina
                         // o nemmeno, comunque avvertendo che la email è stata inviata
                     }
@@ -288,29 +278,9 @@ public class Controller extends HttpServlet {
                 
                 break;
             case "paginaresetpsw":
+            {
                 //REDIRECT PAGINA PER CAMBIO PASS
-                break;            
-            case "cambio_password":
-                try{
-                    Utente test = Control.logIn(email, password);
-                    user = (Utente)request.getSession().getAttribute("user");
-                    
-                    if(test.getId() == user.getId() && test.getEmail().equals(user.getEmail()) && test.getNome().equals(user.getNome()))
-                    {
-                        if(Control.cambiaPassword(email,user.getNome(), password,password_nuova))
-                        {
-                            //Password cambiata
-                        }
-                        {
-                            //Password non cambiata
-                        }
-                    }
-                }catch(Exception ex)
-                {
-                    throw new ServletException(ex);
-                }
-                
-                break;
+            }
             case "resetpsw":
                 if(password == null)
                 {
@@ -326,9 +296,6 @@ public class Controller extends HttpServlet {
                         if(Control.resetPassword(email, password, code))
                         {
                             //pass cambiata
-                            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                            dispatcher.forward(request, response);
-                        return;
                         }
                         else
                         {
@@ -361,7 +328,6 @@ public class Controller extends HttpServlet {
                 }
                 break;
             case "prenota":
-                //aggiungere pagamento
                 user = (Utente)request.getSession().getAttribute("user");
                 if(user != null)
                 {
@@ -398,10 +364,6 @@ public class Controller extends HttpServlet {
                     {
                         throw new ServletException(ex);
                     }
-                }
-                else
-                {
-                    throw new ServletException("Accesso non autorizzato");
                 }
                 break;
             
