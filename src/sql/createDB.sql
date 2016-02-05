@@ -51,7 +51,8 @@ CREATE TABLE PRENOTAZIONE (
 	ID_POSTO INTEGER, 
 	PAGATO BOOLEAN DEFAULT false , 
 	DATA_ORA_OPERAZIONE TIMESTAMP, 
-	PRIMARY KEY (ID_PRENOTAZIONE)
+	PRIMARY KEY (ID_PRENOTAZIONE),
+CONSTRAINT spettacoliPosti UNIQUE(id_spettacolo, id_posto)
 );
 
 --tabella prezzo
@@ -103,4 +104,5 @@ CREATE TABLE password_dimenticata
     codice varchar(300), 
     data timestamp
 );
+
 
