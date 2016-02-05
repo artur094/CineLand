@@ -106,3 +106,21 @@ body {
   main {
     flex: 1 0 auto;
   }
+  
+  .divCookies{
+      font-size: 16px;
+      position: fixed;
+      top:0px;
+      padding: 10px 30px 10px 30px;
+      width: 100%;
+      background-color: black;
+      color:whitesmoke;
+      z-index:9999;
+  }
+  
+  .btnCookies{
+      
+      margin-left: 10px;
+      font-size: 12px !important;
+      padding: 1px 6px 1px 6px !important;
+  }

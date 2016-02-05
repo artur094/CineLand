@@ -29,18 +29,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <%!
             Utente user = null;
-            boolean privacy = false;
+            String privacy = "false";
             Cookie[] cookies ;        
             List<Film> films;
             List<Spettacolo> spett_per_film;
+            Cookie cookie;
         %>
         <%
             user = (Utente)request.getSession().getAttribute("user");           
             films = (Films.getFutureFilms()).getListaFilm(); 
+            cookies = request.getCookies();
+            if(cookies != null)
+            {
+                for(int i = 0; i < cookies.length; i++)
+                {
+                    cookie = cookies[i];
+                    if(cookies[i].getName()=="accettoCookies")
+                    {
+                        cookie = cookies[i];
+                    }
+                }
+            }
         %>  
     </head>
 
     <body>
+        <%
+            if(cookie.getValue().compareTo("true")!=0)
+            {
+                out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
+            }
+        %>
         <!-- Navigatio Bar -->
         <nav>
             <div class="nav-wrapper">
