@@ -555,17 +555,22 @@ public class DBManager implements Serializable {
         ps.setInt(4, id_posto);
         ps.setBoolean(5, true);
         
-        ps.executeUpdate();
+        int righeModificate = ps.executeUpdate();
         
-        ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ? AND id_spettacolo = ? AND id_posto = ?");
-        ps.setInt(1, id_utente);
-        ps.setInt(2, id_spettacolo);
-        ps.setInt(3, id_posto);
-        
-        rs = ps.executeQuery();
-        if(rs.next())
-            return getPrenotazione(rs.getInt("id_prenotazione"));
-        return null;
+        //una riga modificata equivale a una prenotazione inserita che rispetta le costraint del database.
+        if(righeModificate == 1){
+            ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ? AND id_spettacolo = ? AND id_posto = ?");
+            ps.setInt(1, id_utente);
+            ps.setInt(2, id_spettacolo);
+            ps.setInt(3, id_posto);
+
+            rs = ps.executeQuery();
+            if(rs.next())
+                return getPrenotazione(rs.getInt("id_prenotazione"));
+            return null;
+        }else{
+            return null;
+        }
     }
     
     public boolean removePrenotazioni(List<Prenotazione> lista) throws SQLException
