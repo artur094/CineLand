@@ -242,7 +242,7 @@
             <p>&copy; 2016 Cineland - via alla Moia 30 Rovereto (TN) - Tel. 0464 123123 - P.Iva 1234567890 &nbsp;|&nbsp; <a href="privacy.jsp">Privacy</a> &nbsp;&nbsp; <a href="cookies.jsp">Informativa cookies</a></p>
         </footer>
     </body>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
     <script type="text/javascript" src="js/master.js"></script>
     <script type="text/javascript" src="js/prenotazione.js"></script>
