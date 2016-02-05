@@ -29,7 +29,7 @@
 }
 
 .wrap-riduzioni{
-    position: absolute;
+    position: relative;
     bottom: 0px;
 }
 
@@ -124,20 +124,37 @@ blockquote{
 }
 
 .riduzioni{
-    color: burlywood;
+    color: orange;
     display: none;
 }
+
+.riduzioni .select-wrapper{
+    width: 36px !important;
+}
+
+.riduzioni .dropdown-content{
+    min-width: 42px !important;
+}
+
+.riduzioni span{
+    color:orange !important;
+}
+
 .check_ridotti{
     color: #fff;
 }
 
+.check_ridotti label{
+    color:orange;
+}
+
 [type="checkbox"]+label:before{
-    border: 2px solid #5a5a5a;
+    border: 2px solid orange;
 }
 
 [type="checkbox"]:checked+label:before{
-   border-right: 2px solid #5a5a5a;
-   border-bottom: 2px solid #5a5a5a;
+   border-right: 2px solid orange;
+   border-bottom: 2px solid orange;
 }
 
 
