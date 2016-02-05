@@ -2,8 +2,8 @@ $(document).ready(function() {
     var price = 8, //price
         ridotto1 = 5,
         ridotto2 = 6,
-        countPosti = 0,//contatore posti selezionati
         maxCount = 15,//max numero posti selezionabili
+        countPosti = 0,//contatore posti selezionati
         studenti= 0,//contatore ridotti studente
         militari=0,//contatore ridotti militari
         anziani=0,//contatore ridotti anziani
@@ -83,7 +83,7 @@ $(document).ready(function() {
                                     //Update Number
                                     $counter.text(sc.find('selected').length-1);
                                     //update totalnum
-                                    $total.text(recalculateTotal(sc)-price);
+                                    $total.text($counter.text()*price);
                                     //Delete reservation
                                     $('#cart-item-'+this.settings.id).remove();
                                     //optional
@@ -133,7 +133,11 @@ $(document).ready(function() {
             var riduzione_anziani = (price-ridotto1)*anziani;
             var riduzione_disabili = (price-ridotto1)*disabili;
             var totale = total-riduzione_militari-riduzione_studenti-riduzione_disabili-riduzione_anziani;
-            return totale;
+            if (totale<0)
+                return 0;
+            else
+                return totale;
+            
     }//sum total money
 
     function creaEventi(){
@@ -253,7 +257,6 @@ $(document).ready(function() {
         $('#payment-method').show();
     });
     $('#btn_conferma').click(function(){
-        
         $.ajax({
             type : 'POST',
             url : 'Controller',           
@@ -300,6 +303,16 @@ $(document).ready(function() {
             }
         });
         s="";
+        countPosti = 0;//azzero posti selezionati
+        studenti= 0;//azzero ridotti studente
+        militari=0;//azzero ridotti militari
+        anziani=0;//azzero ridotti anziani
+        disabili = 0;//azzero ridotti disabili 
+        $counter.text("0");
+        $total.text("0");
+        creaDrop();
+        $('select').material_select();
+        creaEventi();
     });
 
 });
