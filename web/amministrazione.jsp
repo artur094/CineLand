@@ -177,7 +177,7 @@
                 </thead>
                 <tbody>
                     <% 
-                        for(int i=0; i<topten.size();i++){
+                        for(int i=topten.size()-1; i>0;i--){
                             out.println("<tr>");
                                 out.println("<td>"+topten.get(i).getNome()+"</td>");
                                 out.println("<td>"+topten.get(i).getEmail()+"</td>");
