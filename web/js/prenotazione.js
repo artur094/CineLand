@@ -288,6 +288,15 @@ $(document).ready(function() {
                         $('.msgErrore').fadeIn();
                     });
                 }
+            },
+            error:function(){
+                aggiorna(id_spett);
+                $('#selected-seats').empty();
+                $('.msgErrore').text("Prenotazione rifiutata! Posti non disponibili oppure carta non valida");
+                $('.waiting').hide(function(){
+                    
+                $('.msgErrore').delay(500).fadeIn();
+                });
             }
         });
         s="";
