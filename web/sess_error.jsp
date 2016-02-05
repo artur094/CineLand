@@ -34,5 +34,9 @@
             <li class=" col offset-m2 material-icons error">error_outline</li>
             <p class="m5 flow-text err_text">Purtroppo non sei autenticato, prova a fare <a>Login</a> o se non sei registrato <a>Registrati</a></p>
         </div>
+        <main></main>
+        <footer class="page-footer">
+            <p>&copy; 2016 Cineland - via alla Moia 30 Rovereto (TN) - Tel. 0464 123123 - P.Iva 1234567890 &nbsp;|&nbsp; <a href="privacy.jsp">Privacy</a> &nbsp;&nbsp; <a href="cookies.jsp">Informativa cookies</a></p>
+        </footer>
     </body>
 </html>

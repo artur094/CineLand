@@ -99,14 +99,14 @@
                 </div>
                 <div class="col s12 m8">
                     <div class="row">
-                        <div class="col s12"><p>Time: <span id="now"></span></p></div>
+                        <div class="col s12"><p>Orario: <span id="exnow"><%out.println((new SimpleDateFormat("hh:mm - dd/MM/yyyy").format(spett.getData_ora().getTime())).toString());%></span></p></div>
                     </div>
                     <div class="row">
                         <div class="col s12"><p>Tickets: <span id="counter">0</span></div>
                     </div>
                     <div class=" row">
                         <div class="col s12">
-                            <p>Seat:</p>
+                            <p>Posti selezionati:</p>
                             <ul id="selected-seats"></ul>
                         </div>
                     </div>
@@ -183,9 +183,19 @@
                     <h5>Paga con</h5>
                 </div>
                 <label>
-                    <ul>
-                        <li class="list-item"><img alt="Visa" height="34" src="img/assets/icon-visa.svg" width="50"></li>
-                        <li><img alt="Mastercard" height="34" src="img/assets/icon-mastercard.svg" width="50"></li>                        
+                    <ul class="creditcards">
+                        <li class="list-item">
+                            <input class="with-gap" name="creditcard" type="radio" id="visa" checked />
+                            <label for="visa">
+                                <img alt="Visa" height="34" src="img/assets/icon-visa.svg" width="50">
+                            </label>
+                        </li>
+                        <li>
+                            <input class="with-gap" name="creditcard" type="radio" id="mastercard" checked />
+                            <label for="mastercard">
+                                <img alt="Mastercard" height="34" src="img/assets/icon-mastercard.svg" width="50">
+                            </label>
+                        </li>                        
                     </ul>
                 </label>
                 <div class="row">
@@ -196,15 +206,23 @@
                         <input id="first_name" type="text" class="validate">
                         <label for="first_name">Nome titolare carta</label>
                     </div>
-                </div>
-                <div class="row">
                     <div class="input-field col s12 m6">
                         <input id="number_card" type="text" class="validate">
                         <label for="number_card">Numero carta</label>
                     </div>
+                </div> 
+                <div class="row">
                     <div class="input-field col s12 m2">
                         <input id="cvv" type="text" class="validate">
                         <label for="cvv">CVV</label>
+                    </div>
+                    <div class="input-field col s12 m2">
+                        <input id="scadenzaMese" type="text" class="validate">
+                        <label for="scadenzaMese">Mese</label>
+                    </div>
+                    <div class="input-field col s12 m2">
+                        <input id="scadenzaAnno" type="text" class="validate">
+                        <label for="scadenzaAnno">Anno</label>
                     </div>
                 </div>
                 <div id="btn_conferma" class="btn">
@@ -220,6 +238,9 @@
             <div class="msgErrore"></div>
         </div>
         
+        <footer class="page-footer">
+            <p>&copy; 2016 Cineland - via alla Moia 30 Rovereto (TN) - Tel. 0464 123123 - P.Iva 1234567890 &nbsp;|&nbsp; <a href="privacy.jsp">Privacy</a> &nbsp;&nbsp; <a href="cookies.jsp">Informativa cookies</a></p>
+        </footer>
     </body>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize/materialize.min.js"></script>

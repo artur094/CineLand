@@ -254,34 +254,19 @@ $(document).ready(function() {
     });
     $('#btn_conferma').click(function(){
         
-        /*$.ajax({
-            type : 'POST',
-            url : 'Controller',           
-            data: {
-                op : "prenota",
-                spettacolo: id_spett,
-                posti: s
-            },
-            success:function (data) {
-                aggiorna(id_spett);
-                console.log(data);
-                if(data=="1"){
-                    $('#selected-seats').empty();
-                    alert("Prenotazione confermata");
-                }else{
-                    alert("Prenotazione non confermata");
-                }
-            }
-        });*/
-        
-        
         $.ajax({
             type : 'POST',
             url : 'Controller',           
             data: {
                 op : "prenota",
                 spettacolo: id_spett,
-                posti: s
+                posti: s,
+                card: $('.creditcards input.selected').attr('id'),
+                titolare: $('#first_name').val(),
+                numero_carta: $('#number_card').val(),
+                cvv: $('#cvv').val(),
+                mese: $('#scadenzaMese').val(),
+                anno: $('#scadenzaAnno').val()
             },
             beforeSend:function(){
                 $('#payment-method').fadeOut(function(){

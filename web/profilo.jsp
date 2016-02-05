@@ -84,7 +84,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container_profilo">
+        <main class="container_profilo">
             <h3>Riepilogo profilo</h3>
             <br>
             <table>
@@ -124,7 +124,12 @@
                     </div>
                 </div>
             </form>
-        </div>
+        </main>
+            
+            
+        <footer class="page-footer">
+            <p>&copy; 2016 Cineland - via alla Moia 30 Rovereto (TN) - Tel. 0464 123123 - P.Iva 1234567890 &nbsp;|&nbsp; <a href="privacy.jsp">Privacy</a> &nbsp;&nbsp; <a href="cookies.jsp">Informativa cookies</a></p>
+        </footer>
     </body>
 	 
     <!--Import jQuery before materialize.js-->
