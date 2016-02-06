@@ -94,23 +94,28 @@ public class Control {
      * Funzione statica per la gestione della password dimenticata, in cui viene inviata la mail di password persa
      * @param email Email dell'utente
      * @param url_cineland URL sito
-     * @return True se OK, False altrimenti
+     * @return True se c'è corrispondenza nel database e l'email è stata inviata, False altrimenti
      */
     public static boolean passwordDimenticata(String email, String url_cineland) throws SQLException, ClassNotFoundException, MessagingException
     {
         DBManager dbm = DBManager.getDBManager();
         Utente u = dbm.getUtente(email);
-        String codice = dbm.passwordDimenticata(email);
-        // INVIO EMAIL
-        String link = url_cineland + "?op=paginaresetpsw&email="+email+"&codice="+codice;
-        String oggetto = "Reset Password CineLand";
-        String messaggio = "Gentile "+u.getNome()+ ",\n"+
-                "Per resettare la password prema il seguente link:\n"+
-                "\t\t"+ link + "\n"+
-                "Nel caso non sia il proprietario dell'account, basta che elimini la email";
-        SendEmail sendEmail = new SendEmail();
-        sendEmail.send(email, oggetto, messaggio);
-        return true;
+        if(u!=null){
+            String codice = dbm.passwordDimenticata(email);
+            // INVIO EMAIL
+            String link = url_cineland + "?op=paginaresetpsw&email="+email+"&codice="+codice;
+            String oggetto = "Reset Password CineLand";
+            String messaggio = "Gentile "+u.getNome()+ ",\n"+
+                    "Per resettare la password prema il seguente link:\n"+
+                    "\t\t"+ link + "\n"+
+                    "Nel caso non sia il proprietario dell'account, basta che elimini la email";
+            SendEmail sendEmail = new SendEmail();
+            sendEmail.send(email, oggetto, messaggio);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     /**

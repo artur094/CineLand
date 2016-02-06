@@ -269,11 +269,14 @@ public class Controller extends HttpServlet {
                 break;
             // Gestione del reset della password
             case "pswdimenticata":
-                if(!Control.checkEmail(email))
+                if(!Control.checkEmail(email)){
+                    response.getWriter().write("0");
                     throw new ServletException("Errore email");
+                }
                 try{
                     if(Control.passwordDimenticata(email, request.getRequestURL().toString()))
                     {
+                        response.getWriter().write("1");
                         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
                         dispatcher.forward(request, response);
                         return;
@@ -281,7 +284,7 @@ public class Controller extends HttpServlet {
                         // o nemmeno, comunque avvertendo che la email è stata inviata
                     }
                     else
-                        error("pswdimenticata");
+                        response.getWriter().write("0");;
                 }
                 catch(Exception ex)
                 {
