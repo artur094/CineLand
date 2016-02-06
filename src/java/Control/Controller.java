@@ -269,6 +269,8 @@ public class Controller extends HttpServlet {
                 break;
             // Gestione del reset della password
             case "pswdimenticata":
+                if(!Control.checkEmail(email))
+                    throw new ServletException("Errore email");
                 try{
                     if(Control.passwordDimenticata(email, request.getRequestURL().toString()))
                     {
@@ -283,12 +285,15 @@ public class Controller extends HttpServlet {
                 }
                 catch(Exception ex)
                 {
-                    throw new ServletException(ex);
+                    throw new ServletException("Errore recupero password");
                 }
                 
                 break;
             case "paginaresetpsw":
                 //REDIRECT PAGINA PER CAMBIO PASS
+                RequestDispatcher disp = request.getRequestDispatcher("recuperoPassword.jsp");
+                disp.forward(request, response);
+                //return;
                 break;     
             // da testare
             case "cambio_password":
