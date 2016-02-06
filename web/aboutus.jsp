@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col s12 center ">
-                                        <a>Hai dimenticato la password?</a>
+                                        <a href="recuperoPassword.jsp">Hai dimenticato la password?</a>
                                     </div>
                                 </div>
                             </form>

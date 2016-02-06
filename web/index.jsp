@@ -64,7 +64,7 @@
         <nav>
             <div class="nav-wrapper">
                 <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
-                <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <%
                         if(user == null){
@@ -198,7 +198,7 @@
                         </div>
                         <div class="row">
                             <div class="col s12 center ">
-                                <a>Hai dimenticato la password?</a>
+                                <a href="recuperoPassword.jsp">Hai dimenticato la password?</a>
                             </div>
                         </div>
                     </form>

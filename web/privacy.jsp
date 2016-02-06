@@ -138,7 +138,7 @@ Lei potrà esercitare i diritti di cui all'articolo 7 del d.lgs. n. 196/2003 (ac
                         </div>
                         <div class="row">
                             <div class="col s12 center ">
-                                <a>Hai dimenticato la password?</a>
+                                <a href="recuperoPassword.jsp">Hai dimenticato la password?</a>
                             </div>
                         </div>
                     </form>
