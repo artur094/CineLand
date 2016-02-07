@@ -103,7 +103,7 @@ public class Control {
         if(u!=null){
             String codice = dbm.passwordDimenticata(email);
             // INVIO EMAIL
-            String link = url_cineland + "?op=paginaresetpsw&email="+email+"&codice="+codice;
+            String link = url_cineland + "?op=paginaresetpsw&codice="+codice;
             String oggetto = "Reset Password CineLand";
             String messaggio = "Gentile "+u.getNome()+ ",\n"+
                     "Per resettare la password prema il seguente link:\n"+
