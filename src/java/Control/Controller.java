@@ -283,18 +283,30 @@ public class Controller extends HttpServlet {
                         // o nemmeno, comunque avvertendo che la email è stata inviata
                     }
                     else
-                        response.getWriter().write("0");;
+                        response.getWriter().write("0");
                 }
                 catch(Exception ex)
                 {
-                    throw new ServletException("Errore recupero password");
+                    //throw new ServletException("Errore recupero password");
+                    response.getWriter().write("0");
                 }
                 
                 break;
             case "paginaresetpsw":
                 //REDIRECT PAGINA PER CAMBIO PASS
-                RequestDispatcher disp = request.getRequestDispatcher("recuperoPassword.jsp");
-                disp.forward(request, response);
+                if(!Control.getEmailFromCode_ForgottenPassword(code).equals(""))
+                {
+                    request.getSession().setAttribute("codice", code);
+                    RequestDispatcher disp = request.getRequestDispatcher("nuovaPassword.jsp");
+                    disp.forward(request, response);
+                }
+                else
+                {
+                    RequestDispatcher disp = request.getRequestDispatcher("index.jsp");
+                    disp.forward(request, response);
+                    return;
+                    //throw new ServletException("Errore codice inserito per il reset password");
+                }
                 //return;
                 break;     
             // da testare
@@ -331,12 +343,18 @@ public class Controller extends HttpServlet {
                 else 
                 {
                     try{
-                        if(Control.resetPassword(email, password, code))
+                        code = (String)request.getSession().getAttribute("codice");
+                        email = Control.getEmailFromCode_ForgottenPassword(code);
+                        if(code == null || email.equals(""))
+                        {
+                            //errore
+                        }
+                        else if(Control.resetPassword(email, password, code))
                         {
                             //pass cambiata
                             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
                             dispatcher.forward(request, response);
-                        return;
+                            return;
                         }
                         else
                         {

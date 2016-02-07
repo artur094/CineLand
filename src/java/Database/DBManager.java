@@ -411,8 +411,10 @@ public class DBManager implements Serializable {
         PreparedStatement ps = con.prepareStatement("DELETE FROM password_dimenticata WHERE email = ?");
         ps.setString(1, email);
         ps.executeUpdate();
-        
-        String codice = generateRandomKey(64);
+        String codice;
+        do{
+            codice = generateRandomKey(64);
+        }while(!getEmailFromCodeForForgottenPassword(codice).equals(""));
         
         ps = con.prepareStatement("INSERT INTO password_dimenticata (email, codice, data) VALUES (?,?, CURRENT_TIMESTAMP)");
         ps.setString(1, email);
@@ -494,6 +496,30 @@ public class DBManager implements Serializable {
         ps.executeUpdate();
         
         return true;
+    }
+
+    /**
+     * Funzione per ottenere la email dal codice della password
+     * @param code Codice per il rinnovo password
+     * @return Stringa vuota se non è stata ritrovata, altrimenti l'email dell'utente
+     * @throws SQLException 
+     */
+    public String getEmailFromCodeForForgottenPassword(String code) throws SQLException
+    {
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.MINUTE, -5);
+        
+        PreparedStatement ps = con.prepareStatement("DELETE FROM password_dimenticata WHERE data < ?");
+        Timestamp t = new Timestamp(now.getTimeInMillis());
+        ps.setTimestamp(1,t);
+        ps.executeUpdate();
+        
+        ps = con.prepareStatement("SELECT email FROM password_dimenticata WHERE codice = ?");
+        ps.setString(1,code);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+            return rs.getString("email");
+        return "";
     }
     
     /**

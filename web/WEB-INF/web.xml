@@ -4,6 +4,15 @@
         <filter-name>AdminFilter</filter-name>
         <filter-class>Filtri.AdminFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>PasswordDimenticataFilter</filter-name>
+        <filter-class>Filtri.PasswordDimenticataFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PasswordDimenticataFilter</filter-name>
+        <url-pattern>/nuovaPassword.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
         <url-pattern>/amministrazione</url-pattern>

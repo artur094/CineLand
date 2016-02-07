@@ -118,6 +118,17 @@ public class Control {
         }
     }
     
+    public static String getEmailFromCode_ForgottenPassword(String code)
+    {
+        try{
+            DBManager dbm = DBManager.getDBManager();
+            return dbm.getEmailFromCodeForForgottenPassword(code);
+        }catch(Exception ex)
+        {
+            return "";
+        }
+    }
+    
     /**
      * Funzione statica per il cambio password
      * @param email Email dell'utente
