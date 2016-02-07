@@ -31,15 +31,23 @@
             </div>
         </nav>
         <section>
-            <p>Inserisci la tua email, controlla la tua posta e segui le istruzioni indicate</p>
+            <p>Cambio password</p>
             <div id="form">
                 <form class="form">
                     <div class="row">
                         <div class="input-field col s12 m5 center">
-                            <input id="email" type="email" class="validate">
-                            <label for="email">Email</label>
+                            <input id="pass" type="password" class="validate">
+                            <label for="pass">nuova password</label>
                         </div>
-                        <div class="btn" id="btn_send">Invia email</div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m5 center">
+                            <input id="npass" type="password" class="validate">
+                            <label for="npass">conferma nuova password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="btn" id="btn_send">Conferma cambio password</div>
                     </div>
                 </form>
             </div>
@@ -52,6 +60,7 @@
     </body>
     <script type="text/javascript" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
-    <script type="text/javascript" src="js/recuperoPassword.js"></script>
+    <script type="text/javascript" src="js/nuovaPassword.js"></script>
 </html>
+
 

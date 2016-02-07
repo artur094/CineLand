@@ -1,17 +1,17 @@
 $(document).ready(function() {
     $(".button-collapse").sideNav();
     $('#btn_send').click(function(){
-        var email = document.getElementById("email").value
-        if(email===""){
-            var $toastContent = $('<span>Inserire una email valida</span>');
+        var pass1 = document.getElementById("pass").value
+        var pass2= document.getElementById("npass").value
+        if(pass1 !== pass2){
+            var $toastContent = $('<span>ERRORE: password diverse</span>');
             Materialize.toast($toastContent, 3000);
         }else{
             $.ajax({
             type : 'POST',
             url : 'Controller',           
             data: {
-                op : "pswdimenticata",
-                email: email
+                op : "",
             },
             success:function (data) {
                 if(data===1)
@@ -23,5 +23,4 @@ $(document).ready(function() {
         }
     })
 });
-
 

@@ -170,15 +170,7 @@
                 elementum. Nam lacinia ante at nisl feugiat rutrum. Nullam feugiat, felis eget interdum laoreet, est felis accumsan ex, id iaculis sapien ligula eget lectus. Sed a molestie turpis, 
                 ac bibendum eros. Cras convallis nisi vel nulla ornare suscipit. Maecenas aliquet pretium ipsum sit amet scelerisque. Donec ipsum leo, aliquet nec lorem nec, ornare porta metus. 
                 In et turpis erat. Nulla facilisi. Phasellus efficitur tortor viverra malesuada iaculis. Nulla sodales mi ornare massa tristique, a facilisis tortor eleifend. Nulla facilisi.
-                Etiam diam magna, facilisis eget dictum accumsan, euismod et mi. Ut lobortis nibh ac enim blandit lacinia. Morbi diam tortor, ullamcorper at neque in, fermentum suscipit est. 
-                Ut sollicitudin ante tortor. Phasellus id finibus tellus. Phasellus egestas nibh in mauris feugiat, a viverra magna rutrum. Proin condimentum lectus eu turpis viverra hendrerit. 
-                Nam fringilla magna a odio placerat, sit amet fringilla turpis consectetur. Aenean vulputate congue tortor, vitae commodo nibh imperdiet sodales. Sed commodo sem id efficitur 
-                . Nam viverra ligula nec quam laoreet elementum. Curabitur a elit diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus elementum 
-                est accumsan, ultricies elit id, tristique est.
-                Quisque at sagittis magna, id bibendum magna. Nulla vitae fermentum erat, sed viverra quam. Pellentesque purus nisi, consequat nec lorem ultrices, consequat pretium risus. Vivamus
-                sagittis nunc urna, non vulputate lorem tempor blandit. Vestibulum odio felis, congue vel efficitur vitae, accumsan eget enim. Ut vel mollis mauris, eu rhoncus ligula. 
-                Sed ac eros sit amet mi condimentum dignissim vel sit amet urna. In vitae justo velit. Fusce bibendum velit metus, finibus laoreet nisl iaculis eget
-                Suspendisse ut turpis sed massa fringilla auctor eu sit amet justo. Morbi quis consectetur nisi. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                Etiam diam magna, facilisis eget dictum accumsan, euismod et mi.</p>
             </div>
         </div>
         

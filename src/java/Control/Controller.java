@@ -277,8 +277,7 @@ public class Controller extends HttpServlet {
                     if(Control.passwordDimenticata(email, request.getRequestURL().toString()))
                     {
                         response.getWriter().write("1");
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                        dispatcher.forward(request, response);
+                        
                         return;
                         // andata a buon fine, quindi redirezionare ad una pagina
                         // o nemmeno, comunque avvertendo che la email è stata inviata
