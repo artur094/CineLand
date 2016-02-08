@@ -72,7 +72,7 @@ public class DBManager implements Serializable {
         Connection con =  DriverManager.getConnection(URL_DB, "cineland", "cineland");
         this.con = con;
         
-        con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+        //con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
     }
     
     /**
