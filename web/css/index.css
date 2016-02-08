@@ -193,3 +193,10 @@ ul{
     }
 }
 
+@media only screen and (max-width: 320px){
+    html{
+        min-width: 0px;
+    }
+
+}
+

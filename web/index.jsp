@@ -34,6 +34,7 @@
             List<Film> films;
             List<Spettacolo> spett_per_film;
             Cookie cookie;
+            int cookiePos=-1;
         %>
         <%
             user = (Utente)request.getSession().getAttribute("user");           
@@ -44,9 +45,10 @@
                 for(int i = 0; i < cookies.length; i++)
                 {
                     cookie = cookies[i];
-                    if(cookies[i].getName()=="accettoCookies")
+                    if(cookies[i].getName().compareTo("accettoCookies")==0)
                     {
                         cookie = cookies[i];
+                        cookiePos=i;
                     }
                 }
             }
@@ -55,7 +57,7 @@
 
     <body>
         <%
-            if(cookie.getValue().compareTo("true")!=0)
+            if(cookies[cookiePos].getValue().compareTo("true")!=0)
             {
                 out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
             }
@@ -73,6 +75,8 @@
                             if(user.getRuolo().equals("admin")){
                                 out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
                                     +"<ul id='user' class='dropdown-content'>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
                                     +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
                                     +"<li class=\"divider\"></li>"
                                     +"<li><a id=\"btn_logout\">Log out</a></li>"
@@ -80,8 +84,8 @@
                             }else{
                                 out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
                                     +"<ul id='user' class='dropdown-content'>"
-                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
                                     +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
                                     +"<li class=\"divider\"></li>"
                                     +"<li><a id=\"btn_logout\">Log out</a></li>"
                                     +"</ul></div></li>");                     
@@ -92,27 +96,27 @@
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    <%
-                        if(user != null){
-                            if(user.getRuolo().equals("admin")){
-                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
-                                    +"<li class=\"divider\"></li>"
-                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                            }else{
-                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
-                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
-                                    +"<li class=\"divider\"></li>"
-                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                                        }
-                           
-                        }else{
-                            out.println("<li id=\"login\"><a class=\" modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
-                        }
-                    %>
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
+                    <%
+                        if(user!=null){
+                            if(user.getRuolo().equals("admin")){
+                                out.println("<li><a class=\"center\" href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"amministrazione.jsp\">Amministrazione</a></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }else{
+                                out.println("<li><a class=\"center\"href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }
+                           
+                        }else{
+                            out.println("<li id=\"login\"><a class=\" modal-trigger\" data-target=\"form\">Sign in</a></li>");
+                        }
+                    %>
                 </ul>
             </div>
         </nav>

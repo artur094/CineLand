@@ -16,13 +16,28 @@
     boolean privacy = false;
     Cookie[] cookies;        
     Spettacolo spett;
+    Cookie cookie;
+    int cookiePos=-1;
 %>
 <%
     Utente user = (Utente)request.getSession().getAttribute("user");
     int id_spettacolo = Integer.parseInt(request.getParameter("id"));    
     spett = new Spettacolo(id_spettacolo);
     if(request.getSession().getAttribute("user") == null) //non è loggato
-        throw new RuntimeException();  
+        throw new RuntimeException();
+    cookies = request.getCookies();
+            if(cookies != null)
+            {
+                for(int i = 0; i < cookies.length; i++)
+                {
+                    cookie = cookies[i];
+                    if(cookies[i].getName().compareTo("accettoCookies")==0)
+                    {
+                        cookie = cookies[i];
+                        cookiePos=i;
+                    }
+                }
+            }
 %>
 <!DOCTYPE html>
 <html>
@@ -37,6 +52,12 @@
         <link type="text/css" rel="stylesheet" href="css/seats.css"/>
     </head>
     <body>
+        <%
+            if(cookies[cookiePos].getValue().compareTo("true")!=0)
+            {
+                out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
+            }
+        %>
         <nav>
             <div class="nav-wrapper">
                 <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
@@ -102,7 +123,7 @@
                         <div class="col s12"><p>Orario: <span id="exnow"><%out.println((new SimpleDateFormat("hh:mm - dd/MM/yyyy").format(spett.getData_ora().getTime())).toString());%></span></p></div>
                     </div>
                     <div class="row">
-                        <div class="col s12"><p>Tickets: <span id="counter">0</span></div>
+                        <div class="col s12"><p>Biglietti: <span id="counter">0</span></div>
                     </div>
                     <div class=" row">
                         <div class="col s12">
@@ -111,9 +132,13 @@
                         </div>
                     </div>
                     <div class="row wrap-riduzioni">
-                        <ul class="riduzioni">
+                        <div class="col s12 m6 check_ridotti">
+                            <input type="checkbox" id="ridotti" />
+                            <label for="ridotti">*Seleziona ridotti</label>
+                        </div>
+                        <ul class="riduzioni col s12 m4">
                             <li>
-                                <div class="campo col offset-m1">Studenti: </div>
+                                <div class="campo">Studenti: </div>
                                 <div class="input-field col">
                                     <select class="selStudenti">
                                       <option value="0" selected>0</option>
@@ -121,7 +146,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="campo col offset-m1">Militari: </div>
+                                <div class="campo">Militari: </div>
                                 <div class="input-field col">
                                     <select class="selMilitari">
                                       <option value="0" selected>0</option>
@@ -129,7 +154,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="campo col offset-m1">Anziani: </div>
+                                <div class="campo">Anziani: </div>
                                 <div class="input-field col">
                                     <select class="selAnziani">
                                       <option value="0" selected>0</option>
@@ -137,7 +162,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="campo col offset-m1">Disabili: </div>
+                                <div class="campo">Disabili: </div>
                                 <div class="input-field col">
                                     <select class="selDisabili">
                                       <option value="0" selected>0</option>
@@ -145,10 +170,6 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="col check_ridotti">
-                            <input type="checkbox" id="ridotti" />
-                            <label for="ridotti">Seleziona ridotti</label>
-                        </div>  
                     </div>
                 </div>
                   

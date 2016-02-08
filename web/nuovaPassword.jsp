@@ -1,3 +1,4 @@
+<%@page import="ClassiDB.Utente"%>
 <%@page language="Java" contentType="text/html" pageEncoding="UTF-8" isErrorPage="true"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,35 @@
 
         <title>JSP Page</title>
     </head>
+    <%!
+        boolean privacy = false;
+        Cookie[] cookies ;
+        Boolean sess = false;
+        Cookie cookie;
+        int cookiePos=-1;
+    %>
+    <%
+        cookies = request.getCookies();
+        if(cookies != null)
+        {
+            for(int i = 0; i < cookies.length; i++)
+            {
+                cookie = cookies[i];
+                if(cookies[i].getName().compareTo("accettoCookies")==0)
+                {
+                    cookie = cookies[i];
+                    cookiePos=i;
+                }
+            }
+        }
+    %>  
     <body>
+        <%
+            if(cookies[cookiePos].getValue().compareTo("true")!=0)
+            {
+                out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
+            }
+        %>
         <nav>
             <div class="nav-wrapper">
                 <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
@@ -60,6 +89,7 @@
     </body>
     <script type="text/javascript" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
+    <script type="text/javascript" src="js/master.js"></script>
     <script type="text/javascript" src="js/nuovaPassword.js"></script>
 </html>
 

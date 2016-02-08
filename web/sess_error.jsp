@@ -13,7 +13,34 @@
 
         <title>JSP Page</title>
     </head>
+    <%!
+        boolean privacy = false;
+        Cookie[] cookies;
+        Cookie cookie;
+        int cookiePos=-1;
+    %>
+    <%
+            cookies = request.getCookies();
+            if(cookies != null)
+            {
+                for(int i = 0; i < cookies.length; i++)
+                {
+                    cookie = cookies[i];
+                    if(cookies[i].getName().compareTo("accettoCookies")==0)
+                    {
+                        cookie = cookies[i];
+                        cookiePos=i;
+                    }
+                }
+            }
+    %>  
     <body>
+        <%
+            if(cookies[cookiePos].getValue().compareTo("true")!=0)
+            {
+                out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
+            }
+        %>
         <nav>
             <div class="nav-wrapper">
                 <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
@@ -30,13 +57,16 @@
                 </ul>
             </div>
         </nav>
-        <div id="error" class="row">
+        <div class="row first-container">
             <li class=" col offset-m2 material-icons error">error_outline</li>
-            <p class="m5 flow-text err_text">Purtroppo non sei autenticato, prova a fare <a>Login</a> o se non sei registrato <a>Registrati</a></p>
+            <p>Purtroppo non sei autenticato, prova a fare <a>Login</a> o se non sei registrato <a>Registrati</a></p>
         </div>
         <main></main>
         <footer class="page-footer">
             <p>&copy; 2016 Cineland - via alla Moia 30 Rovereto (TN) - Tel. 0464 123123 - P.Iva 1234567890 &nbsp;|&nbsp; <a href="privacy.jsp">Privacy</a> &nbsp;&nbsp; <a href="cookies.jsp">Informativa cookies</a></p>
         </footer>
     </body>
+    <script type="text/javascript" src="js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
+    <script type="text/javascript" src="js/master.js"></script>
 </html>

@@ -11,7 +11,15 @@ form{
     
 }
 .modal{
-    width: 45%;
+    width: 50%;
+}
+
+.side-nav li:hover, .side-nav li.active {
+    background-color: orange;
+}
+
+.first-container{
+    margin-top: 75px;
 }
 
 #index_container{
@@ -59,10 +67,6 @@ nav{
 
 .verified_user{
     color: #43a047;
-}
-
-#form{
-    min-width: 360px;
 }
 
 ::-webkit-scrollbar {
@@ -124,3 +128,14 @@ body {
       font-size: 12px !important;
       padding: 1px 6px 1px 6px !important;
   }
+  
+  
+@media only screen and (max-width: 600px){
+    .modal{
+        width: 80%;
+    }
+    form{
+        width: 100%;
+    }
+
+}

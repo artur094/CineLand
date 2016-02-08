@@ -43,6 +43,8 @@
         Boolean sess = false;
         Prenotazioni pr = new Prenotazioni();
         ArrayList<Prenotazione> pr_utente;
+        Cookie cookie;
+        int cookiePos=-1;
     %>
 
 
@@ -57,9 +59,29 @@
             pr_utente = new ArrayList<>();
         pr_utente = pr.getPrenotazioniUtente(user.getId()).getListaPrenotazioni();
         //pr_utente.addAll(pr.getPrenotazioniUtente(user.getId()).getListaPrenotazioni());
+    
+        cookies = request.getCookies();
+        if(cookies != null)
+        {
+            for(int i = 0; i < cookies.length; i++)
+            {
+                cookie = cookies[i];
+                if(cookies[i].getName().compareTo("accettoCookies")==0)
+                {
+                    cookie = cookies[i];
+                    cookiePos=i;
+                }
+            }
+        }
     %>
 
     <body>
+        <%
+            if(cookies[cookiePos].getValue().compareTo("true")!=0)
+            {
+                out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
+            }
+        %>
         <!-- Navigatio Bar -->
         <nav>
             <div class="nav-wrapper">
@@ -68,42 +90,44 @@
                 <ul class="right hide-on-med-and-down">
                     <%
                         if(user.getRuolo().equals("admin")){
-                            out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
-                                +"<ul id='user' class='dropdown-content'>"
-                                +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                +"</ul></div></li>");    
-                        }else{
-                            out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
-                                +"<ul id='user' class='dropdown-content'>"
-                                +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
-                                +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                +"</ul></div></li>");
-                        }
+                                out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
+                                    +"<ul id='user' class='dropdown-content'>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                    +"</ul></div></li>");    
+                            }else{
+                                out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
+                                    +"<ul id='user' class='dropdown-content'>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                    +"</ul></div></li>");                     
+                            }
                     %>
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    <%
-                        if(user.getRuolo().equals("admin")){
-                            out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                        }else{
-                            out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
-                                +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                        }
-                    %>
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
+                    <%
+                        if(user.getRuolo().equals("admin")){
+                                out.println("<li><a class=\"center\" href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"amministrazione.jsp\">Amministrazione</a></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }else{
+                                out.println("<li><a class=\"center\"href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }
+                    %>
                 </ul>
             </div>
         </nav>
@@ -138,7 +162,7 @@
                         {
                             //non creo nuovo spoiler
                             // aggiungo 
-                            out.println("<p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPosto().getPrezzoPagato()+"&euro;</p>");
+                            out.println("<p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPrezzo()+"&euro;</p>");
                         }
                         else
                         {
@@ -147,7 +171,7 @@
                                out.println("</div></li>");
                             // creo nuovo spoiler e aggiungo lui stesso
                             out.println("<li><div class=\"collapsible-header\"><i class=\"material-icons\">receipt</i><b>"+pr_utente.get(i).getSpettacolo().getFilm().getTitolo()+"</b> <span class=\"material-icons\">schedule</span> "+(new SimpleDateFormat("hh:mm - dd MM yyyy").format(pr_utente.get(i).getSpettacolo().getData_ora().getTime())).toString()+"</div>");
-                            out.println("<div class=\"collapsible-body\"><p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPosto().getPrezzoPagato()+"&euro;</p>");
+                            out.println("<div class=\"collapsible-body\"><p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPrezzo()+"&euro;</p>");
                             count_a=1;
                         }
                     }
@@ -163,7 +187,7 @@
                         }
                         if(pr_utente.get(i).getSpettacolo().getId()==last_id)
                         {
-                            out.println("<p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPosto().getPrezzoPagato()+"&euro;</p>");
+                            out.println("<p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPrezzo()+"&euro;</p>");
                         }
                         else
                         {
@@ -172,7 +196,7 @@
                                out.println("</div></li>");
                             // creo nuovo spoiler e aggiungo lui stesso
                             out.println("<li><div class=\"collapsible-header\"><i class=\"material-icons\">receipt</i><b>"+pr_utente.get(i).getSpettacolo().getFilm().getTitolo()+"</b> <span class=\"material-icons\">schedule</span> "+(new SimpleDateFormat("hh:mm - dd MM yyyy").format(pr_utente.get(i).getSpettacolo().getData_ora().getTime())).toString()+"</div>");
-                            out.println("<div class=\"collapsible-body\"><p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPosto().getPrezzoPagato()+"&euro;</p>");
+                            out.println("<div class=\"collapsible-body\"><p><b>Sala</b> "+pr_utente.get(i).getSpettacolo().getSala().getNome()+" Fila "+pr_utente.get(i).getPosto().getRiga()+" Posto "+pr_utente.get(i).getPosto().getColonna()+" Costo: "+pr_utente.get(i).getPrezzo()+"&euro;</p>");
                             count_b=1;
                         }
                     }
