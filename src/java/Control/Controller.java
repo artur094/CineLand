@@ -327,10 +327,10 @@ public class Controller extends HttpServlet {
                         }
                     }
                     else
-                        response.getWriter().write("1");
+                        response.getWriter().write("0");
                 }catch(Exception ex)
                 {
-                    throw new ServletException(ex);
+                    response.getWriter().write("0");
                 }
                 
                 break;
@@ -351,17 +351,20 @@ public class Controller extends HttpServlet {
                         if(code == null || email.equals(""))
                         {
                             //errore
+                            response.getWriter().write("1");
                         }
                         else if(Control.resetPassword(email, password, code))
                         {
+                            response.getWriter().write("1");
                             //pass cambiata
-                            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                            /*RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
                             dispatcher.forward(request, response);
-                            return;
+                            return;*/
                         }
                         else
                         {
                             //ERRORE
+                            response.getWriter().write("0");
                         }
                     }
                     catch(Exception ex)
