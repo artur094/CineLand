@@ -138,7 +138,7 @@
         <!--Tab programmazione-->
         <div id="tab_programmazione" class="mtab">
             <div class="row">
-                <div class="col s6 m3 lista_spett">
+                <div class="col s12 m3 lista_spett">
                     <ul>
                         <% 
                             for(int i=0;  i < films.size();i++){
@@ -223,7 +223,7 @@
                         <li class="item_sala" data-sala="4"><a>Sala 4</a></li>
                     </ul>
                 </div>
-                <div class="col s6 m9 ">
+                <div class="col s12 m9 ">
                     <div id="message2">Seleziona una sala</div>
                     <div class="mappa_piùprenotati container">
                         <div class="booking-details">

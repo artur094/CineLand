@@ -2,6 +2,11 @@ html{
     height: 100%;
     background-color: #2B2D42;
 }
+
+.card-image > img{
+    width: 100%;
+}
+
 #index_container{
     color: #fff;
     text-align: justify;
