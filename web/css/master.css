@@ -139,3 +139,13 @@ body {
     }
 
 }
+
+@media only screen and (max-width:340px){
+    #nav_logo{
+	background-image: url(../img/logo.png);
+	background-repeat: no-repeat;
+	height: 55px;
+	width: 240px;
+        background-size: contain;
+    }
+}
