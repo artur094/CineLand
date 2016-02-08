@@ -185,6 +185,21 @@
                     $('#btn_cambiaPassword').prop("disabled", true);
                 }
             });
+            
+            $('#btn_cambiaPassword').on('click',function(){
+                $.ajax({
+                    type : 'POST',
+                    url : 'Controller',           
+                    data: {
+                        op : "cambio_password",
+                        pwd:$("#ex_password").val(),
+                        newpwd:$("#new_password").val()
+                    },
+                    success:function (data) {
+                        
+                    }
+                });
+            });
         });
     </script>
   </html>
