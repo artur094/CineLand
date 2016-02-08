@@ -31,12 +31,7 @@
         id_film = Integer.parseInt(request.getParameter("id"));
         film = new Film(id_film);
         user = (Utente)request.getSession().getAttribute("user");
-        if(user == null){ //non è loggato
-            sess = false;
-        }else{
-            sess = true;
-        }
-        
+       
         cookies = request.getCookies();
         if(cookies != null)
         {
@@ -66,7 +61,7 @@
                 <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                     <%
-                        if(sess){
+                        if(user == null){
                                out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
                         }else{
                             if(user.getRuolo().equals("admin")){
