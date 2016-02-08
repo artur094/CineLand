@@ -49,7 +49,7 @@ CREATE TABLE PRENOTAZIONE (
 	ID_SPETTACOLO INTEGER, 
 	ID_PREZZO INTEGER, 
 	ID_POSTO INTEGER, 
-	PAGATO BOOLEAN DEFAULT false , 
+	PAGATO BOOLEAN DEFAULT true , 
 	DATA_ORA_OPERAZIONE TIMESTAMP, 
 	PRIMARY KEY (ID_PRENOTAZIONE),
 CONSTRAINT spettacoliPosti UNIQUE(id_spettacolo, id_posto)
@@ -102,7 +102,9 @@ CREATE TABLE password_dimenticata
 (
     email varchar(50),
     codice varchar(300), 
-    data timestamp
+    data timestamp,
+    CONSTRAINT pd_code_unique UNIQUE (codice),
+    CONSTRAINT pd_code_email_pk PRIMARY KEY (email,codice)
 );
 
 

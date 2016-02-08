@@ -340,5 +340,78 @@ public class Control {
             return false;
         return true;
     }
+    
+    
+    public static boolean prenotaFilms(int id_spettacolo, Utente utente, String posti) 
+            throws SQLException, ClassNotFoundException, MessagingException, DocumentException, IOException
+    {
+        ArrayList<Prenotazione> nuovePrenotazioni;
+        Prenotazione p = null;      //cambiato, altrimenti dava problemi con l'if
+        DBManager dbm;
+        Spettacolo s;
+        String prezzo;
+        String[] info_posto;
+        String[] posti_prenotati;
+        int riga;
+        int colonna;
+        int id_posto;
+
+        dbm = DBManager.getDBManager();
+        nuovePrenotazioni = new ArrayList<>();
+        s = dbm.getSpettacolo(id_spettacolo);
+        posti_prenotati = posti.split(" ");
+
+        for(String posto : posti_prenotati)
+        {
+            info_posto = posto.split(",");
+
+            //RIGA,COLONNA,PREZZO
+            riga = Integer.parseInt(info_posto[0]);
+            colonna = Integer.parseInt(info_posto[1]);
+
+            prezzo = info_posto[2];
+
+            switch(prezzo.toUpperCase())
+            {
+                case "N": prezzo = "normale"; break;
+                case "A": prezzo = "ridotto"; break;
+                case "R": prezzo = "ridotto"; break;
+                case "S": prezzo = "studente";break;
+                case "M": prezzo = "militare";break;
+                case "D": prezzo = "disabile";break;
+                default: 
+                    dbm.removePrenotazioni(nuovePrenotazioni);
+                    return false;
+            }
+
+            id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
+            p = new Prenotazione();
+            p.setTipo_prezzo(prezzo);
+            p.setPosto(dbm.getPosto(id_posto));
+            p.setSpettacolo(dbm.getSpettacolo(id_spettacolo));
+            p.setUtente(utente);
+
+            
+            nuovePrenotazioni.add(p);
+        }
+
+        if(!dbm.testInsertPrenotazioni(nuovePrenotazioni))
+            return false;
+        // CREAZIONE QRCODE
+        // CREAZIONE PDF CON UN BIGLIETTO PER PAGINA (CON QRCODE)
+        // INVIO EMAIL DEL PDF
+
+        PdfBiglietto tickets = new PdfBiglietto();
+        tickets.setPrenotazioni(nuovePrenotazioni);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        tickets.costruisciPdf("tickets.pdf", os);
+        SendEmail send = SendEmail.getInstance();
+        send.send(
+                utente.getEmail(),
+                "Prenotazione Cineland",
+                "In allegato ci sono i biglietti del cinema",
+                os);
+        return true;
+    }
 
 }
