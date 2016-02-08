@@ -71,6 +71,8 @@ public class DBManager implements Serializable {
         Class.forName("org.apache.derby.jdbc.ClientDriver", true, getClass().getClassLoader());
         Connection con =  DriverManager.getConnection(URL_DB, "cineland", "cineland");
         this.con = con;
+        
+        con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
     }
     
     /**
@@ -1388,4 +1390,40 @@ public class DBManager implements Serializable {
         return -1;
     }
     
+    public int getIDPrezzo(String tipo_prezzo) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT id_prezzo FROM prezzo WHERE tipo = ?");
+        ps.setString(1, tipo_prezzo);
+        
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+            return rs.getInt("id_prezzo");
+        return -1;
+    }
+    
+    
+    public boolean testInsertPrenotazioni(List<Prenotazione> lista) throws SQLException
+    {
+        PreparedStatement ps;
+        con.setAutoCommit(false);
+        
+        for(Prenotazione p:lista)
+        {
+            ps = con.prepareStatement("INSERT INTO prenotazione (id_utente, id_spettacolo, id_prezzo, id_posto, pagato, data_ora_operazione) values (?,?,?,?,?,current_timestamp)");
+            ps.setInt(1, p.getUtente().getId());
+            ps.setInt(2, p.getSpettacolo().getId());
+            ps.setInt(3, getIDPrezzo(p.getTipo_prezzo()));
+            ps.setInt(4, p.getPosto().getId());
+            ps.setBoolean(5, true);
+            
+            ps.execute();
+            if(ps.getUpdateCount()<=0)
+            {
+                con.rollback();
+                return false;
+            }
+        }
+        con.commit();
+        return true;
+    }
 }

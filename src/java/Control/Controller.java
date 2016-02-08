@@ -312,19 +312,22 @@ public class Controller extends HttpServlet {
             // da testare
             case "cambio_password":
                 try{
-                    Utente test = Control.logIn(email, password);
                     user = (Utente)request.getSession().getAttribute("user");
+                    Utente test = Control.logIn(user.getEmail(), password);
                     
                     if(test.getId() == user.getId() && test.getEmail().equals(user.getEmail()) && test.getNome().equals(user.getNome()))
                     {
                         if(Control.cambiaPassword(email,user.getNome(), password,password_nuova))
                         {
-                            //Password cambiata
+                            response.getWriter().write("1");
                         }
+                        else
                         {
-                            //Password non cambiata
+                            response.getWriter().write("0");
                         }
                     }
+                    else
+                        response.getWriter().write("1");
                 }catch(Exception ex)
                 {
                     throw new ServletException(ex);

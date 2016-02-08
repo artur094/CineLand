@@ -20,6 +20,7 @@ public class Prenotazione {
     protected Posto posto;
     protected Sala sala;
     protected double prezzo;
+    protected String tipo_prezzo;
     protected boolean pagato;
     protected Calendar data_ora_operazione;
 
@@ -105,6 +106,16 @@ public class Prenotazione {
     public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
+
+    public String getTipo_prezzo() {
+        return tipo_prezzo;
+    }
+
+    public void setTipo_prezzo(String tipo_prezzo) {
+        this.tipo_prezzo = tipo_prezzo;
+    }
+    
+    
 
     public Calendar getData_ora_operazione() {
         return data_ora_operazione;
