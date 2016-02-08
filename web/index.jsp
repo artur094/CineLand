@@ -34,6 +34,7 @@
             List<Film> films;
             List<Spettacolo> spett_per_film;
             Cookie cookie;
+            int cookiePos=-1;
         %>
         <%
             user = (Utente)request.getSession().getAttribute("user");           
@@ -44,9 +45,10 @@
                 for(int i = 0; i < cookies.length; i++)
                 {
                     cookie = cookies[i];
-                    if(cookies[i].getName()=="accettoCookies")
+                    if(cookies[i].getName().compareTo("accettoCookies")==0)
                     {
                         cookie = cookies[i];
+                        cookiePos=i;
                     }
                 }
             }
@@ -55,7 +57,7 @@
 
     <body>
         <%
-            if(cookie.getValue().compareTo("true")!=0)
+            if(cookies[cookiePos].getValue().compareTo("true")!=0)
             {
                 out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
             }

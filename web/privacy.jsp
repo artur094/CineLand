@@ -19,11 +19,32 @@
         Cookie[] cookies ;        
         Utente user;
         Boolean sess = false;
+        Cookie cookie;
+        int cookiePos=-1;
     %>
     <%
         user = (Utente)request.getSession().getAttribute("user");
+        cookies = request.getCookies();
+        if(cookies != null)
+        {
+            for(int i = 0; i < cookies.length; i++)
+            {
+                cookie = cookies[i];
+                if(cookies[i].getName().compareTo("accettoCookies")==0)
+                {
+                    cookie = cookies[i];
+                    cookiePos=i;
+                }
+            }
+        }
     %>  
     <body>
+        <%
+            if(cookies[cookiePos].getValue().compareTo("true")!=0)
+            {
+                out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
+            }
+        %>
         <nav>
         <div class="nav-wrapper">
             <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>

@@ -20,7 +20,9 @@
 //        List<Spettacolo> spett_per_film;      
         if(request.getSession().getAttribute("user") == null) //non è loggato
             throw new RuntimeException();
-
+        
+        Cookie cookie;
+        int cookiePos=-1;
 %>
 
 <!DOCTYPE html>
@@ -36,7 +38,29 @@
         <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="css/profilo.css"  media="screen,projection"/>
     </head>
+    
+    <%
+            cookies = request.getCookies();
+            if(cookies != null)
+            {
+                for(int i = 0; i < cookies.length; i++)
+                {
+                    cookie = cookies[i];
+                    if(cookies[i].getName().compareTo("accettoCookies")==0)
+                    {
+                        cookie = cookies[i];
+                        cookiePos=i;
+                    }
+                }
+            }
+    %> 
     <body>
+        <%
+            if(cookies[cookiePos].getValue().compareTo("true")!=0)
+            {
+                out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
+            }
+        %>
         <!-- Navigatio Bar -->
         <nav>
             <div class="nav-wrapper">

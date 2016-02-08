@@ -16,13 +16,28 @@
     boolean privacy = false;
     Cookie[] cookies;        
     Spettacolo spett;
+    Cookie cookie;
+    int cookiePos=-1;
 %>
 <%
     Utente user = (Utente)request.getSession().getAttribute("user");
     int id_spettacolo = Integer.parseInt(request.getParameter("id"));    
     spett = new Spettacolo(id_spettacolo);
     if(request.getSession().getAttribute("user") == null) //non è loggato
-        throw new RuntimeException();  
+        throw new RuntimeException();
+    cookies = request.getCookies();
+            if(cookies != null)
+            {
+                for(int i = 0; i < cookies.length; i++)
+                {
+                    cookie = cookies[i];
+                    if(cookies[i].getName().compareTo("accettoCookies")==0)
+                    {
+                        cookie = cookies[i];
+                        cookiePos=i;
+                    }
+                }
+            }
 %>
 <!DOCTYPE html>
 <html>
@@ -37,6 +52,12 @@
         <link type="text/css" rel="stylesheet" href="css/seats.css"/>
     </head>
     <body>
+        <%
+            if(cookies[cookiePos].getValue().compareTo("true")!=0)
+            {
+                out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
+            }
+        %>
         <nav>
             <div class="nav-wrapper">
                 <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
