@@ -2,8 +2,14 @@
 	color: #fff;
 	border-radius: 50%;
 }
+.tab a:hover{
+    color:orange !important;
+}
 .tabs{
 	background-color: #1B1D32;
+}
+.indicator{
+    background-color: orange !important;
 }
 .mtab{
 	height: 100%;
@@ -98,4 +104,8 @@ table.highlight>tbody>tr:hover{
 
 .removePosto{
     cursor: pointer;
+}
+
+.lista_spett{
+    margin-bottom: 30px;
 }
