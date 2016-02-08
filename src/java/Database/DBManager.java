@@ -410,7 +410,15 @@ public class DBManager implements Serializable {
      */
     public String passwordDimenticata(String email) throws SQLException
     {
-        PreparedStatement ps = con.prepareStatement("DELETE FROM password_dimenticata WHERE email = ?");
+        PreparedStatement ps;
+        ps=con.prepareStatement("SELECT * FROM utente WHERE email=?");
+        ps.setString(1, email);
+        ResultSet rs = ps.executeQuery();
+        
+        if(!rs.next())
+            return "";
+                
+        ps = con.prepareStatement("DELETE FROM password_dimenticata WHERE email = ?");
         ps.setString(1, email);
         ps.executeUpdate();
         String codice;

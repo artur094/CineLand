@@ -540,10 +540,12 @@ public class Controller extends HttpServlet {
                         int id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
                         Prenotazione p = dbm.getPrenotazione(id_spett, id_utente, id_posto);
                         amm.rimborsaPrenotazione(p.getId());
+                        response.getWriter().write("1");
                     }
                     catch(Exception ex)
                     {
-                        throw new ServerException("Errore Server Interno");
+                        response.getWriter().write("1");   
+                        //throw new ServerException("Errore Server Interno");
                     }
                 }
                 break;

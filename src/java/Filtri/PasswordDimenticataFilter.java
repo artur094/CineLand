@@ -5,6 +5,7 @@
  */
 package Filtri;
 
+import ClassiDB.Utente;
 import Database.DBManager;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -156,6 +157,13 @@ public class PasswordDimenticataFilter implements Filter {
         Throwable problem = null;
         
         String code = (String)((HttpServletRequest)request).getSession().getAttribute("codice");
+        Utente user = (Utente)((HttpServletRequest)request).getSession().getAttribute("user");
+        if(user != null)
+        {
+            RequestDispatcher disp = request.getRequestDispatcher("index.jsp");
+            disp.forward(request, response);
+            return;
+        }
         boolean error = false;
         if(code == null)
         {

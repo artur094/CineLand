@@ -13,6 +13,7 @@ import java.io.StringWriter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -116,6 +117,14 @@ public class LoginFilter implements Filter {
         {
             if(utente == null)
                 throw new ServletException("Accesso non autorizzato");
+        }
+        if(page.equals("/recuperoPassword.jsp") || page.equals("/nuovaPassword.jsp"))
+        {
+            if(utente != null){
+                RequestDispatcher disp = request.getRequestDispatcher("index.jsp");
+                disp.forward(request, response);
+                return;
+            }
         }
         
         Throwable problem = null;
