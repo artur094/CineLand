@@ -62,47 +62,47 @@
             <div class="nav-wrapper">
                 <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
                 <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                
                 <ul class="right hide-on-med-and-down">
-                    <%                     
+                    <%
                         if(user.getRuolo().equals("admin")){
-                            out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
-                                +"<ul id='user' class='dropdown-content'>"
-                                +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                +"</ul></div></li>");    
-                        }else{
-                            out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
-                                +"<ul id='user' class='dropdown-content'>"
-                                +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
-                                +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                +"</ul></div></li>");
-                        }
+                                out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
+                                    +"<ul id='user' class='dropdown-content'>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                    +"</ul></div></li>");    
+                            }else{
+                                out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
+                                    +"<ul id='user' class='dropdown-content'>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                    +"</ul></div></li>");                     
+                            }
                     %>
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    <%
-                        if(user.getRuolo().equals("admin")){
-                            out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                        }else{
-                            out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
-                                +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
-                                +"<li class=\"divider\"></li>"
-                                +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                        }
-
-                    %>
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
+                    <%
+                        if(user.getRuolo().equals("admin")){
+                                out.println("<li><a class=\"center\" href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"amministrazione.jsp\">Amministrazione</a></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }else{
+                                out.println("<li><a class=\"center\"href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }
+                    %>
                 </ul>
             </div>
         </nav>
