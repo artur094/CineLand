@@ -102,7 +102,7 @@
                         <div class="col s12"><p>Orario: <span id="exnow"><%out.println((new SimpleDateFormat("hh:mm - dd/MM/yyyy").format(spett.getData_ora().getTime())).toString());%></span></p></div>
                     </div>
                     <div class="row">
-                        <div class="col s12"><p>Tickets: <span id="counter">0</span></div>
+                        <div class="col s12"><p>Biglietti: <span id="counter">0</span></div>
                     </div>
                     <div class=" row">
                         <div class="col s12">
@@ -111,9 +111,13 @@
                         </div>
                     </div>
                     <div class="row wrap-riduzioni">
-                        <ul class="riduzioni">
+                        <div class="col s12 m6 check_ridotti">
+                            <input type="checkbox" id="ridotti" />
+                            <label for="ridotti">*Seleziona ridotti</label>
+                        </div>
+                        <ul class="riduzioni col s12 m4">
                             <li>
-                                <div class="campo col offset-m1">Studenti: </div>
+                                <div class="campo">Studenti: </div>
                                 <div class="input-field col">
                                     <select class="selStudenti">
                                       <option value="0" selected>0</option>
@@ -121,7 +125,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="campo col offset-m1">Militari: </div>
+                                <div class="campo">Militari: </div>
                                 <div class="input-field col">
                                     <select class="selMilitari">
                                       <option value="0" selected>0</option>
@@ -129,7 +133,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="campo col offset-m1">Anziani: </div>
+                                <div class="campo">Anziani: </div>
                                 <div class="input-field col">
                                     <select class="selAnziani">
                                       <option value="0" selected>0</option>
@@ -137,7 +141,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="campo col offset-m1">Disabili: </div>
+                                <div class="campo">Disabili: </div>
                                 <div class="input-field col">
                                     <select class="selDisabili">
                                       <option value="0" selected>0</option>
@@ -145,10 +149,6 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="col check_ridotti">
-                            <input type="checkbox" id="ridotti" />
-                            <label for="ridotti">Seleziona ridotti</label>
-                        </div>  
                     </div>
                 </div>
                   

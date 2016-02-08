@@ -12,7 +12,7 @@
         <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="css/privacy.css"  media="screen,projection"/>
 
-        <title>JSP Page</title>
+        <title>Privacy</title>
     </head>
     <%!
         boolean privacy = false;
@@ -22,11 +22,6 @@
     %>
     <%
         user = (Utente)request.getSession().getAttribute("user");
-        if(user == null){ //non è loggato
-            sess = false;
-        }else{
-            sess = true;
-        }
     %>  
     <body>
         <nav>
@@ -34,55 +29,56 @@
             <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
             <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                    <%
-                        if(sess){
-                            if(user.getRuolo().equals("admin")){
-                                out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
-                                    +"<ul id='user' class='dropdown-content'>"
-                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
-                                    +"<li class=\"divider\"></li>"
-                                    +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                    +"</ul></div></li>");    
-                            }else{
-                                out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
-                                    +"<ul id='user' class='dropdown-content'>"
-                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
-                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
-                                    +"<li class=\"divider\"></li>"
-                                    +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                    +"</ul></div></li>");
-                            }
-                           
+                <%
+                    if(user == null){
+                           out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                    }else{
+                        if(user.getRuolo().equals("admin")){
+                            out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
+                                +"<ul id='user' class='dropdown-content'>"
+                                +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
+                                +"<li class=\"divider\"></li>"
+                                +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                +"</ul></div></li>");    
                         }else{
-                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                            out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
+                                +"<ul id='user' class='dropdown-content'>"
+                                +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                +"<li class=\"divider\"></li>"
+                                +"<li><a id=\"btn_logout\">Log out</a></li>"
+                                +"</ul></div></li>");                     
                         }
-                    %>
-                    <li><a href="index.jsp">Film</a></li>
-                    <li><a href="aboutus.jsp">About us</a></li>
+                    }
+                %>
+                <li><a href="index.jsp">Film</a></li>
+                <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
-                <ul class="side-nav" id="mobile-demo">
-                    <%
-                        if(sess){
-                            if(user.getRuolo().equals("admin")){
-                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
-                                    +"<li class=\"divider\"></li>"
-                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                            }else{
-                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
-                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
-                                    +"<li class=\"divider\"></li>"
-                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                                        }
-                           
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="index.jsp">Film</a></li>
+                <li><a href="aboutus.jsp">About us</a></li>
+                <%
+                    if(user!=null){
+                        if(user.getRuolo().equals("admin")){
+                            out.println("<li><a class=\"center\" href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                +"<li class=\"divider\"></li>"
+                                +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                +"<li><a href=\"amministrazione.jsp\">Amministrazione</a></li>"
+                                +"<li><a id=\"side_btn_logout\">Log out</a></li>");
                         }else{
-                            out.println("<li id=\"login\"><a class=\" modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                            out.println("<li><a class=\"center\"href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                +"<li class=\"divider\"></li>"
+                                +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                +"<li><a id=\"side_btn_logout\">Log out</a></li>");
                         }
-                    %>
-                    <li><a href="index.jsp">Film</a></li>
-                    <li><a href="aboutus.jsp">About us</a></li>
-                </ul>
+
+                    }else{
+                        out.println("<li id=\"login\"><a class=\" modal-trigger\" data-target=\"form\">Sign in</a></li>");
+                    }
+                %>
+            </ul>
         </div>
     </nav>
         <main>
@@ -175,4 +171,8 @@ Lei potrà esercitare i diritti di cui all'articolo 7 del d.lgs. n. 196/2003 (ac
             </div>
         </div>
     </body>
+    <script type="text/javascript" src="js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
+    <script type="text/javascript" src="js/master.js"></script>
 </html>
+

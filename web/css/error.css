@@ -6,13 +6,23 @@ html{
     color: #b71c1c ;
 }
 
-#error{
-    position: relative;
-    top: 100px;
+.first-container>p{
+    font-size: xx-large;
 }
 
 
-.err_text{
-    line-height: 10rem;
-}
+@media only screen and (max-width: 320px){
+    html{
+        min-width: 0px;
+    }
+    
+    .error{
+        font-size: 5rem;
+        color: #b71c1c ;
+    }
+    
+    .first-container>p{
+        font-size: initial;
+    }
 
+}

@@ -52,6 +52,7 @@
     </body>
     <script type="text/javascript" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize/materialize.min.js"></script>
+    <script type="text/javascript" src="js/master.js"></script>
     <script type="text/javascript" src="js/recuperoPassword.js"></script>
 </html>
 

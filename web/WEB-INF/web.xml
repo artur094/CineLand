@@ -15,7 +15,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
-        <url-pattern>/amministrazione</url-pattern>
+        <url-pattern>/amministrazione.jsp</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
     <servlet>

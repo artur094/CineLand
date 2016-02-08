@@ -1,4 +1,4 @@
-  <%@page import="ClassiDB.Utente"%>
+<%@page import="ClassiDB.Utente"%>
 <%@page import="ClassiDB.Film"%>
 <!DOCTYPE html>
   <html>
@@ -22,11 +22,6 @@
     %>
     <%
         user = (Utente)request.getSession().getAttribute("user");
-        if(user == null){ //non è loggato
-            sess = false;
-        }else{
-            sess = true;
-        }
     %>  
 
     <body>
@@ -35,12 +30,16 @@
         <div class="nav-wrapper">
             <a href="index.jsp" class="brand-logo center" id="nav_logo"></a>
             <a href="index.jsp" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
+<ul class="right hide-on-med-and-down">
                     <%
-                        if(sess){
+                        if(user == null){
+                               out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
+                        }else{
                             if(user.getRuolo().equals("admin")){
                                 out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
                                     +"<ul id='user' class='dropdown-content'>"
+                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
                                     +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
                                     +"<li class=\"divider\"></li>"
                                     +"<li><a id=\"btn_logout\">Log out</a></li>"
@@ -48,42 +47,39 @@
                             }else{
                                 out.println("<li id=\"logout\"><div><a class='dropdown-button btn' href='#' data-activates='user'>"+user.getNome()+"</a>"
                                     +"<ul id='user' class='dropdown-content'>"
-                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
                                     +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
                                     +"<li class=\"divider\"></li>"
                                     +"<li><a id=\"btn_logout\">Log out</a></li>"
-                                    +"</ul></div></li>");
+                                    +"</ul></div></li>");                     
                             }
-                           
-                        }else{
-                            out.println("<li id=\"login\"><a class=\"waves-effect waves-light modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
                         }
                     %>
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    <%
-                        if(sess){
-                            if(user.getRuolo().equals("admin")){
-                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                    +"<li><a href=\"amministrazione.jsp\">Pannello</a></li>"
-                                    +"<li class=\"divider\"></li>"
-                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                            }else{
-                                out.println("<li id=\"logout\"><a class='center' href='#'>"+user.getNome()+"</a></li>"
-                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
-                                    +"<li><a href=\"profilo.jsp\">Profilo</a></li>"
-                                    +"<li class=\"divider\"></li>"
-                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
-                                        }
-                           
-                        }else{
-                            out.println("<li id=\"login\"><a class=\" modal-trigger btn\" data-target=\"form\">Sign in</a></li>");
-                        }
-                    %>
                     <li><a href="index.jsp">Film</a></li>
                     <li><a href="aboutus.jsp">About us</a></li>
+                    <%
+                        if(user!=null){
+                            if(user.getRuolo().equals("admin")){
+                                out.println("<li><a class=\"center\" href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a href=\"amministrazione.jsp\">Amministrazione</a></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }else{
+                                out.println("<li><a class=\"center\"href=\"profilo.jsp\">"+user.getNome()+"</a></li>"
+                                    +"<li class=\"divider\"></li>"
+                                    +"<li><a href=\"acquisti.jsp\">Acquisti</a></li>"
+                                    +"<li><a id=\"side_btn_logout\">Log out</a></li>");
+                            }
+                           
+                        }else{
+                            out.println("<li id=\"login\"><a class=\" modal-trigger\" data-target=\"form\">Sign in</a></li>");
+                        }
+                    %>
                 </ul>
         </div>
     </nav>
@@ -154,36 +150,28 @@
             </div>
         </div>
     <!-- Main central content -->
-    <div id="index_container">
+    <div class="first-container">
         <div class="row">
-            <h5 class="white-text">Dove siamo</h5>
             <div class="col s12 m6">
-                <p class="grey-text text-lighten-4"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1388.7129075311707!2d11.020149873016887!3d45.88279612832539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47820eec18ff6f33%3A0x12423f50a6d6989e!2sVia+alla+Moia%2C+38068+Rovereto+TN!5e0!3m2!1sit!2sit!4v1435409420597" width="100%" height="500px" frameborder="0" style="border:0; z-index:11;" allowfullscreen=""></iframe></p>
+                <p class="grey-text text-lighten-4"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1388.7129075311707!2d11.020149873016887!3d45.88279612832539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47820eec18ff6f33%3A0x12423f50a6d6989e!2sVia+alla+Moia%2C+38068+Rovereto+TN!5e0!3m2!1sit!2sit!4v1435409420597" frameborder="0" style="border:0; z-index:11;" allowfullscreen=""></iframe></p>
             </div>
             <div class="col s12 m6">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius facilisis mi quis lobortis. Praesent consectetur eros sit amet laoreet blandit. 
-                Maecenas vulputate lectus vulputate velit viverra hendrerit. Nam interdum libero sed rhoncus pellentesque. Nam a posuere justo. Donec suscipit, est ac pretium congue, quam
-                eros vehicula odio, quis lobortis eros orci eu mauris. Quisque tempor erat eros, vel rutrum orci mollis nec. Suspendisse metus lacus, ultricies non rutrum eget, finibus quis mi. 
-                Etiam volutpat nulla nulla, et efficitur justo elementum et.
-                Etiam maximus ipsum vulputate, faucibus leo a, eleifend metus. Nulla maximus ornare tempus. Donec volutpat lorem eget purus congue, ac hendrerit dolor rhoncus. Nullam tempus 
-                nulla eu efficitur
-                elementum. Nam lacinia ante at nisl feugiat rutrum. Nullam feugiat, felis eget interdum laoreet, est felis accumsan ex, id iaculis sapien ligula eget lectus. Sed a molestie turpis, 
-                ac bibendum eros. Cras convallis nisi vel nulla ornare suscipit. Maecenas aliquet pretium ipsum sit amet scelerisque. Donec ipsum leo, aliquet nec lorem nec, ornare porta metus. 
-                In et turpis erat. Nulla facilisi. Phasellus efficitur tortor viverra malesuada iaculis. Nulla sodales mi ornare massa tristique, a facilisis tortor eleifend. Nulla facilisi.
-                Etiam diam magna, facilisis eget dictum accumsan, euismod et mi.</p>
+                <div class="row">
+                    <div class="col s12">
+                        <h5 class="white-text">Contatti</h5>            
+                        <ul>
+                            <li class="grey-text text-lighten-3">Ufficio: +00 0202022</li>
+                            <li class="grey-text text-lighten-3">Annullare prenotazioni: +21 212121</li>
+                        </ul>    
+                        <h5 class="white-text">Orario Apertura</h5>            
+                        <ul>
+                            <li class="grey-text text-lighten-3">Lunedì-Giovedì: 10.00-23.00</li>
+                            <li class="grey-text text-lighten-3">Venerdì-Domenica: 16.00-02.30</li>
+                        </ul>
+                  </div>
+                </div>
             </div>
         </div>
-        
-        <h5 class="white-text">Contatti telefonici</h5>            
-        <div class="row">
-            <div class="col l4 offset-l2 s12">
-                <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Ufficio: 000202022 </a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Assistenza: 21212121</a></li>
-                </ul>
-          </div>
-        </div>
-
     </div>
     
     <main></main>

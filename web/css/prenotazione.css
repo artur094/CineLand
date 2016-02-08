@@ -159,7 +159,7 @@ blockquote{
 
 
 .show{
-    display: flex;
+    display: block;
 }
 
 .select-wrapper{
