@@ -196,7 +196,16 @@
                         newpwd:$("#new_password").val()
                     },
                     success:function (data) {
-                        
+                        if(data==="1")
+                        {
+                            Materialize.toast('Password cambiata!', 4000);
+                        }
+                        else{
+                            Materialize.toast('Errore cambio password!', 4000);
+                        }
+                    },
+                    error: function(){
+                            Materialize.toast('Errore cambio password!', 4000);
                     }
                 });
             });
