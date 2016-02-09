@@ -394,9 +394,17 @@ public class Control {
             
             nuovePrenotazioni.add(p);
         }
-
+        
         if(!dbm.testInsertPrenotazioni(nuovePrenotazioni))
             return false;
+        
+        ArrayList<Prenotazione> listPren = new ArrayList<>();
+        for(Prenotazione pren : nuovePrenotazioni)
+        {
+            listPren.add(dbm.getPrenotazione(pren.getSpettacolo().getId(), pren.getUtente().getId(), pren.getPosto().getId()));
+        }
+        nuovePrenotazioni = listPren;
+        
         // CREAZIONE QRCODE
         // CREAZIONE PDF CON UN BIGLIETTO PER PAGINA (CON QRCODE)
         // INVIO EMAIL DEL PDF

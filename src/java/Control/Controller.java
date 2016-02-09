@@ -399,7 +399,7 @@ public class Controller extends HttpServlet {
                 {
                     Integer id_spettacolo = Integer.parseInt(request.getParameter("spettacolo"));
                     try{
-                       boolean esitoOperazione = Control.prenotaFilm(id_spettacolo, user, posti);
+                       boolean esitoOperazione = Control.prenotaFilms(id_spettacolo, user, posti);
                        if(esitoOperazione){
                            response.getWriter().write("1");
                        }else{

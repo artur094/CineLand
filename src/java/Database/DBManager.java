@@ -280,15 +280,15 @@ public class DBManager implements Serializable {
         if(rows<1)
             return false;
         
-        Utente u = getUtente(id_utente);
-        u.setCredito(u.getCredito() + prezzo);
+        //Utente u = getUtente(id_utente);
+        //u.setCredito(u.getCredito() + prezzo);
         
         ps = con.prepareStatement(
                 "UPDATE utente "+
-                "SET credito = ? "+
+                "SET credito = credito + ? "+
                 "WHERE id_utente = ?"
         );
-        ps.setDouble(1, u.getCredito());
+        ps.setDouble(1, prezzo);
         ps.setInt(2, id_utente);
         
         if(ps.executeUpdate() > 0)
@@ -1432,6 +1432,7 @@ public class DBManager implements Serializable {
             }
         }
         con.commit();
+        con.setAutoCommit(true);
         return true;
     }
 }
