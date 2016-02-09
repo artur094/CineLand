@@ -58,17 +58,16 @@
         </nav>
         <section>
             <p>Inserisci la tua email, controlla la tua posta e segui le istruzioni indicate</p>
-            <div id="form">
-                <form class="form">
-                    <div class="row">
-                        <div class="input-field col s12 m5 center">
-                            <input id="email" type="email" class="validate">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="btn" id="btn_send">Invia email</div>
+            <form id="form" class="form">
+                <div class="row">
+                    <div class="input-field col s12 m5 center">
+                        <input id="email" type="email" class="validate">
+                        <label for="email">Email</label>
                     </div>
-                </form>
-            </div>
+                    <div class="btn" id="btn_send">Invia email</div>
+                </div>
+            </form>
+            <p id="error"></p>
         </section>
 
         <main></main>

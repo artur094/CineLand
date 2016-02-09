@@ -188,6 +188,13 @@
                             <li class="grey-text text-lighten-3">Lunedì-Giovedì: 10.00-23.00</li>
                             <li class="grey-text text-lighten-3">Venerdì-Domenica: 16.00-02.30</li>
                         </ul>
+                        <h5 class="white-text">Prezzi</h5>            
+                        <ul>
+                            <li class="grey-text text-lighten-3">Intero: 8&euro;</li>
+                            <li class="grey-text text-lighten-3">Militare: 6&euro;</li>
+                            <li class="grey-text text-lighten-3">Studente: 5&euro;</li>
+                            <li class="grey-text text-lighten-3">Disabile: 5&euro;</li>
+                            <li class="grey-text text-lighten-3">Anziano: 5&euro;</li>
                   </div>
                 </div>
             </div>
