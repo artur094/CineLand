@@ -1410,29 +1410,77 @@ public class DBManager implements Serializable {
     }
     
     
-    public boolean testInsertPrenotazioni(List<Prenotazione> lista) throws SQLException
+    public int testInsertPrenotazioni(List<Prenotazione> lista)
     {
         PreparedStatement ps;
-        con.setAutoCommit(false);
+        int resto = 0;
         
-        for(Prenotazione p:lista)
-        {
-            ps = con.prepareStatement("INSERT INTO prenotazione (id_utente, id_spettacolo, id_prezzo, id_posto, pagato, data_ora_operazione) values (?,?,?,?,?,current_timestamp)");
-            ps.setInt(1, p.getUtente().getId());
-            ps.setInt(2, p.getSpettacolo().getId());
-            ps.setInt(3, getIDPrezzo(p.getTipo_prezzo()));
-            ps.setInt(4, p.getPosto().getId());
-            ps.setBoolean(5, true);
-            
-            ps.execute();
-            if(ps.getUpdateCount()<=0)
+        try{
+            con.setAutoCommit(false);
+
+            for(Prenotazione p:lista)
             {
+                ps = con.prepareStatement("INSERT INTO prenotazione (id_utente, id_spettacolo, id_prezzo, id_posto, pagato, data_ora_operazione) values (?,?,?,?,?,current_timestamp)");
+                ps.setInt(1, p.getUtente().getId());
+                ps.setInt(2, p.getSpettacolo().getId());
+                ps.setInt(3, getIDPrezzo(p.getTipo_prezzo()));
+                ps.setInt(4, p.getPosto().getId());
+                ps.setBoolean(5, true);
+
+                ps.execute();
+                if(ps.getUpdateCount()<=0)
+                {
+                    con.rollback();
+                    return -1;
+                }
+
+
+                ps = con.prepareStatement("UPDATE utente SET credito = credito - ? WHERE id_utente = ? AND credito > ?");
+                ps.setDouble(1, p.getPrezzo());
+                ps.setInt(2, p.getUtente().getId());
+                ps.setDouble(3, p.getPrezzo());
+
+                ps.execute();
+                if(ps.getUpdateCount()<=0)
+                {
+                    resto +=p.getPrezzo();
+                }
+
+            }
+            con.commit();
+            con.setAutoCommit(true);
+        }catch(SQLException ex)
+        {
+            try{
                 con.rollback();
-                return false;
+                con.setAutoCommit(true);
+            }catch(SQLException sqlex)
+            {
+                return -1;
             }
         }
-        con.commit();
-        con.setAutoCommit(true);
-        return true;
+        
+        return resto;
+    }
+    
+    public double getPrezzo(String prezzo) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT prezzo FROM prezzo WHERE tipo = ?");
+        ps.setString(1,prezzo);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+            return rs.getDouble("prezzo");
+        return 0;
+    }
+    
+    public double getCreditoUtente(int id_utente) throws SQLException
+    {
+        PreparedStatement ps = con.prepareStatement("SELECT credito FROM utente WHERE id_utente = ?");
+        ps.setInt(1, id_utente);
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+            return rs.getDouble("credito");
+        return 0;
     }
 }

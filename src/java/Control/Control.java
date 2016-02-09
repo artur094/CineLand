@@ -386,6 +386,7 @@ public class Control {
 
             id_posto = dbm.getIDPosto(s.getSala().getId(), riga, colonna);
             p = new Prenotazione();
+            p.setPrezzo(dbm.getPrezzo(prezzo));
             p.setTipo_prezzo(prezzo);
             p.setPosto(dbm.getPosto(id_posto));
             p.setSpettacolo(dbm.getSpettacolo(id_spettacolo));
@@ -394,9 +395,11 @@ public class Control {
             
             nuovePrenotazioni.add(p);
         }
-        
-        if(!dbm.testInsertPrenotazioni(nuovePrenotazioni))
+        double resto = dbm.testInsertPrenotazioni(nuovePrenotazioni);
+        if(resto < 0)
             return false;
+        
+        //Pagamento
         
         ArrayList<Prenotazione> listPren = new ArrayList<>();
         for(Prenotazione pren : nuovePrenotazioni)

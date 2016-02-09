@@ -317,7 +317,7 @@ public class Controller extends HttpServlet {
                     
                     if(test.getId() == user.getId() && test.getEmail().equals(user.getEmail()) && test.getNome().equals(user.getNome()))
                     {
-                        if(Control.cambiaPassword(email,user.getNome(), password,password_nuova))
+                        if(Control.cambiaPassword(user.getEmail(),user.getNome(), password,password_nuova))
                         {
                             response.getWriter().write("1");
                         }
@@ -394,6 +394,30 @@ public class Controller extends HttpServlet {
                 break;
             case "prenota":
                 //aggiungere pagamento
+               
+                try{
+                    String titolare = (String)request.getParameter("titolare");
+                    long numero_carta = Long.parseLong(request.getParameter("numero_carta"));
+                    int cvv = Integer.parseInt(request.getParameter("cvv"));
+                    int mese = Integer.parseInt(request.getParameter("mese"));
+                    int anno = Integer.parseInt(request.getParameter("anno"));
+                    
+                    if(titolare==null || titolare == "" || 
+                            mese < 1 || mese > 12 || 
+                            anno < 2016 ||
+                            String.valueOf(cvv).length()!=3 || String.valueOf(numero_carta).length()!=16)
+                    {
+                        response.getWriter().write("0");
+                        return;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    response.getWriter().write("0");
+                    return;
+                }
+                
+                
                 user = (Utente)request.getSession().getAttribute("user");
                 if(user != null)
                 {

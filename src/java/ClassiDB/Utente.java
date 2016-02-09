@@ -18,7 +18,6 @@ public class Utente {
     protected String email;
     protected String ruolo;
     protected double credito;
-    protected double totalePagato;
 
     /**
      * Costruttore vuoto per settare i dati con i set
@@ -29,7 +28,6 @@ public class Utente {
         email="";
         ruolo="";
         credito=0.0;
-        totalePagato=0.0;
     }
     
     /**
@@ -48,7 +46,7 @@ public class Utente {
         this.email = u.email;
         this.ruolo = u.ruolo;
         this.credito = u.credito;
-        this.totalePagato = dbm.totalePagato(id);
+        //this.totalePagato = dbm.totalePagato(id);
     }
 
     public int getId() {
@@ -84,14 +82,33 @@ public class Utente {
     }
 
     public double getCredito() {
-        return credito;
+        try{
+            DBManager dbm = DBManager.getDBManager();
+            return dbm.getCreditoUtente(id);
+        }
+        catch(Exception ex)
+        {
+            return 0;
+        }
     }
 
     public void setCredito(double credito) {
         this.credito = credito;
     }
+    
+    public double getCreditoLocale()
+    {
+        return credito;
+    }
 
     public double getTotalePagato() {
-        return totalePagato;
+        try{
+            DBManager dbm = DBManager.getDBManager();
+            return dbm.totalePagato(id);
+        }
+        catch(Exception ex)
+        {
+            return 0;
+        }
     }    
 }
