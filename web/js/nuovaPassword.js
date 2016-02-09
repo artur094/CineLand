@@ -17,9 +17,10 @@ $(document).ready(function() {
                 },
                 success:function (data) {
                     if(data==="1"){
-                        
+                        $('#error').append('<p>Password cambiata con successo</p>')
+                        window.location.replace("/NuovoBackend/index.jsp");
                     }else{
-                        
+                        $('#error').append('<p>Email inviata, controlla la tua casella di posta</p>')
                     }
                 }
             })
