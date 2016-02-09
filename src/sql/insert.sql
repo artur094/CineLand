@@ -197,7 +197,7 @@ INSERT INTO GENERE (DESCRIZIONE) VALUES
 --tabella prezzo
 INSERT INTO PREZZO (TIPO, PREZZO) VALUES
 	('normale', 8.0),
-	('ridotto', 4.0),
+	('anziano', 5.0),
 	('studente', 5.0),
 	('militare', 6.0),
 	('disabile', 5.0);

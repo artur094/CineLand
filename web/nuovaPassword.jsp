@@ -12,7 +12,7 @@
         <link type="text/css" rel="stylesheet" href="css/master.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="css/recuperoPassword.css"  media="screen,projection"/>
 
-        <title>JSP Page</title>
+        <title>Cambio password</title>
     </head>
     <%!
         boolean privacy = false;
@@ -60,26 +60,26 @@
             </div>
         </nav>
         <section>
-            <p>Cambio password</p>
-            <div id="form">
-                <form class="form">
-                    <div class="row">
-                        <div class="input-field col s12 m5 center">
-                            <input id="pass" type="password" class="validate">
-                            <label for="pass">nuova password</label>
-                        </div>
+            <p>Cambio password per <% %></p>
+            <form id="form" class="form">
+                <div class="row">
+                    <div class="input-field col s12 m5 center">
+                        <input id="pass" type="password" class="validate">
+                        <label for="pass">nuova password</label>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12 m5 center">
-                            <input id="npass" type="password" class="validate">
-                            <label for="npass">conferma nuova password</label>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m5 center">
+                        <input id="npass" type="password" class="validate">
+                        <label for="npass">conferma nuova password</label>
                     </div>
-                    <div class="row">
-                        <div class="btn" id="btn_send">Conferma cambio password</div>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="row">
+                    <div class="btn" id="btn_send">Conferma cambio password</div>
+                </div>
+            </form>
+            <p id="error"></p>
+
         </section>
 
         <main></main>
