@@ -20,6 +20,7 @@
     int cookiePos=-1;
 %>
 <%
+    cookiePos = 0;
     Utente user = (Utente)request.getSession().getAttribute("user");
     int id_spettacolo = Integer.parseInt(request.getParameter("id"));    
     spett = new Spettacolo(id_spettacolo);

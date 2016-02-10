@@ -23,6 +23,7 @@
         int cookiePos=-1;
     %>
     <% 
+        cookiePos = 0;
         user = (Utente)request.getSession().getAttribute("user");
         cookies = request.getCookies();
         if(cookies != null)

@@ -28,6 +28,7 @@
         int cookiePos=-1;
     %>
     <% 
+        cookiePos = 0;
         id_film = Integer.parseInt(request.getParameter("id"));
         film = new Film(id_film);
         user = (Utente)request.getSession().getAttribute("user");

@@ -34,9 +34,10 @@
             List<Film> films;
             List<Spettacolo> spett_per_film;
             Cookie cookie;
-            int cookiePos=-1;
+            int cookiePos=0;
         %>
         <%
+            cookiePos = 0;
             user = (Utente)request.getSession().getAttribute("user");           
             films = (Films.getFutureFilms()).getListaFilm(); 
             cookies = request.getCookies();

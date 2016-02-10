@@ -19,6 +19,7 @@
         int cookiePos=-1;
     %>
     <%
+        cookiePos = 0;
             cookies = request.getCookies();
             if(cookies != null)
             {
@@ -34,6 +35,7 @@
             }
     %>  
     <body>
+        
         <%
             if(cookies[cookiePos].getValue().compareTo("true")!=0)
             {

@@ -40,6 +40,7 @@
     </head>
     
     <%
+        cookiePos = 0;
             cookies = request.getCookies();
             if(cookies != null)
             {

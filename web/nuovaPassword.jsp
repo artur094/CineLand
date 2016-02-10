@@ -22,6 +22,7 @@
         int cookiePos=-1;
     %>
     <%
+        cookiePos = 0;
         cookies = request.getCookies();
         if(cookies != null)
         {

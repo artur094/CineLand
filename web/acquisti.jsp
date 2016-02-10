@@ -49,6 +49,7 @@
 
 
     <%
+        cookiePos = 0;
         user = (Utente)request.getSession().getAttribute("user");
         if(user == null) //non è loggato
             throw new RuntimeException();

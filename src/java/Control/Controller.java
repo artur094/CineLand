@@ -397,6 +397,8 @@ public class Controller extends HttpServlet {
                
                 try{
                     String titolare = (String)request.getParameter("titolare");
+                    String numero_cartaString = (String)request.getParameter("numero_carta");
+                    String cvvString = (String)request.getParameter("cvv");
                     long numero_carta = Long.parseLong(request.getParameter("numero_carta"));
                     int cvv = Integer.parseInt(request.getParameter("cvv"));
                     int mese = Integer.parseInt(request.getParameter("mese"));
@@ -405,7 +407,7 @@ public class Controller extends HttpServlet {
                     if(titolare==null || titolare == "" || 
                             mese < 1 || mese > 12 || 
                             anno < 2016 ||
-                            String.valueOf(cvv).length()!=3 || String.valueOf(numero_carta).length()!=16)
+                            cvvString.length()!=3 || numero_cartaString.length()!=16)
                     {
                         response.getWriter().write("0");
                         return;
