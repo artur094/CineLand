@@ -118,6 +118,7 @@ $(document).ready(function() {
             },
             success:function (data) {
                 sc.find('unavaible').status('available');
+                sc.find('selected').status('available');
                 sc.get(data).status('unavailable');
             }
         });
@@ -279,8 +280,8 @@ $(document).ready(function() {
             success:function (data) {
                 aggiorna(id_spett);
                 console.log(data);
+                $('#selected-seats').empty()
                 if(data=="1"){
-                    $('#selected-seats').empty();
                     $('.waiting').fadeOut(function(){
                         $('.msgPagamento').text("Prenotazione confermata");
                         $('.msgPagamento').fadeIn();
@@ -293,12 +294,11 @@ $(document).ready(function() {
                 }
             },
             error:function(){
-                aggiorna(id_spett);
-                $('#selected-seats').empty();
-                $('.msgErrore').text("Prenotazione rifiutata! Posti non disponibili oppure carta non valida");
-                $('.waiting').hide(function(){
-                    
-                $('.msgErrore').delay(500).fadeIn();
+                    aggiorna(id_spett);
+                    $('#selected-seats').empty()
+                    $('.msgErrore').text("Prenotazione rifiutata! Posti non disponibili oppure carta non valida")
+                    $('.waiting').hide(function(){    
+                    $('.msgErrore').delay(500).fadeIn()
                 });
             }
         });
