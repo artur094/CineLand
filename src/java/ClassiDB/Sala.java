@@ -23,7 +23,10 @@ public class Sala {
     protected List<Posto> posti_inesistenti;
     //protected Posto[][] mappa;
 
-    
+    /**
+     *Metodo statico per ottenere una sala dall'id dello spettacolo.
+     * @return sala in cui si tiene lo spettacolo con quell'id
+     */
     static public Sala getSalaBySpett(int id_spett) throws SQLException, ClassNotFoundException
     {
         DBManager dbm = DBManager.getDBManager();
@@ -95,7 +98,10 @@ public class Sala {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+/**
+     * Ritorna il numero di righe della sala 
+     * @return numero righe della sala 
+     */
     public int getNumeroRighe() {
         return n_righe;
     }
@@ -103,7 +109,10 @@ public class Sala {
     public void setNumeroRighe(int n_righe) {
         this.n_righe = n_righe;
     }
-
+/**
+     * Ritorna il numero di colonne della sala 
+     * @return numero colonne della sala 
+     */
     public int getNumeroColonne() {
         return n_colonne;
     }

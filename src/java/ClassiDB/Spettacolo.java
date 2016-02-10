@@ -41,7 +41,10 @@ public class Spettacolo {
         this.sala = s.sala;
         this.data_ora = s.data_ora;
     }
-
+/**
+ *Ritorna ID dello spettacolo.
+ * @return id dello spettacolo
+ */
     public int getId() {
         return id;
     }
@@ -57,7 +60,10 @@ public class Spettacolo {
     public void setFilm(Film film) {
         this.film = film;
     }
-
+/**
+ *Ritorna l'oggetto sala in cui si tiene quello spettacolo.
+ * @return sala in cui si svolge quello spettacolo.
+ */
     public Sala getSala() {
         return sala;
     }
@@ -65,7 +71,10 @@ public class Spettacolo {
     public void setSala(Sala sala) {
         this.sala = sala;
     }
-
+/**
+ *Ritorna l'oggetto Calendar rappresentante l'ora e la data in cui si tiene quello spettacolo.
+ * @return Data e ora in cui si tiene lo spettacolo.
+ */
     public Calendar getData_ora() {
         return data_ora;
     }
