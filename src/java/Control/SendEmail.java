@@ -99,7 +99,7 @@ public class SendEmail extends javax.mail.Authenticator{
         DataSource dataSource = new ByteArrayDataSource(tickets_bytes, "application/pdf");
         MimeBodyPart pdfBodyPart = new MimeBodyPart();
         pdfBodyPart.setDataHandler(new DataHandler(dataSource));
-        pdfBodyPart.setFileName("test.pdf");
+        pdfBodyPart.setFileName("tickets.pdf");
 
         //construct the mime multi part
         MimeMultipart mimeMultipart = new MimeMultipart();

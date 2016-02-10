@@ -136,22 +136,6 @@ public class Controller extends HttpServlet {
 
                     response.setContentType("application/pdf");
                     pdf.costruisciPdf("Biglietto", response.getOutputStream());
-                  
-                    /*  Sala s = new Sala(1);
-                    out.println("TOSTRING");
-                    out.println(s.toString());
-                    out.println("STRING[][]");
-                    String[][] mappa = s.getStringMappa();
-                    
-                    for(int i = 0;i < mappa.length;i++)
-                    {
-                        for(int j=0;j<mappa[i].length; j++)
-                        {
-                            out.print(mappa[i][j]);
-                        }
-                        out.println();
-                    }*/
-                    
                     
                 }catch(Exception e)
                 {
