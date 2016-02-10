@@ -172,7 +172,7 @@
             </div>
         </div>
     <!-- Main central content -->
-    <div class="first-container">
+    <div class="first-container container">
         <div class="row">
             <div class="col s12 m6">
                 <p class="grey-text text-lighten-4"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1388.7129075311707!2d11.020149873016887!3d45.88279612832539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47820eec18ff6f33%3A0x12423f50a6d6989e!2sVia+alla+Moia%2C+38068+Rovereto+TN!5e0!3m2!1sit!2sit!4v1435409420597" frameborder="0" style="border:0; z-index:11;" allowfullscreen=""></iframe></p>
