@@ -2,16 +2,16 @@ $( document ).ready(function(){
     
    $('.formlogin input').keypress(function(e){
       if(e.keyCode===13)
-        $('#btn_login').click();
+        $('#btn_login').click()
     });
     
     $('.formregistra').keypress(function(e){
       if(e.keyCode===13)
-        $('#btn_signup').click();
+        $('#btn_signup').click()
     });
     
     // Initialize collapse button
-    $(".button-collapse").sideNav();
+    $(".button-collapse").sideNav()
     
     $('.modal-trigger').leanModal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -76,14 +76,14 @@ $( document ).ready(function(){
             document.getElementById("email").value = "";
             document.getElementById("password").value = "";
         }
-    });
+    })
     $("#btn_signup").click(function(){
-        var name = document.getElementById("first_name").value;
-        var email = document.getElementById("email_sgnup").value;
-        var pwd = document.getElementById("password_sgnup").value;
+        var name = document.getElementById("first_name").value
+        var email = document.getElementById("email_sgnup").value
+        var pwd = document.getElementById("password_sgnup").value
         if(email==="" || pwd === "" || name==""){
-            var $toastContent = $('<span>Tutti i campi sono obbligatori</span>');
-            Materialize.toast($toastContent, 3000);
+            var $toastContent = $('<span>Tutti i campi sono obbligatori</span>')
+            Materialize.toast($toastContent, 3000)
         }else{
             $.ajax({
             type : 'POST',
@@ -95,13 +95,17 @@ $( document ).ready(function(){
                 pwd: pwd
             },
             success:function (data) {
+                if(data="0")
+                    alert("Ti è stata inviata una e-mail al tuo indirizzo. Controlla la posta.")        
+                else
+                    alert("Erroe Signup; Riprova")
                 $('#form').closeModal();
-                alert("Ti è stata inviata una e-mail al tuo indirizzo. Controlla la posta.");        
+                
             }
             });
-            document.getElementById("email_sgnup").value = "";
-            document.getElementById("password_sgnup").value = "";
-            document.getElementById("first_name").value = "";
+            document.getElementById("email_sgnup").value = ""
+            document.getElementById("password_sgnup").value = ""
+            document.getElementById("first_name").value = ""
 
         }
     });
