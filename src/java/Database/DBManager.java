@@ -257,43 +257,71 @@ public class DBManager implements Serializable {
      * @return True se OK, False altrimenti
      * @throws SQLException 
      */
-    public boolean rimborsaPrenotazione(int id_prenotazione) throws SQLException
+    public boolean rimborsaPrenotazione(int id_prenotazione)
     {
-        PreparedStatement ps = con.prepareStatement(
-                "SELECT pr.prezzo, p.id_utente FROM prenotazione AS p, prezzo AS pr WHERE p.id_prezzo = pr.id_prezzo AND p.id_prenotazione = ?"
-        );
-        ps.setInt(1,id_prenotazione);
-        
-        ResultSet rs = ps.executeQuery();
-        
-        if(!rs.next())
+        try{
+            con.setAutoCommit(false);
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT pr.prezzo, p.id_utente FROM prenotazione AS p, prezzo AS pr WHERE p.id_prezzo = pr.id_prezzo AND p.id_prenotazione = ?"
+            );
+            ps.setInt(1,id_prenotazione);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(!rs.next())
+            {
+                con.rollback();
+                con.setAutoCommit(true);
+                return false;
+            }
+
+            int id_utente = rs.getInt("id_utente");
+            double prezzo = rs.getDouble("prezzo") * 0.8;
+
+            ps = con.prepareStatement("DELETE FROM prenotazione WHERE id_prenotazione = ?");
+            ps.setInt(1,id_prenotazione);
+
+            int rows = ps.executeUpdate();
+
+            if(rows<1)
+            {
+                con.rollback();
+                con.setAutoCommit(true);
+                return false;
+            }
+
+            //Utente u = getUtente(id_utente);
+            //u.setCredito(u.getCredito() + prezzo);
+
+            ps = con.prepareStatement(
+                    "UPDATE utente "+
+                    "SET credito = credito + ? "+
+                    "WHERE id_utente = ?"
+            );
+            ps.setDouble(1, prezzo);
+            ps.setInt(2, id_utente);
+
+            if(ps.executeUpdate() > 0)
+            {
+                con.rollback();
+                con.setAutoCommit(true);
+                return true;
+            }
+            con.rollback();
+            con.setAutoCommit(true);
             return false;
-        
-        int id_utente = rs.getInt("id_utente");
-        double prezzo = rs.getDouble("prezzo") * 0.8;
-        
-        ps = con.prepareStatement("DELETE FROM prenotazione WHERE id_prenotazione = ?");
-        ps.setInt(1,id_prenotazione);
-        
-        int rows = ps.executeUpdate();
-        
-        if(rows<1)
+        }catch(SQLException ex)
+        {
+            try{
+                con.rollback();
+                con.setAutoCommit(true);
+            }
+            catch(SQLException sqlex)
+            {
+                
+            }
             return false;
-        
-        //Utente u = getUtente(id_utente);
-        //u.setCredito(u.getCredito() + prezzo);
-        
-        ps = con.prepareStatement(
-                "UPDATE utente "+
-                "SET credito = credito + ? "+
-                "WHERE id_utente = ?"
-        );
-        ps.setDouble(1, prezzo);
-        ps.setInt(2, id_utente);
-        
-        if(ps.executeUpdate() > 0)
-            return true;
-        return false;
+        }
     }
             
     
@@ -1414,7 +1442,7 @@ public class DBManager implements Serializable {
     {
         PreparedStatement ps;
         int resto = 0;
-        
+        int id_utente = -1;
         try{
             con.setAutoCommit(false);
 
@@ -1431,23 +1459,26 @@ public class DBManager implements Serializable {
                 if(ps.getUpdateCount()<=0)
                 {
                     con.rollback();
+                    con.setAutoCommit(true);
                     return -1;
                 }
 
 
-                ps = con.prepareStatement("UPDATE utente SET credito = credito - ? WHERE id_utente = ? AND credito > ?");
+                ps = con.prepareStatement("UPDATE utente SET credito = credito - ? WHERE id_utente = ?");
                 ps.setDouble(1, p.getPrezzo());
                 ps.setInt(2, p.getUtente().getId());
-                ps.setDouble(3, p.getPrezzo());
 
                 ps.execute();
                 if(ps.getUpdateCount()<=0)
                 {
                     resto +=p.getPrezzo();
                 }
-
+                id_utente = p.getId();
             }
+            ps = con.prepareStatement("UPDATE utente SET credito = 0 WHERE id_utente = ? AND credito<0");
+            ps.setInt(1, id_utente);
             con.commit();
+            
             con.setAutoCommit(true);
         }catch(SQLException ex)
         {
