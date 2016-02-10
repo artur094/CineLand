@@ -395,8 +395,7 @@ public class Control {
             switch(prezzo.toUpperCase())
             {
                 case "N": prezzo = "normale"; break;
-                case "A": prezzo = "ridotto"; break;
-                case "R": prezzo = "ridotto"; break;
+                case "A": prezzo = "anziano"; break;
                 case "S": prezzo = "studente";break;
                 case "M": prezzo = "militare";break;
                 case "D": prezzo = "disabile";break;
