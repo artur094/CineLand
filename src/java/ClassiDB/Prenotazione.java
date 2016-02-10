@@ -67,6 +67,10 @@ public class Prenotazione {
         this.utente = utente;
     }
 
+    /**
+ *Ritorna l'oggetto spettacolo di quella prenotazione.
+ * @return spettacolo prenotato da quella prenotazione
+ */
     public Spettacolo getSpettacolo() {
         return spettacolo;
     }
@@ -75,6 +79,10 @@ public class Prenotazione {
         this.spettacolo = spettacolo;
     }
 
+    /**
+ *Ritorna l'oggetto posto che è stato prenotato in quella prenotazione.
+ * @return posto prenotato in quella prenotazione
+ */
     public Posto getPosto() {
         return posto;
     }
@@ -106,7 +114,10 @@ public class Prenotazione {
     public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
-
+/**
+ * Ritorna la fascia di prezzo di quella prenotazione
+ * @return fascia / tipo prezzo di quella prenotazione
+ */
     public String getTipo_prezzo() {
         return tipo_prezzo;
     }
@@ -120,11 +131,17 @@ public class Prenotazione {
     public Calendar getData_ora_operazione() {
         return data_ora_operazione;
     }
-
+/**
+ *Ritorna l'oggetto Calendar rappresentante l'ora e la data in cui la prenotazione è stata creata.
+ * @return Data e ora in cui la prenotazione è stata create.
+ */
     public void setData_ora_operazione(Calendar data_ora_operazione) {
         this.data_ora_operazione = data_ora_operazione;
     }
-
+/**
+ * Ritorna true se il prezzo della prenotazione è stato pagato.
+ * @return true se la prenotazione è stata pagata
+ */
     public boolean isPagato() {
         return pagato;
     }

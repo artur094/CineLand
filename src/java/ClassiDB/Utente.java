@@ -31,7 +31,7 @@ public class Utente {
     }
     
     /**
-     * Costruttore che crea l'utente in base all'id dato
+     * Costruttore che crea l'utente in base all'id dato; ritorna null se l'utente non esiste nel database.
      * @param id ID utente
      * @throws SQLException
      * @throws ClassNotFoundException 
@@ -42,13 +42,19 @@ public class Utente {
         DBManager dbm = DBManager.getDBManager();
         Utente u = dbm.getUtente(id);
         
-        this.name = u.name;
-        this.email = u.email;
-        this.ruolo = u.ruolo;
-        this.credito = u.credito;
+        if(u != null){
+            this.name = u.name;
+            this.email = u.email;
+            this.ruolo = u.ruolo;
+            this.credito = u.credito;
+        }
+        
         //this.totalePagato = dbm.totalePagato(id);
     }
-
+/**
+ *Ritorna l'id dell'utente all'interno del database.
+ * @return l'id del database
+ */
     public int getId() {
         return id;
     }
@@ -57,6 +63,10 @@ public class Utente {
         this.id = id;
     }
 
+    /**
+ *Ritorna Nome dell'utente all'interno del database.
+ * @return nome dell'utente
+ */
     public String getNome() {
         return name;
     }
@@ -64,7 +74,10 @@ public class Utente {
     public void setNome(String nome) {
         this.name = nome;
     }
-
+   /**
+ *Ritorna Email dell'utente all'interno del database.
+ * @return Email dell'utente
+ */
     public String getEmail() {
         return email;
     }
@@ -72,7 +85,10 @@ public class Utente {
     public void setEmail(String email) {
         this.email = email;
     }
-
+   /**
+ *Ritorna Ruolo dell'utente nel sito.
+ * @return ruolo dell'utente
+ */
     public String getRuolo() {
         return ruolo;
     }
@@ -80,7 +96,10 @@ public class Utente {
     public void setRuolo(String ruolo) {
         this.ruolo = ruolo;
     }
-
+/**
+ *Ritorna il credito totale di un utente.
+ * @return credito totale dell'utente
+ */
     public double getCredito() {
         try{
             DBManager dbm = DBManager.getDBManager();
@@ -95,12 +114,18 @@ public class Utente {
     public void setCredito(double credito) {
         this.credito = credito;
     }
-    
+       /**
+ *.
+ * @return credito dell'utente
+ */
     public double getCreditoLocale()
     {
         return credito;
     }
-
+   /**
+ *Ammontare di quanto ha pagato l'utente.
+ * @return nome dell'utente
+ */
     public double getTotalePagato() {
         try{
             DBManager dbm = DBManager.getDBManager();
