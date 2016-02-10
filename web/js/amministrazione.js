@@ -224,4 +224,9 @@ $(document).ready(function() {
             error:function(){console.log("errore");}
         });
     });
+    
+    $('#cerca_user').keypress(function(e){
+      if(e.keyCode===13)
+        $('#btn_find').click();
+    });
 });
