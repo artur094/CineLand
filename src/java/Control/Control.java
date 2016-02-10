@@ -170,7 +170,7 @@ public class Control {
         {
             SendEmail send = SendEmail.getInstance();
             String msg = "Gentile "+nome+
-                            "La sua password è stata cambiata come da lei richiesto.\n"+
+                            "\nLa sua password è stata cambiata come da lei richiesto.\n"+
                             "In caso non sia stato lei, ci avverti immediatamente e le consigliamo di fare la richiesta di password dimenticata, "+
                             "in questo modo riceverà una email di reset password, potrà cambiare la password e riavere il suo account indietro.\n"+
                             "Inoltre le consigliamo di utilizzare una password più resistente.\n"+

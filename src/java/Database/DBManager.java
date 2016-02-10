@@ -303,7 +303,7 @@ public class DBManager implements Serializable {
 
             if(ps.executeUpdate() > 0)
             {
-                con.rollback();
+                con.commit();
                 con.setAutoCommit(true);
                 return true;
             }
@@ -1520,10 +1520,11 @@ public class DBManager implements Serializable {
                 {
                     resto +=p.getPrezzo();
                 }
-                id_utente = p.getId();
+                id_utente = p.getUtente().getId();
             }
             ps = con.prepareStatement("UPDATE utente SET credito = 0 WHERE id_utente = ? AND credito<0");
             ps.setInt(1, id_utente);
+            ps.execute();
             con.commit();
             
             con.setAutoCommit(true);
