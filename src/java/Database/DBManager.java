@@ -637,6 +637,13 @@ public class DBManager implements Serializable {
         }
     }
     
+    /**
+     * Funzione usata per cancellare una lista di prenotazioni, Da usare solo in caso di errore
+     * Altrimenti usare rimborsaPrenotazione
+     * @param lista Lista di prenotazioni da eliminare
+     * @return TRUE se è andata a buon fine, altrimenti false
+     * @throws SQLException 
+     */
     public boolean removePrenotazioni(List<Prenotazione> lista) throws SQLException
     {
         int rows = 0;
@@ -650,6 +657,13 @@ public class DBManager implements Serializable {
         return false;
     }
     
+    /**
+     * Funzione usata per cancellare una prenotazione, Da usare solo in caso di errore
+     * Altrimenti usare rimborsaPrenotazione
+     * @param id_pren ID prenotazione
+     * @return TRUE se è andata a buon fine, false altrimenti
+     * @throws SQLException 
+     */
     public boolean removePrenotazione(int id_pren) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("DELETE FROM prenotazione WHERE id_prenotazione=?");
@@ -663,7 +677,7 @@ public class DBManager implements Serializable {
     }
     
     //USELESS - Prenotazione inserita al momento del pagamento
-    public boolean pagaPrenotazione(int id_utente, int id_spettacolo, int id_posto) throws SQLException
+   /* public boolean pagaPrenotazione(int id_utente, int id_spettacolo, int id_posto) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ? AND id_spettacolo = ? AND id_posto = ?");
         ps.setInt(1, id_utente);
@@ -685,7 +699,7 @@ public class DBManager implements Serializable {
         if(row < 1)
             return false;
         return true;
-    }
+    }*/
     
     // FUNZIONI CHE RECUPERANO UN INSIEME DI CLASSIDB
     
@@ -1060,6 +1074,12 @@ public class DBManager implements Serializable {
         return s;
     }
     
+    /**
+     * Ritorna i posti occupati di uno spettacolo
+     * @param id_spettacolo 
+     * @return
+     * @throws SQLException 
+     */
     public List<Posto> getPostiOccupati(int id_spettacolo) throws SQLException
     {
         List<Posto> lista = new ArrayList<>();
@@ -1074,6 +1094,12 @@ public class DBManager implements Serializable {
         return lista;
     }
     
+    /**
+     * Ritorna lista dei posti inesistenti (rotti)
+     * @param id_sala ID della sala
+     * @return Lista di posti che non esistono (rotti) della mappa
+     * @throws SQLException 
+     */
     public List<Posto> getPostiInesistenti(int id_sala) throws SQLException
     {
         List<Posto> lista = new ArrayList<>();
@@ -1088,6 +1114,11 @@ public class DBManager implements Serializable {
         return lista;
     }
     
+    /**
+     * Funzione che ritorna le sale del database
+     * @return Lista di sale
+     * @throws SQLException 
+     */
     public List<Sala> getSale() throws SQLException
     {
         List<Sala> sale = new ArrayList<>();
@@ -1105,6 +1136,12 @@ public class DBManager implements Serializable {
         return sale;
     }
     
+    /**
+     * Ritorna l'id della sala dato lo spettacolo
+     * @param id_spettacolo ID dello spettacolo
+     * @return ID della sala
+     * @throws SQLException 
+     */
     public int getIDSalaBySpett(int id_spettacolo) throws SQLException
     {
         int id_sala = -1;
@@ -1426,6 +1463,12 @@ public class DBManager implements Serializable {
         return -1;
     }
     
+    /**
+     * Funzione per ottenere l'id del prezzo dal tipo prezzo
+     * @param tipo_prezzo Tipo prezzo
+     * @return ID del tipo prezzo
+     * @throws SQLException 
+     */
     public int getIDPrezzo(String tipo_prezzo) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_prezzo FROM prezzo WHERE tipo = ?");
@@ -1437,7 +1480,11 @@ public class DBManager implements Serializable {
         return -1;
     }
     
-    
+    /**
+     * Funzione che inserisce le prenotazioni usando una transazione
+     * @param lista Lista di prenotazioni
+     * @return resto del prezzo da pagare (scalato dall'utente)
+     */
     public int testInsertPrenotazioni(List<Prenotazione> lista)
     {
         PreparedStatement ps;
@@ -1494,6 +1541,12 @@ public class DBManager implements Serializable {
         return resto;
     }
     
+    /**
+     * Funzione per ottenere il prezzo double dal tipo
+     * @param prezzo Tipo prezzo
+     * @return Prezzo del tipo prezzo
+     * @throws SQLException 
+     */
     public double getPrezzo(String prezzo) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT prezzo FROM prezzo WHERE tipo = ?");
@@ -1504,6 +1557,12 @@ public class DBManager implements Serializable {
         return 0;
     }
     
+    /**
+     * Funzione che ritorna il credito dell'utente
+     * @param id_utente ID utente
+     * @return Credito dell'utente
+     * @throws SQLException 
+     */
     public double getCreditoUtente(int id_utente) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT credito FROM utente WHERE id_utente = ?");

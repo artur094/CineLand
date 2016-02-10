@@ -581,29 +581,6 @@ public class Controller extends HttpServlet {
         }
     }
     
-    /**
-     * Funzione per la gestione degli errori
-     * @param error 
-     */
-    protected void error(String error)
-    {
-        switch(error)
-        {
-            case "login":
-                // Redirezionare ad una pagina, segnalando l'errore di login
-                break;
-            case "signup":
-                // Redirezionare ad una pagina, segnalando l'errore di registrazione
-                break;
-            case "resetpwd":
-                // Redirezionare ad una pagina, segnalando che l'email non esiste nel DB
-                break;
-            default:
-                // Redirezionare alla pagina di errore, segnalando errore generico
-                break;
-        }
-    }
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

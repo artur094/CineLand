@@ -118,6 +118,11 @@ public class Control {
         }
     }
     
+    /**
+     * Recupera la email dalla tabella password_dimenticata usando codice
+     * @param code Codice inviato tramite email
+     * @return email
+     */
     public static String getEmailFromCode_ForgottenPassword(String code)
     {
         try{
@@ -331,6 +336,11 @@ public class Control {
         }
     }
     
+    /**
+     * Funzione che controlla se la email è strutturalmente valida
+     * @param email Email da controllare
+     * @return True se è 'legale' false altrimenti
+     */
     public static boolean checkEmail(String email)
     {
         String[] vett = email.split("@");
@@ -341,7 +351,18 @@ public class Control {
         return true;
     }
     
-    
+    /**
+     * Funzione per inserire più film nel database con la transazione
+     * @param id_spettacolo ID dello spettacolo
+     * @param utente Utente che prenota
+     * @param posti Stringa contenente i posti
+     * @return True se ok, false altrimenti
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * @throws MessagingException
+     * @throws DocumentException
+     * @throws IOException 
+     */
     public static boolean prenotaFilms(int id_spettacolo, Utente utente, String posti) 
             throws SQLException, ClassNotFoundException, MessagingException, DocumentException, IOException
     {

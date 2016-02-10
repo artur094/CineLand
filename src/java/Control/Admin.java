@@ -107,6 +107,13 @@ public class Admin {
         return dbm.rimborsaPrenotazione(id_prenotazione);
     }
     
+    /**
+     * Funzione che recupera la sala dato l'id
+     * @param id_sala Id della sala
+     * @return Sala sala dell'id
+     * @throws SQLException
+     * @throws Exception 
+     */
     public Sala getSala(int id_sala) throws SQLException, Exception
     {
         return dbm.getSalaConPostiPiuPrenotati(id_sala);

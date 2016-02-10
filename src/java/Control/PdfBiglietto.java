@@ -170,7 +170,11 @@ public class PdfBiglietto {
     public ByteArrayOutputStream getPDF() {
         return datiBiglietto;
     }
-
+    
+    /**
+     * Cambia le prenotazioni attuali con quelle passate in input
+     * @param prenotazioni Lista di prenotazioni
+     */
     public void setPrenotazioni(ArrayList<Prenotazione> prenotazioni) {
         this.prenotazioni = prenotazioni;
     }
