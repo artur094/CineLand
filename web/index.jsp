@@ -58,6 +58,7 @@
 
     <body>
         <%
+            if(cookies != null)
             if(cookies[cookiePos].getValue().compareTo("true")!=0)
             {
                 out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
