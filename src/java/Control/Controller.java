@@ -177,7 +177,8 @@ public class Controller extends HttpServlet {
                     }
                     catch(Exception ex)
                     {
-                        throw new ServletException(ex);
+                        user=null;
+                        //throw new ServletException(ex);
                     }
                     if(user != null)
                     {
@@ -227,15 +228,18 @@ public class Controller extends HttpServlet {
                         if(Control.signUp(email,name, password, request.getRequestURL().toString()))
                         {
                             //REDIRECT
+                            response.getWriter().write("1");
                         }
                         else 
                         {
-                            error("signup");
+                            //error("signup");
+                            response.getWriter().write("0");
                         }
                     }
                     catch(Exception ex)
                     {
-                        throw new ServletException(ex);
+                        response.getWriter().write("0");
+                        //throw new ServletException(ex);
                     }
                 }
                 break;
@@ -255,7 +259,7 @@ public class Controller extends HttpServlet {
             case "pswdimenticata":
                 if(!Control.checkEmail(email)){
                     response.getWriter().write("0");
-                    throw new ServletException("Errore email");
+                    //throw new ServletException("Errore email");
                 }
                 try{
                     if(Control.passwordDimenticata(email, request.getRequestURL().toString()))
@@ -283,12 +287,13 @@ public class Controller extends HttpServlet {
                     request.getSession().setAttribute("codice", code);
                     RequestDispatcher disp = request.getRequestDispatcher("nuovaPassword.jsp");
                     disp.forward(request, response);
+                    
                 }
                 else
                 {
                     RequestDispatcher disp = request.getRequestDispatcher("index.jsp");
                     disp.forward(request, response);
-                    return;
+                    
                     //throw new ServletException("Errore codice inserito per il reset password");
                 }
                 //return;
@@ -322,10 +327,12 @@ public class Controller extends HttpServlet {
                 if(password == null)
                 {
                     //ERRORE
+                    response.getWriter().write("0");
                 }
                 else if(password == "")
                 {
                     // ERRORE
+                    response.getWriter().write("0");
                 }
                 else 
                 {
@@ -353,7 +360,8 @@ public class Controller extends HttpServlet {
                     }
                     catch(Exception ex)
                     {
-                        throw new ServletException(ex);
+                        response.getWriter().write("0");
+                        //throw new ServletException(ex);
                     }
                 }
                 break;
@@ -373,7 +381,7 @@ public class Controller extends HttpServlet {
                 }
                 catch(Exception ex)
                 {
-                    throw new ServletException(ex);
+                    throw new ServletException("Errore nell'abilitazione dell'account");
                 }
                 break;
             case "prenota":
@@ -418,7 +426,7 @@ public class Controller extends HttpServlet {
                     }catch(Exception ex)
                     {
                         response.getWriter().write(ex.toString());
-                        throw new ServletException(ex);
+                        //throw new ServletException(ex);
                     }
                 }
                 else
@@ -428,6 +436,8 @@ public class Controller extends HttpServlet {
                 }
                 break;
             case "paga":
+                //LOL
+                // non ho soldi...
                 break;
             
             case "creabuco":
@@ -557,9 +567,13 @@ public class Controller extends HttpServlet {
                     }
                     catch(Exception ex)
                     {
-                        response.getWriter().write("1");   
+                        response.getWriter().write("0");   
                         //throw new ServerException("Errore Server Interno");
                     }
+                }
+                else
+                {
+                    response.getWriter().write("0");  
                 }
                 break;
                 default:

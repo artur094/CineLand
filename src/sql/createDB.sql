@@ -107,4 +107,7 @@ CREATE TABLE password_dimenticata
     CONSTRAINT pd_code_email_pk PRIMARY KEY (email,codice)
 );
 
-
+CREATE INDEX postoIndex ON posto(id_sala, riga, colonna);
+CREATE INDEX utenteIndex ON utente(email);
+CREATE INDEX password_dimenticataIndex ON password_dimenticata(codice);
+CREATE INDEX prenotazioneIndex ON prenotazione(id_spettacolo, id_utente, id_posto);
