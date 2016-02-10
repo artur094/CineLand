@@ -70,6 +70,7 @@
 
     <body>
         <%
+        if(cookies != null)
             if(cookies[cookiePos].getValue().compareTo("true")!=0)
             {
                 out.println("<div class=\"divCookies\">Informazione importante sui cookie. Utilizzando questo sito acconsenti all'uso dei cookie in conformità alla nostra <a href=\"cookies.jsp\">Politica sui cookies</a>. <span class=\"btnCookies btn\">Accetto</span></div>");
@@ -131,7 +132,7 @@
                        <li class="tab col s2"><a href="#tab_programmazione">Spettacoli</a></li>
                        <li class="tab col s2"><a href="#tab_incassi">Incassi film</a></li>
                        <li class="tab col s2 "><a href="#tab_clienti">Top clienti</a></li>
-                       <li class="tab col s2"><a href="#tab_piùprenotati">Più prenotati</a></li>
+                       <li class="tab col s2"><a href="#tab_piuprenotati">Più prenotati</a></li>
                        <li class="tab col s2"><a href="#tab_prenotazioni">Annulla prenotazione</a></li>
                    </ul>
             </div>
@@ -214,7 +215,7 @@
             </table>
         </div>
         
-        <div id="tab_piùprenotati" class="container mtab">
+        <div id="tab_piuprenotati" class="container mtab">
             <div class="row">
                 <div class="col s12 m3 lista_spett">
                     <ul>
@@ -226,9 +227,9 @@
                 </div>
                 <div class="col s12 m9 ">
                     <div id="message2">Seleziona una sala</div>
-                    <div class="mappa_piùprenotati container">
+                    <div class="mappa_piuprenotati container">
                         <div class="booking-details">
-                            <div id="legend_piùprenotati"></div>
+                            <div id="legend_piuprenotati"></div>
                         </div>
                         <div class="front">SCREEN</div>					
                     </div>	

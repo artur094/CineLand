@@ -69,7 +69,7 @@ $(document).ready(function() {
         });
     }
     function creaMappaSala(index, id_sala){
-        $('.mappa_piùprenotati').append('<div id="seat-map-sala'+index+'"></div>');
+        $('.mappa_piuprenotati').append('<div id="seat-map-sala'+index+'"></div>');
         $.ajax({
             type : 'POST',
             url : 'Controller',           
