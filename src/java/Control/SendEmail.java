@@ -26,8 +26,9 @@ import javax.mail.util.ByteArrayDataSource;
  * @author Paolo
  */
 public class SendEmail extends javax.mail.Authenticator{
+    //questa email non esiste più, se volete usare questa cosa createvene un'altra!!
     String indirizzo = "progettoweb94@gmail.com";
-    String password = "passwordMoltoSicura";
+    String password = "ok";
     Properties props;
     
     protected static SendEmail sendEmail;
