@@ -73,10 +73,18 @@ public class Spettacoli {
         return s;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Spettacolo> getListaSpettacoli() {
         return listaSpettacoli;
     }
 
+    /**
+     *
+     * @param listaSpettacoli
+     */
     public void setListaSpettacoli(ArrayList<Spettacolo> listaSpettacoli) {
         this.listaSpettacoli = listaSpettacoli;
     }

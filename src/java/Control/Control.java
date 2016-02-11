@@ -45,6 +45,8 @@ public class Control {
      * @param email Email dell'utente
      * @param password Password dell'utente
      * @return Oggetto Utente o null in caso di errore
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     public static Utente logIn(String email, String password) throws ClassNotFoundException, SQLException
     {
@@ -60,6 +62,9 @@ public class Control {
      * @param password Password utente
      * @param url_cineland URL del sito
      * @return True in caso sia andato tutto bene, altrimenti false
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     * @throws javax.mail.MessagingException
      */
     public static boolean signUp(String email, String nome, String password, String url_cineland) throws SQLException, ClassNotFoundException, MessagingException
     {
@@ -83,6 +88,8 @@ public class Control {
      * @param email Email dell'utente
      * @param codice Codice che è stato inviato tramite mail all'utente
      * @return Booleano, True se è OK, false altrimenti
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     public static boolean enableAccount(String email, String codice) throws ClassNotFoundException, SQLException
     {
@@ -95,6 +102,9 @@ public class Control {
      * @param email Email dell'utente
      * @param url_cineland URL sito
      * @return True se c'è corrispondenza nel database e l'email è stata inviata, False altrimenti
+     * @throws java.sql.SQLException
+     * @throws javax.mail.MessagingException
+     * @throws java.lang.ClassNotFoundException
      */
     public static boolean passwordDimenticata(String email, String url_cineland) throws SQLException, ClassNotFoundException, MessagingException
     {
@@ -140,6 +150,8 @@ public class Control {
      * @param password Nuova password
      * @param codice Codice utente
      * @return True se OK, False altrimenti
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     public static boolean resetPassword(String email, String password, String codice) throws SQLException, ClassNotFoundException
     {
@@ -187,6 +199,8 @@ public class Control {
      * @param posti Stringa che contiene i posti da 'cancellare'. Formato stringa: "riga,colonna riga,colonna ... riga,colonna"
      * @param nome_sala Nome della sala a cui effettuare la modifica
      * @return intero che indica quante operazioni sono andate a buon fine
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     public static int creaBuchiSala(String nome_sala, String posti) throws SQLException, ClassNotFoundException
     {
@@ -218,9 +232,14 @@ public class Control {
     /**
      * Funzione statica per la prenotazione di posti per uno spettacolo.
      * @param id_spettacolo ID spettacolo 
-     * @param id_utente ID utente
+     * @param utente Utente
      * @param posti Stringa contenente un insieme di posti 'RIGA,COLONNA,PREZZO' divisi per spazio
      * @return esito della operazione; true se andata a buon fine, false altrimenti. 
+     * @throws java.sql.SQLException 
+     * @throws java.lang.ClassNotFoundException 
+     * @throws javax.mail.MessagingException 
+     * @throws com.itextpdf.text.DocumentException 
+     * @throws java.io.IOException 
      */
     public static boolean prenotaFilm(int id_spettacolo, Utente utente, String posti) 
             throws SQLException, ClassNotFoundException, MessagingException, DocumentException, IOException

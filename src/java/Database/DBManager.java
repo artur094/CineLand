@@ -42,8 +42,16 @@ public class DBManager implements Serializable {
     // Transient: non serializza con
     private transient Connection con;
     // Stringa di collegamento al DB
+
+    /**
+     *
+     */
     protected String URL_DB = "jdbc:derby://localhost:1527/cineland";
     // Implemento Singleton
+
+    /**
+     *
+     */
     protected static DBManager dbm = null;
     
     /**
@@ -255,7 +263,6 @@ public class DBManager implements Serializable {
      * Funzione per il rimborso della prenotazione
      * @param id_prenotazione ID prenotazione (Da cui si recupera utente)
      * @return True se OK, False altrimenti
-     * @throws SQLException 
      */
     public boolean rimborsaPrenotazione(int id_prenotazione)
     {
@@ -335,6 +342,7 @@ public class DBManager implements Serializable {
      * @param email Email dell'utente inserita nella form
      * @param password Password dell'utente inserita nella form
      * @return Oggetto utente
+     * @throws java.sql.SQLException
      */
     public Utente logIn(String email, String password) throws SQLException
     {
@@ -362,6 +370,7 @@ public class DBManager implements Serializable {
      * @param password Password HASHATA inserita dall'utente
      * @param nome Nome dell'utente
      * @return stringa del codice di registrazione
+     * @throws java.sql.SQLException
      */
     public String registrazione(String email, String password, String nome) throws SQLException
     {
@@ -405,6 +414,7 @@ public class DBManager implements Serializable {
      * @param email Email usata per l'account
      * @param code Codice ricevuto via email
      * @return True se OK, False altrimenti
+     * @throws java.sql.SQLException
      */
     public boolean enableAccount(String email, String code) throws SQLException
     {
@@ -1013,6 +1023,8 @@ public class DBManager implements Serializable {
      * Poi pulisco la sala e ci metto come posti occupati i 10 posti più occupati
      * @param id_sala ID della sala, perchè voglio recuperare 
      * @return Sala (vuota)
+     * @throws java.sql.SQLException
+     * @throws java.lang.Exception
      */
     public Sala getSalaConPostiPiuPrenotati(int id_sala) throws SQLException,Exception
     {

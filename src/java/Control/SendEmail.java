@@ -30,6 +30,9 @@ public class SendEmail extends javax.mail.Authenticator{
     String password = "passwordMoltoSicura";
     Properties props;
     
+    /**
+     *
+     */
     protected static SendEmail sendEmail;
     
     /**

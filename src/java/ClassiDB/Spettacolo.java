@@ -14,13 +14,29 @@ import java.util.Calendar;
  * @author Ivan
  */
 public class Spettacolo {
+
+    /**
+     *
+     */
     protected int id;
+
+    /**
+     *
+     */
     protected Film film;
+
+    /**
+     *
+     */
     protected Sala sala;
+
+    /**
+     *
+     */
     protected Calendar data_ora;
 
     /**
-     * Costruttore vuoto per settare i dati con i get&set
+     * Costruttore vuoto per settare i dati con i get e set
      */
     public Spettacolo() {
     }
@@ -49,14 +65,26 @@ public class Spettacolo {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Film getFilm() {
         return film;
     }
 
+    /**
+     *
+     * @param film
+     */
     public void setFilm(Film film) {
         this.film = film;
     }
@@ -68,6 +96,10 @@ public class Spettacolo {
         return sala;
     }
 
+    /**
+     *
+     * @param sala
+     */
     public void setSala(Sala sala) {
         this.sala = sala;
     }
@@ -79,6 +111,10 @@ public class Spettacolo {
         return data_ora;
     }
 
+    /**
+     *
+     * @param data_ora
+     */
     public void setData_ora(Calendar data_ora) {
         this.data_ora = data_ora;
     }

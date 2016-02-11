@@ -14,14 +14,50 @@ import java.util.Calendar;
  * @author Ivan, Paolo
  */
 public class Prenotazione {
+
+    /**
+     *
+     */
     protected int id;
+
+    /**
+     *
+     */
     protected Utente utente;
+
+    /**
+     *
+     */
     protected Spettacolo spettacolo;
+
+    /**
+     *
+     */
     protected Posto posto;
+
+    /**
+     *
+     */
     protected Sala sala;
+
+    /**
+     *
+     */
     protected double prezzo;
+
+    /**
+     *
+     */
     protected String tipo_prezzo;
+
+    /**
+     *
+     */
     protected boolean pagato;
+
+    /**
+     *
+     */
     protected Calendar data_ora_operazione;
 
     /**
@@ -51,18 +87,34 @@ public class Prenotazione {
         this.pagato = p.isPagato();
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Utente getUtente() {
         return utente;
     }
 
+    /**
+     *
+     * @param utente
+     */
     public void setUtente(Utente utente) {
         this.utente = utente;
     }
@@ -75,6 +127,10 @@ public class Prenotazione {
         return spettacolo;
     }
 
+    /**
+     *
+     * @param spettacolo
+     */
     public void setSpettacolo(Spettacolo spettacolo) {
         this.spettacolo = spettacolo;
     }
@@ -87,6 +143,10 @@ public class Prenotazione {
         return posto;
     }
 
+    /**
+     *
+     * @param posto
+     */
     public void setPosto(Posto posto) {
         this.posto = posto;
     }
@@ -99,6 +159,10 @@ public class Prenotazione {
         return sala;
     }
 
+    /**
+     *
+     * @param sala
+     */
     public void setSala(Sala sala) {
         this.sala = sala;
     }
@@ -111,6 +175,10 @@ public class Prenotazione {
         return prezzo;
     }
 
+    /**
+     *
+     * @param prezzo
+     */
     public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
@@ -122,18 +190,24 @@ public class Prenotazione {
         return tipo_prezzo;
     }
 
+    /**
+     *
+     * @param tipo_prezzo
+     */
     public void setTipo_prezzo(String tipo_prezzo) {
         this.tipo_prezzo = tipo_prezzo;
     }
     
-    
-
+    /**
+     *
+     * @return
+     */
     public Calendar getData_ora_operazione() {
         return data_ora_operazione;
     }
 /**
  *Ritorna l'oggetto Calendar rappresentante l'ora e la data in cui la prenotazione è stata creata.
- * @return Data e ora in cui la prenotazione è stata create.
+     * @param data_ora_operazione
  */
     public void setData_ora_operazione(Calendar data_ora_operazione) {
         this.data_ora_operazione = data_ora_operazione;
@@ -146,6 +220,10 @@ public class Prenotazione {
         return pagato;
     }
 
+    /**
+     *
+     * @param pagato
+     */
     public void setPagato(boolean pagato) {
         this.pagato = pagato;
     }

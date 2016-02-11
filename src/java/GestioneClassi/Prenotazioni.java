@@ -70,10 +70,18 @@ public class Prenotazioni {
         return pr;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Prenotazione> getListaPrenotazioni() {
         return listaPrenotazioni;
     }
 
+    /**
+     *
+     * @param listaPrenotazioni
+     */
     public void setListaPrenotazioni(ArrayList<Prenotazione> listaPrenotazioni) {
         this.listaPrenotazioni = listaPrenotazioni;
     }

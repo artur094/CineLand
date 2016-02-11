@@ -13,20 +13,64 @@ import java.sql.SQLException;
  * @author Ivan
  */
 public class Film {
+
+    /**
+     *
+     */
     protected int id;
+
+    /**
+     *
+     */
     protected String titolo;
+
+    /**
+     *
+     */
     protected String genere;
+
+    /**
+     *
+     */
     protected int durata;
+
+    /**
+     *
+     */
     protected String trama;
+
+    /**
+     *
+     */
     protected String url_trailer;
+
+    /**
+     *
+     */
     protected String url_locandina;
+
+    /**
+     *
+     */
     protected String attori;
+
+    /**
+     *
+     */
     protected String regista;
+
+    /**
+     *
+     */
     protected String frase;
+
+    /**
+     *
+     */
     protected double totaleIncassi = 0; //utile solo per amministrazione
 
     /**
-     * Costruttore vuoto, in caso si voglia settare tutto da get&set
+     * Costruttore vuoto, in caso si voglia settare tutto da get e set
      */
     public Film() {
         
@@ -88,12 +132,14 @@ public class Film {
     }
    /**
      * metodo che dal film selezionato ritorna il suo numero identificativo
+     * @return 
     */
     public int getId() {
         return id;
     }
     /**
      * metodo che dal film selezionato ritorna il suo titolo
+     * @return 
     */
     public String getTitolo() {
         return titolo;
@@ -107,6 +153,7 @@ public class Film {
     }
    /**
      * metodo che dal film selezionato ritorna il suo genere
+     * @return 
     */
     public String getGenere() {
         return genere;
@@ -120,6 +167,7 @@ public class Film {
     }
     /**
      * metodo che dal film selezionato ritorna il suo durata
+     * @return 
     */
     public int getDurata() {
         return durata;
@@ -133,6 +181,7 @@ public class Film {
     }
     /**
      * metodo che dal film selezionato ritorna il testo contentente la trama
+     * @return 
     */
     public String getTrama() {
         return trama;
@@ -146,6 +195,7 @@ public class Film {
     }
   /**
      * metodo che dal film selezionato ritorna l'indirizzo URL del trailer
+     * @return 
     */
     public String getUrl_trailer() {
         return url_trailer;
@@ -159,6 +209,7 @@ public class Film {
     }
   /**
      * metodo che dal film selezionato ritorna l'indirizzo URL della locandina associata
+     * @return 
     */
     public String getUrl_locandina() {
         return url_locandina;
@@ -172,6 +223,7 @@ public class Film {
     }
     /**
      * metodo che dal film selezionato ritorna la lista degli attori partecipanti al film 
+     * @return 
     */
     public String getAttori() {
         return attori;
@@ -185,6 +237,7 @@ public class Film {
     }
   /**
      * metodo che dal film selezionato ritorna il nome del regista
+     * @return 
     */
     public String getRegista() {
         return regista;
@@ -198,6 +251,7 @@ public class Film {
     }
   /**
      * metodo che dal film selezionato ritorna la stringa che viene visualizzata come descrizione ridotta della trama
+     * @return 
     */
     public String getFrase() {
         return frase;
@@ -211,6 +265,7 @@ public class Film {
     }
   /**
      * metodo che dal film selezionato ritorna la quantita di incassi
+     * @return 
     */
     public double getTotaleIncassi() {
         return totaleIncassi;

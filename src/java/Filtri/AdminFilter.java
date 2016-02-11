@@ -44,6 +44,9 @@ public class AdminFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
     
+    /**
+     *
+     */
     public AdminFilter() {
     }    
     
@@ -187,6 +190,7 @@ public class AdminFilter implements Filter {
 
     /**
      * Return the filter configuration object for this filter.
+     * @return 
      */
     public FilterConfig getFilterConfig() {
         return (this.filterConfig);
@@ -209,6 +213,7 @@ public class AdminFilter implements Filter {
 
     /**
      * Init method for this filter
+     * @param filterConfig
      */
     public void init(FilterConfig filterConfig) {        
         this.filterConfig = filterConfig;
@@ -264,6 +269,11 @@ public class AdminFilter implements Filter {
         }
     }
     
+    /**
+     *
+     * @param t
+     * @return
+     */
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -278,6 +288,10 @@ public class AdminFilter implements Filter {
         return stackTrace;
     }
     
+    /**
+     *
+     * @param msg
+     */
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);        
     }
