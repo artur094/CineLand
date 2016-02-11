@@ -13,10 +13,30 @@ import java.sql.SQLException;
  * @author Ivan, Paolo
  */
 public class Utente {
+
+    /**
+     *
+     */
     protected int id;
+
+    /**
+     *
+     */
     protected String name;
+
+    /**
+     *
+     */
     protected String email;
+
+    /**
+     *
+     */
     protected String ruolo;
+
+    /**
+     *
+     */
     protected double credito;
 
     /**
@@ -59,6 +79,10 @@ public class Utente {
         return id;
     }
     
+    /**
+     *
+     * @param id
+     */
     public void setId(int id){
         this.id = id;
     }
@@ -71,6 +95,10 @@ public class Utente {
         return name;
     }
 
+    /**
+     *
+     * @param nome
+     */
     public void setNome(String nome) {
         this.name = nome;
     }
@@ -82,6 +110,10 @@ public class Utente {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
@@ -93,6 +125,10 @@ public class Utente {
         return ruolo;
     }
 
+    /**
+     *
+     * @param ruolo
+     */
     public void setRuolo(String ruolo) {
         this.ruolo = ruolo;
     }
@@ -111,6 +147,10 @@ public class Utente {
         }
     }
 
+    /**
+     *
+     * @param credito
+     */
     public void setCredito(double credito) {
         this.credito = credito;
     }

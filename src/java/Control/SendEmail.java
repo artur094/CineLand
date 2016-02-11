@@ -31,6 +31,9 @@ public class SendEmail extends javax.mail.Authenticator{
     String password = "ok";
     Properties props;
     
+    /**
+     *
+     */
     protected static SendEmail sendEmail;
     
     /**
@@ -81,6 +84,14 @@ public class SendEmail extends javax.mail.Authenticator{
         Transport.send(msg);
     }
     
+    /**
+     *Invia una email all'indirizzo specificato con l'allegato.
+     * @param email_dest Email di destinazione
+     * @param titolo Titolo della mail
+     * @param messaggio Messaggio della mail
+     * @param tickets Allegato dei ticket
+     * @throws MessagingException 
+     */
     public void send(String email_dest, String titolo, String messaggio, ByteArrayOutputStream tickets) throws MessagingException
     {
         Session session = Session.getDefaultInstance(props, this);

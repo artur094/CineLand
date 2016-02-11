@@ -35,6 +35,9 @@ public class LoginFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
     
+    /**
+     *
+     */
     public LoginFilter() {
     }    
     
@@ -155,6 +158,7 @@ public class LoginFilter implements Filter {
 
     /**
      * Return the filter configuration object for this filter.
+     * @return 
      */
     public FilterConfig getFilterConfig() {
         return (this.filterConfig);
@@ -177,6 +181,7 @@ public class LoginFilter implements Filter {
 
     /**
      * Init method for this filter
+     * @param filterConfig
      */
     public void init(FilterConfig filterConfig) {        
         this.filterConfig = filterConfig;
@@ -231,6 +236,11 @@ public class LoginFilter implements Filter {
         }
     }
     
+    /**
+     *
+     * @param t
+     * @return
+     */
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -245,6 +255,10 @@ public class LoginFilter implements Filter {
         return stackTrace;
     }
     
+    /**
+     *
+     * @param msg
+     */
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);        
     }

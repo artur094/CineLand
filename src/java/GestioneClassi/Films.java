@@ -59,10 +59,18 @@ public class Films {
         return fs;
     }
 
+    /**
+     *
+     * @param listaFilm
+     */
     public void setListaFilm(ArrayList<Film> listaFilm) {
         this.listaFilm = listaFilm;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Film> getListaFilm() {
         return listaFilm;
     }

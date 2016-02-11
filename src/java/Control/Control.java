@@ -45,6 +45,8 @@ public class Control {
      * @param email Email dell'utente
      * @param password Password dell'utente
      * @return Oggetto Utente o null in caso di errore
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     public static Utente logIn(String email, String password) throws ClassNotFoundException, SQLException
     {
@@ -60,6 +62,9 @@ public class Control {
      * @param password Password utente
      * @param url_cineland URL del sito
      * @return True in caso sia andato tutto bene, altrimenti false
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     * @throws javax.mail.MessagingException
      */
     public static boolean signUp(String email, String nome, String password, String url_cineland) throws SQLException, ClassNotFoundException, MessagingException
     {
@@ -83,6 +88,8 @@ public class Control {
      * @param email Email dell'utente
      * @param codice Codice che è stato inviato tramite mail all'utente
      * @return Booleano, True se è OK, false altrimenti
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     public static boolean enableAccount(String email, String codice) throws ClassNotFoundException, SQLException
     {
@@ -95,6 +102,9 @@ public class Control {
      * @param email Email dell'utente
      * @param url_cineland URL sito
      * @return True se c'è corrispondenza nel database e l'email è stata inviata, False altrimenti
+     * @throws java.sql.SQLException
+     * @throws javax.mail.MessagingException
+     * @throws java.lang.ClassNotFoundException
      */
     public static boolean passwordDimenticata(String email, String url_cineland) throws SQLException, ClassNotFoundException, MessagingException
     {
@@ -118,6 +128,11 @@ public class Control {
         }
     }
     
+    /**
+     * Recupera la email dalla tabella password_dimenticata usando codice
+     * @param code Codice inviato tramite email
+     * @return email
+     */
     public static String getEmailFromCode_ForgottenPassword(String code)
     {
         try{
@@ -135,6 +150,8 @@ public class Control {
      * @param password Nuova password
      * @param codice Codice utente
      * @return True se OK, False altrimenti
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     public static boolean resetPassword(String email, String password, String codice) throws SQLException, ClassNotFoundException
     {
@@ -165,7 +182,7 @@ public class Control {
         {
             SendEmail send = SendEmail.getInstance();
             String msg = "Gentile "+nome+
-                            "La sua password è stata cambiata come da lei richiesto.\n"+
+                            "\nLa sua password è stata cambiata come da lei richiesto.\n"+
                             "In caso non sia stato lei, ci avverti immediatamente e le consigliamo di fare la richiesta di password dimenticata, "+
                             "in questo modo riceverà una email di reset password, potrà cambiare la password e riavere il suo account indietro.\n"+
                             "Inoltre le consigliamo di utilizzare una password più resistente.\n"+
@@ -182,6 +199,8 @@ public class Control {
      * @param posti Stringa che contiene i posti da 'cancellare'. Formato stringa: "riga,colonna riga,colonna ... riga,colonna"
      * @param nome_sala Nome della sala a cui effettuare la modifica
      * @return intero che indica quante operazioni sono andate a buon fine
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     public static int creaBuchiSala(String nome_sala, String posti) throws SQLException, ClassNotFoundException
     {
@@ -213,9 +232,14 @@ public class Control {
     /**
      * Funzione statica per la prenotazione di posti per uno spettacolo.
      * @param id_spettacolo ID spettacolo 
-     * @param id_utente ID utente
+     * @param utente Utente
      * @param posti Stringa contenente un insieme di posti 'RIGA,COLONNA,PREZZO' divisi per spazio
      * @return esito della operazione; true se andata a buon fine, false altrimenti. 
+     * @throws java.sql.SQLException 
+     * @throws java.lang.ClassNotFoundException 
+     * @throws javax.mail.MessagingException 
+     * @throws com.itextpdf.text.DocumentException 
+     * @throws java.io.IOException 
      */
     public static boolean prenotaFilm(int id_spettacolo, Utente utente, String posti) 
             throws SQLException, ClassNotFoundException, MessagingException, DocumentException, IOException
@@ -331,6 +355,11 @@ public class Control {
         }
     }
     
+    /**
+     * Funzione che controlla se la email è strutturalmente valida
+     * @param email Email da controllare
+     * @return True se è 'legale' false altrimenti
+     */
     public static boolean checkEmail(String email)
     {
         String[] vett = email.split("@");
@@ -341,7 +370,18 @@ public class Control {
         return true;
     }
     
-    
+    /**
+     * Funzione per inserire più film nel database con la transazione
+     * @param id_spettacolo ID dello spettacolo
+     * @param utente Utente che prenota
+     * @param posti Stringa contenente i posti
+     * @return True se ok, false altrimenti
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * @throws MessagingException
+     * @throws DocumentException
+     * @throws IOException 
+     */
     public static boolean prenotaFilms(int id_spettacolo, Utente utente, String posti) 
             throws SQLException, ClassNotFoundException, MessagingException, DocumentException, IOException
     {
@@ -374,8 +414,7 @@ public class Control {
             switch(prezzo.toUpperCase())
             {
                 case "N": prezzo = "normale"; break;
-                case "A": prezzo = "ridotto"; break;
-                case "R": prezzo = "ridotto"; break;
+                case "A": prezzo = "anziano"; break;
                 case "S": prezzo = "studente";break;
                 case "M": prezzo = "militare";break;
                 case "D": prezzo = "disabile";break;

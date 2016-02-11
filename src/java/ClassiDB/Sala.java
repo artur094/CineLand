@@ -15,17 +15,44 @@ import java.util.List;
  * @author Ivan
  */
 public class Sala {
+
+    /**
+     *
+     */
     protected int id;
+
+    /**
+     *
+     */
     protected String nome;
+
+    /**
+     *
+     */
     protected int n_righe;
+
+    /**
+     *
+     */
     protected int n_colonne;
+
+    /**
+     *
+     */
     protected List<Posto> posti_occupati;
+
+    /**
+     *
+     */
     protected List<Posto> posti_inesistenti;
     //protected Posto[][] mappa;
 
     /**
      *Metodo statico per ottenere una sala dall'id dello spettacolo.
+     * @param id_spett
      * @return sala in cui si tiene lo spettacolo con quell'id
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     static public Sala getSalaBySpett(int id_spett) throws SQLException, ClassNotFoundException
     {
@@ -106,6 +133,10 @@ public class Sala {
         return n_righe;
     }
 
+    /**
+     *
+     * @param n_righe
+     */
     public void setNumeroRighe(int n_righe) {
         this.n_righe = n_righe;
     }
@@ -117,22 +148,42 @@ public class Sala {
         return n_colonne;
     }
 
+    /**
+     *
+     * @param n_colonne
+     */
     public void setNumeroColonne(int n_colonne) {
         this.n_colonne = n_colonne;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Posto> getPosti_occupati() {
         return posti_occupati;
     }
 
+    /**
+     *
+     * @param posti_occupati
+     */
     public void setPosti_occupati(List<Posto> posti_occupati) {
         this.posti_occupati = posti_occupati;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Posto> getPosti_inesistenti() {
         return posti_inesistenti;
     }
 
+    /**
+     *
+     * @param posti_inesistenti
+     */
     public void setPosti_inesistenti(List<Posto> posti_inesistenti) {
         this.posti_inesistenti = posti_inesistenti;
     }

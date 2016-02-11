@@ -42,8 +42,16 @@ public class DBManager implements Serializable {
     // Transient: non serializza con
     private transient Connection con;
     // Stringa di collegamento al DB
+
+    /**
+     *
+     */
     protected String URL_DB = "jdbc:derby://localhost:1527/cineland";
     // Implemento Singleton
+
+    /**
+     *
+     */
     protected static DBManager dbm = null;
     
     /**
@@ -255,7 +263,6 @@ public class DBManager implements Serializable {
      * Funzione per il rimborso della prenotazione
      * @param id_prenotazione ID prenotazione (Da cui si recupera utente)
      * @return True se OK, False altrimenti
-     * @throws SQLException 
      */
     public boolean rimborsaPrenotazione(int id_prenotazione)
     {
@@ -303,7 +310,7 @@ public class DBManager implements Serializable {
 
             if(ps.executeUpdate() > 0)
             {
-                con.rollback();
+                con.commit();
                 con.setAutoCommit(true);
                 return true;
             }
@@ -335,6 +342,7 @@ public class DBManager implements Serializable {
      * @param email Email dell'utente inserita nella form
      * @param password Password dell'utente inserita nella form
      * @return Oggetto utente
+     * @throws java.sql.SQLException
      */
     public Utente logIn(String email, String password) throws SQLException
     {
@@ -362,6 +370,7 @@ public class DBManager implements Serializable {
      * @param password Password HASHATA inserita dall'utente
      * @param nome Nome dell'utente
      * @return stringa del codice di registrazione
+     * @throws java.sql.SQLException
      */
     public String registrazione(String email, String password, String nome) throws SQLException
     {
@@ -405,6 +414,7 @@ public class DBManager implements Serializable {
      * @param email Email usata per l'account
      * @param code Codice ricevuto via email
      * @return True se OK, False altrimenti
+     * @throws java.sql.SQLException
      */
     public boolean enableAccount(String email, String code) throws SQLException
     {
@@ -637,6 +647,13 @@ public class DBManager implements Serializable {
         }
     }
     
+    /**
+     * Funzione usata per cancellare una lista di prenotazioni, Da usare solo in caso di errore
+     * Altrimenti usare rimborsaPrenotazione
+     * @param lista Lista di prenotazioni da eliminare
+     * @return TRUE se è andata a buon fine, altrimenti false
+     * @throws SQLException 
+     */
     public boolean removePrenotazioni(List<Prenotazione> lista) throws SQLException
     {
         int rows = 0;
@@ -650,6 +667,13 @@ public class DBManager implements Serializable {
         return false;
     }
     
+    /**
+     * Funzione usata per cancellare una prenotazione, Da usare solo in caso di errore
+     * Altrimenti usare rimborsaPrenotazione
+     * @param id_pren ID prenotazione
+     * @return TRUE se è andata a buon fine, false altrimenti
+     * @throws SQLException 
+     */
     public boolean removePrenotazione(int id_pren) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("DELETE FROM prenotazione WHERE id_prenotazione=?");
@@ -663,7 +687,7 @@ public class DBManager implements Serializable {
     }
     
     //USELESS - Prenotazione inserita al momento del pagamento
-    public boolean pagaPrenotazione(int id_utente, int id_spettacolo, int id_posto) throws SQLException
+   /* public boolean pagaPrenotazione(int id_utente, int id_spettacolo, int id_posto) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_prenotazione FROM prenotazione WHERE id_utente = ? AND id_spettacolo = ? AND id_posto = ?");
         ps.setInt(1, id_utente);
@@ -685,7 +709,7 @@ public class DBManager implements Serializable {
         if(row < 1)
             return false;
         return true;
-    }
+    }*/
     
     // FUNZIONI CHE RECUPERANO UN INSIEME DI CLASSIDB
     
@@ -999,6 +1023,8 @@ public class DBManager implements Serializable {
      * Poi pulisco la sala e ci metto come posti occupati i 10 posti più occupati
      * @param id_sala ID della sala, perchè voglio recuperare 
      * @return Sala (vuota)
+     * @throws java.sql.SQLException
+     * @throws java.lang.Exception
      */
     public Sala getSalaConPostiPiuPrenotati(int id_sala) throws SQLException,Exception
     {
@@ -1060,6 +1086,12 @@ public class DBManager implements Serializable {
         return s;
     }
     
+    /**
+     * Ritorna i posti occupati di uno spettacolo
+     * @param id_spettacolo 
+     * @return
+     * @throws SQLException 
+     */
     public List<Posto> getPostiOccupati(int id_spettacolo) throws SQLException
     {
         List<Posto> lista = new ArrayList<>();
@@ -1074,6 +1106,12 @@ public class DBManager implements Serializable {
         return lista;
     }
     
+    /**
+     * Ritorna lista dei posti inesistenti (rotti)
+     * @param id_sala ID della sala
+     * @return Lista di posti che non esistono (rotti) della mappa
+     * @throws SQLException 
+     */
     public List<Posto> getPostiInesistenti(int id_sala) throws SQLException
     {
         List<Posto> lista = new ArrayList<>();
@@ -1088,6 +1126,11 @@ public class DBManager implements Serializable {
         return lista;
     }
     
+    /**
+     * Funzione che ritorna le sale del database
+     * @return Lista di sale
+     * @throws SQLException 
+     */
     public List<Sala> getSale() throws SQLException
     {
         List<Sala> sale = new ArrayList<>();
@@ -1105,6 +1148,12 @@ public class DBManager implements Serializable {
         return sale;
     }
     
+    /**
+     * Ritorna l'id della sala dato lo spettacolo
+     * @param id_spettacolo ID dello spettacolo
+     * @return ID della sala
+     * @throws SQLException 
+     */
     public int getIDSalaBySpett(int id_spettacolo) throws SQLException
     {
         int id_sala = -1;
@@ -1426,6 +1475,12 @@ public class DBManager implements Serializable {
         return -1;
     }
     
+    /**
+     * Funzione per ottenere l'id del prezzo dal tipo prezzo
+     * @param tipo_prezzo Tipo prezzo
+     * @return ID del tipo prezzo
+     * @throws SQLException 
+     */
     public int getIDPrezzo(String tipo_prezzo) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT id_prezzo FROM prezzo WHERE tipo = ?");
@@ -1437,7 +1492,11 @@ public class DBManager implements Serializable {
         return -1;
     }
     
-    
+    /**
+     * Funzione che inserisce le prenotazioni usando una transazione
+     * @param lista Lista di prenotazioni
+     * @return resto del prezzo da pagare (scalato dall'utente)
+     */
     public int testInsertPrenotazioni(List<Prenotazione> lista)
     {
         PreparedStatement ps;
@@ -1473,10 +1532,11 @@ public class DBManager implements Serializable {
                 {
                     resto +=p.getPrezzo();
                 }
-                id_utente = p.getId();
+                id_utente = p.getUtente().getId();
             }
             ps = con.prepareStatement("UPDATE utente SET credito = 0 WHERE id_utente = ? AND credito<0");
             ps.setInt(1, id_utente);
+            ps.execute();
             con.commit();
             
             con.setAutoCommit(true);
@@ -1494,6 +1554,12 @@ public class DBManager implements Serializable {
         return resto;
     }
     
+    /**
+     * Funzione per ottenere il prezzo double dal tipo
+     * @param prezzo Tipo prezzo
+     * @return Prezzo del tipo prezzo
+     * @throws SQLException 
+     */
     public double getPrezzo(String prezzo) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT prezzo FROM prezzo WHERE tipo = ?");
@@ -1504,6 +1570,12 @@ public class DBManager implements Serializable {
         return 0;
     }
     
+    /**
+     * Funzione che ritorna il credito dell'utente
+     * @param id_utente ID utente
+     * @return Credito dell'utente
+     * @throws SQLException 
+     */
     public double getCreditoUtente(int id_utente) throws SQLException
     {
         PreparedStatement ps = con.prepareStatement("SELECT credito FROM utente WHERE id_utente = ?");

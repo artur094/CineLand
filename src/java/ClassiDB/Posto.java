@@ -13,12 +13,40 @@ import java.sql.SQLException;
  * @author Ivan, Paolo
  */
 public class Posto {
+
+    /**
+     *
+     */
     protected int id;
+
+    /**
+     *
+     */
     protected int id_sala;
+
+    /**
+     *
+     */
     protected int riga;
+
+    /**
+     *
+     */
     protected int colonna;
+
+    /**
+     *
+     */
     protected boolean esiste;
+
+    /**
+     *
+     */
     protected boolean occupato;
+
+    /**
+     *
+     */
     protected double prezzoPagato = 0; //utile solo per amministrazione
     
     /**
@@ -84,7 +112,7 @@ public class Posto {
     
     /**
      * Imposta l'id del posto.
-     * @return id del posto
+     * @param id
     */
     public void setId(int id) {
         this.id = id;
@@ -100,7 +128,7 @@ public class Posto {
 
     /**
      * Imposta l'id della sala.
-     * @param id id della sala
+     * @param id_sala
     */
     public void setId_sala(int id_sala) {
         this.id_sala = id_sala;

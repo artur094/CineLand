@@ -22,7 +22,15 @@ import net.glxn.qrgen.image.ImageType;
 
 */
 public class QRCode {
+
+    /**
+     *
+     */
     protected String testo;
+
+    /**
+     *
+     */
     protected ByteArrayOutputStream qrcode;
     
     /**
